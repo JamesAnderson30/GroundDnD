@@ -11,7 +11,7 @@ router.get('/hello/world', function(req, res) {
   res.send('Hello World!');
 });
 
-router.get("/csrf/restore", (req, res) => {
+router.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
     res.status(200).json({
@@ -22,5 +22,5 @@ router.get("/csrf/restore", (req, res) => {
 
   //console.log(apiRouter);
 
-router.use('/api', apiRouter);
+router.use('/', apiRouter);
 module.exports = router;
