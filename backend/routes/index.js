@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
+const spotRouter = require('./spot');
 // router.get('/test', (req, res)=>{
 //     res.send("Test did");
 // })
@@ -23,4 +24,8 @@ router.get("/csrf/restore", (req, res) => {
   //console.log(apiRouter);
 
 router.use('/', apiRouter);
+
+router.use('/spots', spotRouter)
+
+
 module.exports = router;
