@@ -21,6 +21,6 @@ router.use(restoreUser);
 
 router.use('/users', usersRouter);
 
-router.use('/spots', spotRouter)
+
 
 module.exports = router;
