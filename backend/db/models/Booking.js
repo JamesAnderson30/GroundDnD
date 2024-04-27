@@ -18,14 +18,14 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId"
       });
 
-      Booking.belongsTo(sequelize.models.spot, {
-        foreignKey:"spotId"
+      Booking.belongsTo(sequelize.models.Spot, {
+        foreignKey:"SpotId"
       });
     }
   }
   Booking.init({
     userId: DataTypes.INTEGER,
-    spotId: DataTypes.INTEGER,
+    SpotId: DataTypes.INTEGER,
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE
   }, {
