@@ -40,6 +40,15 @@ if (!isProduction) {
     })
   );
 
+  app.get("/test213", (req, res)=>{
+    sequelize.getQueryInterface().showAllSchemas().then((tableObj) => {
+      console.log('// Tables in database','==========================');
+      console.log(tableObj);
+  })
+  .catch((err) => {
+      console.log('showAllSchemas ERROR',err);
+  })
+  })
   const routes = require('./routes');
 
   app.use(routes); // Connect all the routes
