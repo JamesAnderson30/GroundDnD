@@ -6,7 +6,8 @@ const { handleValidationErrors } = require('../utils/validation');
 //const { restoreUser } = require("../../utils/auth.js");
 const { setTokenCookie, restoreUser } = require('../utils/auth');
 const { Spot } = require('../db/models');
-const Models = require("../db/models")
+const Models = require("../db/models");
+const review = require('../db/models/review');
 
 const router = express.Router();
 //console.log(Models);
@@ -17,15 +18,15 @@ router.get("/current", async (req,res)=>{
 
     let userId = req.user.id;
     //console.log(Models);
-    let spot = await Spot.findAll({
-        where:{
-            ownerId: userId
+    let spots = await Spot.findAll({
+        include:{
+            model: review,
+            attributes: stars
         }
     });
 
-
     //console.log(test);
-    res.json(test);
+    res.json(spots);
 })
 
 module.exports = router;
