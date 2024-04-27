@@ -15,18 +15,18 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-      await queryInterface.bulkInsert('Spots', [{
-        ownerId: 3,
-        address: "Testy Rd",
-        city: "Testy Mc Test Town",
-        state: "Georgia unfortunately",
-        country: "Empire Earth",
-        lat: 50.2,
-        lng: 21.5,
-        name: "Some Spot",
-        description: "Description",
-        price: 20.20
-      }], {});
+      // await queryInterface.bulkInsert('Spots', [{
+      //   ownerId: 3,
+      //   address: "Testy Rd",
+      //   city: "Testy Mc Test Town",
+      //   state: "Georgia unfortunately",
+      //   country: "Empire Earth",
+      //   lat: 50.2,
+      //   lng: 21.5,
+      //   name: "Some Spot",
+      //   description: "Description",
+      //   price: 20.20
+      // }], {});
 
   },
   // ownerId: DataTypes.INTEGER,
