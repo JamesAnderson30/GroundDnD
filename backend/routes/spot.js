@@ -11,12 +11,8 @@ const Models = require("../db/models")
 const router = express.Router();
 //console.log(Models);
 router.get("/current", async (req,res)=>{
-    console.log(req.user);
-    if(req.user){
-        console.log("omg ur logged in omfg lmao");
-    }
     //console.log(Models);
-    let test = await Models.Spot.findAll();
+    let test = await Spot.findAll();
     //console.log(test);
     res.json(test);
 })
