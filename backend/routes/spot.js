@@ -20,7 +20,7 @@ router.get("/current", async (req,res)=>{
     //console.log(Models);
     let spots = await Spot.findAll({
         include:{
-            model: review,
+            model: Review,
             attributes: stars
         }
     });
