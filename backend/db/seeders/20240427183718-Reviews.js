@@ -12,6 +12,13 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+
+     await queryInterface.bulkInsert('Reviews', [{
+       userId: 4,
+       spotId: 1,
+       review: "It was alright",
+       stars: 3
+     }], {});
   },
 
   async down (queryInterface, Sequelize) {
@@ -21,5 +28,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
+
+    await queryInterface.bulkDelete("Reviews", null, {})
   }
 };
