@@ -26,7 +26,7 @@ router.get("/current", async (req,res)=>{
     // });
 
     //console.log(test);
-    res.json(spots);
+    //res.json(spots);
 })
 
 module.exports = router;
