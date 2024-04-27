@@ -8,7 +8,6 @@ const { setTokenCookie, restoreUser } = require('../utils/auth');
 const { Spot, Review } = require('../db/models');
 const Models = require("../db/models");
 const review = require('../db/models/review');
-
 const router = express.Router();
 //console.log(Models);
 router.get("/current", async (req,res)=>{
@@ -18,7 +17,7 @@ router.get("/current", async (req,res)=>{
 
     let userId = req.user.id;
     //console.log(Models);
-    res.json(Models)
+    res.json(Models.models)
     // let spots = await Spot.findAll({
     //     include:{
     //         model: Review,
