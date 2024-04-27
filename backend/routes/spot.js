@@ -12,14 +12,13 @@ const review = require('../db/models/review');
 const router = express.Router();
 //console.log(Models);
 router.get("/current", async (req,res)=>{
-    //console.log(Models);
-    let spots = await Spot.findAll({
-        include:{
-            model: review,
-            attributes: stars
-        }
-    });
+    req.user = {
+        id: 4
+    }
 
+    let userId = req.user.id;
+    //console.log(Models);
+    let test = await Spot.findAll();
     //console.log(test);
     res.json(spots);
 })
