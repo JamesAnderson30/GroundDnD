@@ -18,7 +18,12 @@ router.get("/current", async (req,res)=>{
 
     let userId = req.user.id;
     //console.log(Models);
-    let test = await Spot.findAll();
+    let spots = await Spot.findAll({
+        include:{
+            model: review,
+            attributes: ["stars"]
+        }
+    });
     //console.log(test);
     res.json(spots);
 })
