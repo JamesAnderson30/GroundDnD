@@ -3,6 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
+
   class Spot extends Model {
     /**
      * Helper method for defining associations.
@@ -41,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DECIMAL
   }, {
     sequelize,
-    modelName: 'Spot',
+    modelName: 'Spot'
   });
   return Spot;
 };

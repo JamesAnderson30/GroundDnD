@@ -11,8 +11,19 @@ const Models = require("../db/models")
 const router = express.Router();
 //console.log(Models);
 router.get("/current", async (req,res)=>{
+    req.user = {
+        id: 4
+    }
+
+    let userId = req.user.id;
     //console.log(Models);
-    let test = await Spot.findAll();
+    let spot = await Spot.findAll({
+        where:{
+            ownerId: userId
+        }
+    });
+
+
     //console.log(test);
     res.json(test);
 })
