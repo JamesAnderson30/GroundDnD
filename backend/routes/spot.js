@@ -18,6 +18,7 @@ router.get("/current", async (req,res)=>{
 
     let userId = req.user.id;
     //console.log(Models);
+    console.log(Review);
     let spots = await Spot.findAll({
         include:{
             model: Review,
