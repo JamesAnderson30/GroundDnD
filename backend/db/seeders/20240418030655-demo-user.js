@@ -4,7 +4,6 @@ const { Sequelize } = require('sequelize');
 const { User } = require('../models');
 const bcrypt = require("bcryptjs");
 
-console.log(Sequelize);
 
 let options = {
   schema: "groundDB"
