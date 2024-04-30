@@ -11,18 +11,14 @@ const review = require('../db/models/review');
 const router = express.Router();
 //console.log(Models);
 router.get("/current", async (req,res)=>{
-    req.user = {
-        id: 4
-    }
+
 
     let userId = req.user.id;
     //console.log(Models);
     // res.contentType("text/plain")
     // console.log(Models.Review);
     // res.send(Models.models)
-    let test1 = await Spot.findAll();
-    console.log(test1);
-    console.log(await Review.findAll());
+
     let spots = await Spot.findAll({
         include:{
             model: Models.Review,
@@ -31,7 +27,28 @@ router.get("/current", async (req,res)=>{
     });
 
     //debug
-    res.json(spots);
+    let spotsArray = [];
+
+    for(const spot of spots){
+        let count = 0;
+        let total = 0;
+        let avg = 0;
+
+        if(spot.Reviews.length > 0){
+            for(const review of spot.Reviews){
+                count++;
+                total += review.stars;
+            }
+            avt = total / count;
+        }
+
+        spot["avgRating"] = avg;
+
+        spotsArray.push(spot);
+    }
+    }
+
+    res.json(spotsArray);
 
     //console.log(test);
     //res.json(spots);
