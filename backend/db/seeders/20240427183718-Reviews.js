@@ -13,7 +13,7 @@ module.exports = {
      * }], {});
     */
 
-     await queryInterface.bulkInsert('Reviews', [{
+     await queryInterface.bulkInsert({tableName:"Reviews", schema:"GroundNdN"}, [{
        userId: 4,
        spotId: 1,
        review: "It was alright",
