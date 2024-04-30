@@ -1,5 +1,6 @@
 let options = {
-  schema: "GroundDB"
+  schema: "GroundDB",
+  logging:true
 };
 console.log("Checking env");
 if (process.env.NODE_ENV === 'production') {
