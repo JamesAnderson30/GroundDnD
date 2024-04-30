@@ -20,6 +20,9 @@ router.get("/current", async (req,res)=>{
     // res.contentType("text/plain")
     // console.log(Models.Review);
     // res.send(Models.models)
+    let test1 = await Spot.findAll();
+    console.log(test1);
+    console.log(await Review.findAll());
     let spots = await Spot.findAll({
         include:{
             model: Models.Review,
