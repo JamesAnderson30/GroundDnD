@@ -29,6 +29,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete("Reviews", null, {})
+    await queryInterface.bulkDelete("Reviews", null, {tableName:"Reviews", schema:"GroundNdN"})
   }
 };
