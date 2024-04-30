@@ -20,12 +20,10 @@ router.get("/current", async (req,res)=>{
     // res.contentType("text/plain")
     // console.log(Models.Review);
     // res.send(Models.models)
-    console.log("launching sql");
-    console.log(Models.Review)
     let spots = await Spot.findAll({
         include:{
             model: Models.Review,
-            attributes: stars
+            attributes: ["stars"]
         }
     });
 
