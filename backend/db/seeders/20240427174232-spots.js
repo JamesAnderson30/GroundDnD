@@ -5,7 +5,7 @@ const { User } = require('../models');
 const bcrypt = require("bcryptjs");
 
 let options = {
-  schema: "groundDB"
+
 };
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -26,7 +26,7 @@ module.exports = {
         name: "Some Spot",
         description: "Description",
         price: 20.20
-      }], {});
+      }], options);
 
   },
   // ownerId: DataTypes.INTEGER,
