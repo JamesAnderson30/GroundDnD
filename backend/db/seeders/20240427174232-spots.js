@@ -26,7 +26,7 @@ module.exports = {
         name: "Some Spot",
         description: "Description",
         price: 20.20
-      }], options);
+      }], {});
 
   },
   // ownerId: DataTypes.INTEGER,
