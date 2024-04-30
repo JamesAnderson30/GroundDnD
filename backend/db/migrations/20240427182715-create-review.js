@@ -1,6 +1,6 @@
 'use strict';
 let options = {
-
+  schema:"GroundDB"
 };
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -43,6 +43,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Reviews', options);
+    options.tableName = "Reviews"
+    await queryInterface.dropTable(options);
   }
 };

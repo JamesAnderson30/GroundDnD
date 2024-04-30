@@ -1,10 +1,11 @@
 'use strict';
 
 let options = {
-
+  schema: "GroundDB"
 };
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;  // define your schema in options objec
+
 }
 
 module.exports = {
