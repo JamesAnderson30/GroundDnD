@@ -15,9 +15,7 @@ module.exports = {
       spotId: {
         type: Sequelize.INTEGER,
         references: {
-          model:{
-            tableName: "Spots"
-          }
+          model:"Spots"
         }
       },
       review: {
