@@ -26,7 +26,7 @@ module.exports = {
         name: "Some Spot",
         description: "Description",
         price: 20.20
-      }], {logging: console.log});
+      }], {logging: console.log, schema: "GroundNdN"});
 
   },
   // ownerId: DataTypes.INTEGER,
