@@ -23,7 +23,7 @@ router.get("/csrf/restore", (req, res) => {
 
   //console.log(apiRouter);
 
-router.use('/', apiRouter);
+router.use('/api', apiRouter);
 
 router.use('/spots', spotRouter)
 

@@ -28,7 +28,9 @@ const validateSignup = [
       .withMessage('Password must be 6 characters or more.'),
     handleValidationErrors
   ];
-
+router.get("/makePass", (req, res)=>{
+  res.json(bcrypt.hashSync("TestPassword"));
+})
 router.post(
     '/',
     validateSignup,
