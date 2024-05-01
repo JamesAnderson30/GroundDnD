@@ -10,6 +10,13 @@ const Models = require("../db/models");
 const review = require('../db/models/review');
 const router = express.Router();
 //console.log(Models);
+
+router.get("/", async (req,res)=>{
+    let spots = await Spot.findAll();
+
+    res.json(spots);
+});
+
 router.get("/current", async (req,res)=>{
 console.log(req.user)
 
