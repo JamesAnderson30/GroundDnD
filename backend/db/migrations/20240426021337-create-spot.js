@@ -1,5 +1,5 @@
 let options = {
-  schema: "GroundDB",
+
   logging:true
 };
 console.log("Checking env");

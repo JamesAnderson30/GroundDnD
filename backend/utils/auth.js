@@ -35,6 +35,9 @@ const setTokenCookie = (res, user) => {
     const { token } = req.cookies;
     req.user = null;
 
+
+    console.log("Token: ",token);
+
     return jwt.verify(token, secret, null, async (err, jwtPayload) => {
       if (err) {
         return next();
@@ -47,6 +50,9 @@ const setTokenCookie = (res, user) => {
             include: ['email', 'createdAt', 'updatedAt']
           }
         });
+        console.log("req.user: ", req.user);
+
+
       } catch (e) {
         res.clearCookie('token');
         return next();

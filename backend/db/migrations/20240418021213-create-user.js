@@ -1,7 +1,7 @@
 'use strict';
 
 let options = {
-  schema: "GroundDB"
+
 };
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options objec
@@ -30,6 +30,12 @@ module.exports = {
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
         allowNull: false
+      },
+      firstName: {
+        type: Sequelize.STRING
+      },
+      lastName:{
+        type:Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

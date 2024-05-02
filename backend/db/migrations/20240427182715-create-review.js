@@ -1,6 +1,5 @@
 'use strict';
 let options = {
-  schema:"GroundDB",
   logging:true
 };
 if (process.env.NODE_ENV === 'production') {

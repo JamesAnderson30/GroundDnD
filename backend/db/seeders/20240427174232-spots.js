@@ -1,6 +1,7 @@
 'use strict';
 
 
+const { User } = require('../models');
 const bcrypt = require("bcryptjs");
 
 let options = {
@@ -9,13 +10,12 @@ let options = {
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
-console.log(options);
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-      await queryInterface.bulkInsert({tableName:"Spots", schema:"GroundNdN"}, [{
+      await queryInterface.bulkInsert('Spots', [{
         ownerId: 3,
         address: "Testy Rd",
         city: "Testy Mc Test Town",
@@ -26,7 +26,7 @@ module.exports = {
         name: "Some Spot",
         description: "Description",
         price: 20.20
-      }], {logging: console.log, schema: "GroundNdN"});
+      }], );
 
   },
   // ownerId: DataTypes.INTEGER,

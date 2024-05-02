@@ -13,11 +13,9 @@ module.exports = {
      * }], {});
     */
 
-     await queryInterface.bulkInsert('Reviews', [{
-       userId: 4,
-       spotId: 1,
-       review: "It was alright",
-       stars: 3
+     await queryInterface.bulkInsert('SpotImages', [{
+       imgId: 1,
+       spotId:1
      }], {});
   },
 

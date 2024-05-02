@@ -28,16 +28,48 @@ const validateSignup = [
       .withMessage('Password must be 6 characters or more.'),
     handleValidationErrors
   ];
-router.get("/makePass", (req, res)=>{
-  res.json(bcrypt.hashSync("TestPassword"));
-})
+
 router.post(
     '/',
     validateSignup,
     async (req, res) => {
-      const { email, password, username } = req.body;
+      const { email, password, username, firstName, lastName } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, hashedPassword });
+
+      const emailExists = await User.findOne({
+        where: {
+          email: email
+        }
+      });
+
+      if(emailExists){
+        res.statusCode = 500;
+        res.json({
+          message: "User already exists",
+          error: "User with that email already exists"
+        })
+
+        return;
+      }
+
+      const usernameExists = await User.findOne({
+        where:{
+          username: username
+        }
+      });
+
+      if(usernameExists){
+        res.statusCode = 500;
+        res.json({
+          message:"User already exists",
+          error: "User with that username already exists"
+        });
+
+        return;
+      }
+
+      //If no errors are found
+      const user = await User.create({ email, username, hashedPassword, firstName, lastName });
 
       const safeUser = {
         id: user.id,
@@ -46,6 +78,8 @@ router.post(
         email: user.email,
         username: user.username,
       };
+
+
 
       await setTokenCookie(res, safeUser);
 

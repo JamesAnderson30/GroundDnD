@@ -13,12 +13,14 @@ module.exports = {
      * }], {});
     */
 
-     await queryInterface.bulkInsert('Reviews', [{
-       userId: 4,
-       spotId: 1,
-       review: "It was alright",
-       stars: 3
-     }], {});
+     await queryInterface.bulkInsert('Images', [{
+       url:"test1.png",
+       preview: 1
+     },
+    {
+      url: "test2.png",
+      preview:0
+    }], {});
   },
 
   async down (queryInterface, Sequelize) {

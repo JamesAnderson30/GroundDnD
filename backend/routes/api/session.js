@@ -9,6 +9,7 @@ const router = express.Router();
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+//const { restoreUser } = require("../../utils/auth")
 
 const validateLogin = [
     check('credential')
@@ -20,11 +21,12 @@ const validateLogin = [
       .withMessage('Please provide a password.'),
     handleValidationErrors
   ];
-
+//get current user
 router.get(
     '/',
     (req, res) => {
       const { user } = req;
+      console.log("user: ", user);
       if (user) {
         const safeUser = {
           id: user.id,

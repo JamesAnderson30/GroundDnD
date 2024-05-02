@@ -1,5 +1,4 @@
 'use strict';
-
 let options = {
   logging:true
 };
@@ -9,24 +8,24 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Bookings', {
+    await queryInterface.createTable('ReviewImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      userId: {
-        type: Sequelize.INTEGER
+      imgId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Images"
+        }
       },
-      spotId: {
-        type: Sequelize.INTEGER
-      },
-      startDate: {
-        type: Sequelize.DATE
-      },
-      endDate: {
-        type: Sequelize.DATE
+      reviewId: {
+        type: Sequelize.INTEGER,
+        reference:{
+          model: "Reviews"
+        }
       },
       createdAt: {
         allowNull: false,
@@ -39,8 +38,6 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Bookings";
-    await queryInterface.dropTable('bookings');
-    await queryInterface.dropTable(options)
+    await queryInterface.dropTable('ReviewImages');
   }
 };

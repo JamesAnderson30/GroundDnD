@@ -2,7 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const apiRouter = require('./api');
-const spotRouter = require('./spot');
+const spotRouter = require('./api/spot');
 // router.get('/test', (req, res)=>{
 //     res.send("Test did");
 // })
@@ -12,7 +12,7 @@ router.get('/hello/world', function(req, res) {
   res.send('Hello World!');
 });
 
-router.get("/csrf/restore", (req, res) => {
+router.get("/api/csrf/restore", (req, res) => {
     const csrfToken = req.csrfToken();
     res.cookie("XSRF-TOKEN", csrfToken);
     res.status(200).json({
@@ -25,7 +25,7 @@ router.get("/csrf/restore", (req, res) => {
 
 router.use('/api', apiRouter);
 
-router.use('/spots', spotRouter)
+//router.use('/spots', spotRouter)
 
 
 module.exports = router;
