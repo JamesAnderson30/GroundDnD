@@ -1,5 +1,5 @@
 'use strict';
-
+const {SpotImages} = require("../models")
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -13,7 +13,7 @@ module.exports = {
      * }], {});
     */
 
-     await queryInterface.bulkInsert('SpotImages', [{
+     await SpotImages.bulkCreate([{
        imgId: 1,
        spotId:1
      }], {});
