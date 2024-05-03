@@ -19,7 +19,7 @@ module.exports = {
        preview: true
      },
     {
-      id:1,
+      id:2,
       url: "test2.png",
       preview:false
     }], {});
