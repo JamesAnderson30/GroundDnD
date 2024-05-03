@@ -22,7 +22,7 @@ module.exports = {
         }
       },
       spotId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         references:{
           model:"Spots"
         }
