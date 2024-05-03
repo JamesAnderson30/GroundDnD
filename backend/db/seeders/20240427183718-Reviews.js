@@ -16,6 +16,7 @@ module.exports = {
     */
 
      await queryInterface.bulkInsert({tableName:"Reviews",schema:"GroundNdN"}, [{
+      id:1,
        userId: 4,
        spotId: 1,
        review: "It was alright",
