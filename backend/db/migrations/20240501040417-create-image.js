@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       preview: {
-        type: Sequelize.TINYINT
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
