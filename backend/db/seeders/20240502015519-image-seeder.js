@@ -14,10 +14,12 @@ module.exports = {
     */
 
      await Image.bulkCreate([{
+      id:1,
        url:"test1.png",
        preview: true
      },
     {
+      id:1,
       url: "test2.png",
       preview:false
     }], {});
