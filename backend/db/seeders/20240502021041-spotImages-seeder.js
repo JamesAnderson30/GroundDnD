@@ -27,6 +27,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete("Reviews", null, {})
+    await SpotImages.destroy();
   }
 };
