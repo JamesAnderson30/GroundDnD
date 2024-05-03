@@ -20,7 +20,7 @@ module.exports = {
     {
       url: "test2.png",
       preview:0
-    }], {});
+    }], {searchPath: "GroundNdN"});
   },
 
   async down (queryInterface, Sequelize) {
@@ -31,6 +31,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete("Reviews", null, {})
+    await queryInterface.bulkDelete("Images", null, {})
   }
 };
