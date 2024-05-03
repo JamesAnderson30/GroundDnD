@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-      await queryInterface.bulkInsert('Spots', [{
+      await queryInterface.bulkInsert({tableName:"Spots",schema:"GroundNdN"}, [{
         ownerId: 3,
         address: "Testy Rd",
         city: "Testy Mc Test Town",
