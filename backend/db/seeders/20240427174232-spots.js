@@ -17,7 +17,7 @@ module.exports = {
 
       await queryInterface.bulkInsert({tableName:"Spots",schema:"GroundNdN"}, [{
         id:1,
-        ownerId: 3,
+        ownerId: 1,
         address: "Testy Rd",
         city: "Testy Mc Test Town",
         state: "Georgia unfortunately",
