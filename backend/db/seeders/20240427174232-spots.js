@@ -3,6 +3,7 @@
 
 const { User } = require('../models');
 const bcrypt = require("bcryptjs");
+const Spot = require('../models/Spot');
 
 let options = {
 
@@ -50,6 +51,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await queryInterface.bulkDelete('Spots', null, {});
+    await Spot.destroy({where:{}});
   }
 };
