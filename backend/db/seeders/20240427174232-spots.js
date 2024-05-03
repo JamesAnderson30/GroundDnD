@@ -16,6 +16,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
 
       await queryInterface.bulkInsert({tableName:"Spots",schema:"GroundNdN"}, [{
+        id:1,
         ownerId: 3,
         address: "Testy Rd",
         city: "Testy Mc Test Town",
@@ -50,6 +51,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await Spot.destroy({where:{}, truncate: true});
+    await Spot.destroy({where:{}});
   }
 };
