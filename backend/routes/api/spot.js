@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 //const { restoreUser } = require("../../utils/auth.js");
-const {restoreUser } = require('../../utils/auth');
+const {restoreUser, requireAuth } = require('../../utils/auth');
 const { Spot, Review } = require('../../db/models');
 const Models = require("../../db/models");
 const review = require('../../db/models/review');
@@ -81,29 +81,36 @@ router.get("/", async (req,res)=>{
     res.json(returnObj);
 });
 
-router.get("/current", restoreUser, async (req,res)=>{
+router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 //console.log(req.user)
-
+    const id = req.user.dataValues.id
 
     //console.log(Models);
     // res.contentType("text/plain")
     // console.log(Models.Review);
     // res.send(Models.models)
+    //let userId = req.user
+    //console.log("!!! -> id: ", id)
 
     let spots = await Spot.findAll({
         include:[
             {
                 model: Models.Review,
-                attributes: ["stars"]
+                attributes: ["stars"],
             },
             {
                 model: Models.Image,
+                required: false,
                 attributes: ["url"],
                 where:{
                     preview:1
                 }
+
             }
-        ]
+        ],
+        where: {
+            ownerId: id
+        }
     });
 
     //debug
