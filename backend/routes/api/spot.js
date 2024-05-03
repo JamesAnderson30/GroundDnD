@@ -123,7 +123,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 router.get("/:spotId", async (req, res)=>{
     let id = req.params.spotId;
 
-    let spots = await Spot.findByPK(id);
+    let spots = await Spot.findByPk(id);
 
     res.json(spots);
 })
