@@ -13,14 +13,14 @@ module.exports = {
      * }], {});
     */
 
-     await queryInterface.bulkInsert('Images', [{
+     await Image.bulkCreate([{
        url:"test1.png",
        preview: 1
      },
     {
       url: "test2.png",
       preview:0
-    }], {searchPath: "GroundNdN"});
+    }], {});
   },
 
   async down (queryInterface, Sequelize) {
