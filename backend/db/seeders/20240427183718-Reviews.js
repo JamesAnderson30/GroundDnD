@@ -1,6 +1,6 @@
 'use strict';
 
-const review = require('../models/review');
+const {Review } = require('../models');
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -31,6 +31,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await review.destroy({where:{}});
+    await Review.destroy({where:{}});
   }
 };
