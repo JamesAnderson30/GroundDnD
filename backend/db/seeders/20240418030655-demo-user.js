@@ -49,6 +49,6 @@ module.exports = {
     // return queryInterface.bulkDelete(options, {
     //   username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2', 'ID4'] }
     // }, {});
-    await queryInterface.bulkDelete('Users', null, {});
+    await User.destroy({where:{}})
   }
 };
