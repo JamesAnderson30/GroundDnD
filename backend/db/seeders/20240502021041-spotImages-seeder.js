@@ -27,6 +27,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await SpotImages.destroy();
+    await SpotImages.destroy({where: {}});
   }
 };
