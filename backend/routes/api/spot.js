@@ -61,7 +61,7 @@ router.get("/", async (req,res)=>{
                 model: Models.Image,
                 attributes: ["url"],
                 where:{
-                    preview:1
+                    preview:true
                 }
             }
         ]
@@ -103,7 +103,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
                 required: false,
                 attributes: ["url"],
                 where:{
-                    preview:1
+                    preview:true
                 }
 
             }
