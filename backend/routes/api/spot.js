@@ -67,10 +67,6 @@ router.get("/", async (req,res)=>{
         ]
     });
 
-
-
-
-
     let spotsArray = avgSpotReviewsAndPreview(spots)
 
 
@@ -122,5 +118,15 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     //console.log(test);
     //res.json(spots);
 })
+
+//get spot by id
+router.get("/:spotId", async (req, res)=>{
+    let id = req.params.spotId;
+
+    let spots = await Spot.findByPK(id);
+
+    res.json(spots);
+})
+
 
 module.exports = router;
