@@ -50,6 +50,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await Spot.destroy({where:{}});
+    await Spot.destroy({where:{}, truncate: true});
   }
 };
