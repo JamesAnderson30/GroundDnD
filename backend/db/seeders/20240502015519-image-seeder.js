@@ -15,11 +15,11 @@ module.exports = {
 
      await Image.bulkCreate([{
        url:"test1.png",
-       preview: 1
+       preview: true
      },
     {
       url: "test2.png",
-      preview:0
+      preview:false
     }], {});
   },
 
