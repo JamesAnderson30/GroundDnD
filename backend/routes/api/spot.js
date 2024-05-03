@@ -123,9 +123,27 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 router.get("/:spotId", async (req, res)=>{
     let id = req.params.spotId;
 
-    let spots = await Spot.findByPk(id);
+    let spot = await Spot.findByPk(id, {
+        include:[
+            {
 
-    res.json(spots);
+                model: Models.Review,
+                attributes: ["stars"],
+            },
+            {
+                model: Models.Image,
+                required: false,
+                attributes: ["id","url","preview"]
+            },
+            {
+                model: Models.User,
+                attributes:["id", "firstName", "lastName"]
+            }
+        ]
+    });
+    //spot = avgSpotReviewsAndPreview(spot);
+
+    res.json(spot);
 })
 
 
