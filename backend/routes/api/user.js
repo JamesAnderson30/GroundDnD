@@ -36,9 +36,9 @@ router.post(
 
 
       const { email, password, username, firstName, lastName } = req.body;
-      console.log(email, password, username, firstName, lastName);
+      //console.log(email, password, username, firstName, lastName);
       const hashedPassword = bcrypt.hashSync(password);
-      console.log()
+      //console.log()
       const emailExists = await User.findOne({
         where: {
           email: email
@@ -72,8 +72,8 @@ router.post(
       }
 
       //If no errors are found
-      const user = await User.create({ email, username, hashedPassword, firstName, lastName }, {fields:[]});
-
+     // const user = await User.create({ email, username, hashedPassword, firstName, lastName });
+console.log({ email, username, hashedPassword, firstName, lastName });
       const safeUser = {
         id: user.id,
         firstName: user.firstName,
