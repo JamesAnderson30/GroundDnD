@@ -35,7 +35,6 @@ module.exports = {
     preview:false
   },
   {
-    id:4,
     url: "Spot1Preview.gif",
     preview:true
   }], {});
