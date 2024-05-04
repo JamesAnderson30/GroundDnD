@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Image.belongsToMany(models.Spot, {
         through: "SpotImages",
-        foreignKey: "imgId"
+        foreignKey: "imgId",
+        onDelete:true,
+        hooks:true
       }),
       Image.belongsToMany(models.Review, {
         through: "ReviewImages",
