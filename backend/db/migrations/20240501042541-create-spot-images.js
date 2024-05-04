@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         references:{
           model: "Images"
-        }
+        },
+        onDelete:"CASCADE"
       },
       spotId: {
         type: Sequelize.INTEGER,
