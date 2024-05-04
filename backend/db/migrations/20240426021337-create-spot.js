@@ -68,6 +68,8 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "Spots"
+    await queryInterface.dropTable({schema:"GroundNdN", tableName:"SpotImages"});
+    await queryInterface.dropTable({schema:"GroundNdN", tableName:"ReviewImages"});
     await queryInterface.dropTable('spots');
     await queryInterface.dropTable(options);
   }
