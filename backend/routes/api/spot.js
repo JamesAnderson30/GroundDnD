@@ -5,10 +5,9 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 //const { restoreUser } = require("../../utils/auth.js");
 const {restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, Review } = require('../../db/models');
+const { Spot, Review, SpotImages, Image } = require('../../db/models');
 const Models = require("../../db/models");
 const review = require('../../db/models/review');
-const Image = require('../../db/models/Image');
 const router = express.Router();
 //console.log(Models);
 
@@ -211,7 +210,7 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
 
 //create image for spot
 
-router.post("/:spotId/images", requireAuth, restoreUser, async (req, res)=>{
+router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
     let spotId = req.params.spotId;
 
     let {url, preview} = req.body;
@@ -244,8 +243,42 @@ router.post("/:spotId/images", requireAuth, restoreUser, async (req, res)=>{
 
 
     res.json({id: newImage.id,url:url});
-})
+});
 
+// Edit a spot
+
+router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>{
+    const {ownerId, address, city, state, country,
+        lat, lng, name, description, price} = req.body;
+
+    let spotId = req.params.spotId;
+
+    let spot = await Spot.findByPk(spotId);
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
+
+    let oldSpot = await Spot.findByPk(req.params.spotId);
+    oldSpot.set({
+        ownerId:ownerId,
+        address:address,
+        city: city,
+        state: state,
+        country: country,
+        lat:lat,
+        lng:lng,
+        name:name,
+        description:description,
+        price:price
+    });
+
+    await oldSpot.save();
+
+    res.json(oldSpot);
+
+});
 
 
 module.exports = router;
