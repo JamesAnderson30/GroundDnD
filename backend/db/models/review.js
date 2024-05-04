@@ -21,7 +21,8 @@ module.exports = (sequelize, DataTypes) => {
 
       Review.belongsToMany(models.Image,
         {
-          through: "ReviewImages"
+          through: "ReviewImages",
+          foreignKey:"reviewId"
         })
     }
   }
