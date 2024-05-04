@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 //const { restoreUser } = require("../../utils/auth.js");
 const {restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, Review, SpotImages, Image } = require('../../db/models');
+const { Spot, Review, SpotImages, Image, User, ReviewImages } = require('../../db/models');
 const Models = require("../../db/models");
 const review = require('../../db/models/review');
 const router = express.Router();
@@ -129,16 +129,52 @@ router.get("/:spotId/reviews", async (req, res)=>{
 
     if(!spotExists){
         res.statusCode = 404;
-        res.json({message:""})
+        res.json({message:"Spot couldn't be found"})
     }
 
-    let reviews = Spot.findAll({
+    let reviews = await Review.findAll({
+        include:[
+            {
+                model: User
+            },
+            {
+                model: Image,
+                through: ReviewImages
+            }
+        ],
         where:{
             spotId: spotId
         }
     })
 
-    res.json(reviews);
+    // Format Image Data
+    for(let rev of reviews){
+
+        //reformat images
+        let imgArray = [];
+
+        for(let img of rev.dataValues.Images){
+            let imgObj = {};
+            imgObj["id"] = img.dataValues.id;
+            imgObj["url"] = img.dataValues.url;
+            imgArray.push(imgObj);
+        }
+        rev.dataValues["reviewImages"] = imgArray;
+        delete rev.dataValues["Images"]
+
+
+
+
+
+        //res.json(spotImgs);
+
+        //console.log("!!! Data Values: ",rev.dataValues.Spot.dataValues)
+
+
+    }
+    // !!!!!!!!!!!!!
+
+    res.json({Reviews:reviews});
 })
 //validate spot creation
 
