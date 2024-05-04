@@ -23,17 +23,14 @@ module.exports = {
     */
 
      await Image.bulkCreate([{
-      id:1,
        url:"review1.jpg",
        preview: false
      },
     {
-      id:2,
       url: "review2.png",
       preview:false
     },
   {
-    id:3,
     url: "Spot1.jpg",
     preview:false
   },

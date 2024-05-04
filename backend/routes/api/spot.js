@@ -131,6 +131,14 @@ router.get("/:spotId/reviews", async (req, res)=>{
         res.statusCode = 404;
         res.json({message:""})
     }
+
+    let reviews = Spot.findAll({
+        where:{
+            spotId: spotId
+        }
+    })
+
+    res.json(reviews);
 })
 //validate spot creation
 
