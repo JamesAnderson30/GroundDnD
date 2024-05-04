@@ -39,6 +39,8 @@ module.exports = {
     preview:true
   }], {})
 
+  console.log(await Image.findAll());
+
   await ReviewImages.create({imgId:1, reviewId:1});
   await ReviewImages.create({imgId:2,reviewId:2});
   await SpotImages.create({imgId:3, spotId:1});
