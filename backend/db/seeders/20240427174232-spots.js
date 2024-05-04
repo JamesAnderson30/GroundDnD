@@ -1,7 +1,7 @@
 'use strict';
 
 
-const { User, Spot } = require('../models');
+const { Spot } = require('../models');
 const bcrypt = require("bcryptjs");
 
 let options = {
