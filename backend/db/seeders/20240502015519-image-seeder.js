@@ -22,7 +22,7 @@ module.exports = {
      * }], {});
     */
 
-     let result = await Image.bulkCreate([{
+     await Image.bulkCreate([{
        url:"review1.jpg",
        preview: false
      },
@@ -39,7 +39,7 @@ module.exports = {
     preview:true
   }], {})
 
-  console.log(result);
+  //console.log(result);
 
  // console.log(await Image.findAll());
 
