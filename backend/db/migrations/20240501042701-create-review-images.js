@@ -24,7 +24,7 @@ module.exports = {
       reviewId: {
         type: Sequelize.INTEGER,
         reference:{
-          model: "Reviews"
+          model: "Reviews",
         }
       },
       createdAt: {
