@@ -19,13 +19,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model: "Images"
-        }
+        },
+        onDelete:"Cascade"
       },
       reviewId: {
         type: Sequelize.INTEGER,
         reference:{
           model: "Reviews",
-        }
+
+        },
+        onDelete:"CASCADE"
       },
       createdAt: {
         allowNull: false,
