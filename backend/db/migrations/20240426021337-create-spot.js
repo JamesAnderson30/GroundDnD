@@ -23,7 +23,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: {
           model:"Users",
-          key:"ownerId"
+          foriegnKey:"ownerId"
         }
       },
       address: {
