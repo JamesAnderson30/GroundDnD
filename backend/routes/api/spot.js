@@ -119,6 +119,19 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     //res.json(spots);
 })
 
+router.get("/:spotId/reviews", async (req, res)=>{
+    let spotId = parseInt(req.params.spotId);
+    const spotExists = await Spot.findOne({
+        where: {
+          id: spotId
+        }
+      });
+
+    if(!spotExists){
+        res.statusCode = 404;
+        res.json({message:""})
+    }
+})
 //validate spot creation
 
 const validateCreateSpot = [
