@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:"userId"
       })
 
-      Review.belongsToMany(models.Images,
+      Review.belongsToMany(models.Image,
         {
           through: "ReviewImages"
         })
