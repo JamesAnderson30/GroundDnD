@@ -1,5 +1,12 @@
 'use strict';
 
+let options = {
+  tableName:"Reviews"
+};
+if (process.env.NODE_ENV === 'production') {
+  options.schema = process.env.SCHEMA;  // define your schema in options object
+}
+
 const {Review } = require('../models');
 
 /** @type {import('sequelize-cli').Migration} */
@@ -15,7 +22,7 @@ module.exports = {
      * }], {});
     */
 
-     await queryInterface.bulkInsert({tableName:"Reviews",schema:"GroundNdN"}, [{
+     await queryInterface.bulkInsert(options, [{
       id:1,
        userId: 4,
        spotId: 1,

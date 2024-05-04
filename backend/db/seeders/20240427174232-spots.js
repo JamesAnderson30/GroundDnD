@@ -5,7 +5,7 @@ const { User, Spot } = require('../models');
 const bcrypt = require("bcryptjs");
 
 let options = {
-
+  tableName:"Spots"
 };
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
@@ -15,7 +15,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   async up (queryInterface, Sequelize) {
 
-      await queryInterface.bulkInsert({tableName:"Spots",schema:"GroundNdN"}, [{
+      await queryInterface.bulkInsert(options, [{
         id:1,
         ownerId: 1,
         address: "Testy Rd",
