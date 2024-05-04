@@ -58,6 +58,7 @@ router.get("/", async (req,res)=>{
             },
             {
                 model: Models.Image,
+                required:false,
                 attributes: ["url"],
                 where:{
                     preview:true
@@ -65,7 +66,7 @@ router.get("/", async (req,res)=>{
             }
         ]
     });
-
+    console.log(spots);
     let spotsArray = avgSpotReviewsAndPreview(spots)
 
 
@@ -238,7 +239,7 @@ router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
 
     let newJoin = await SpotImages.create({
         imgId: newImage.id,
-        reviewId: spotId
+        spotId: spotId
     })
 
 
@@ -280,5 +281,22 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
 
 });
 
+router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
+    let spotId = req.params.spotId;
+
+    let spot = await Spot.findByPk(spotId);
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
+
+    await spot.destroy();
+
+    let checkSpot = await Spot.findByPk(spotId);
+    if(!checkSpot){
+        res.json({message:"Successfully deleted"})
+    }
+})
 
 module.exports = router;

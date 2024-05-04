@@ -1,5 +1,5 @@
 'use strict';
-const {SpotImages} = require("../models")
+const {ReviewImages} = require("../models")
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -13,14 +13,15 @@ module.exports = {
      * }], {});
     */
 
-     await SpotImages.bulkCreate([{
-       imgId: 3,
-       spotId:1
-     },
-    {
-      imgId:4,
-      spotId:1
-    }], {});
+    // ~!!!!!!!!!!!!!!!!!!!!!!! this is actually review-images
+
+     await ReviewImages.bulkCreate([{
+       imgId: 1,
+       reviewId:1
+     },{
+      imgId:2,
+      reviewId:2
+     }], {});
   },
 
   async down (queryInterface, Sequelize) {
@@ -31,6 +32,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-    await SpotImages.destroy({where: {}});
+    await ReviewImages.destroy({where: {}});
   }
 };

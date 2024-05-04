@@ -7,7 +7,8 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
 
-const {Image} = require("../models")
+const {Image, SpotImages, ReviewImages} = require("../models");
+const reviewimages = require("../models/reviewimages");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -23,14 +24,24 @@ module.exports = {
 
      await Image.bulkCreate([{
       id:1,
-       url:"test1.png",
-       preview: true
+       url:"review1.jpg",
+       preview: false
      },
     {
       id:2,
-      url: "test2.png",
+      url: "review2.png",
       preview:false
-    }], {});
+    },
+  {
+    id:3,
+    url: "Spot1.jpg",
+    preview:false
+  },
+  {
+    id:4,
+    url: "Spot1Preview.gif",
+    preview:true
+  }], {});
   },
 
   async down (queryInterface, Sequelize) {
@@ -40,7 +51,8 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-
+    await SpotImages.destroy({where:{}});
+    await ReviewImages.destroy({where: {}});
     await Image.destroy({where:{}});
   }
 };

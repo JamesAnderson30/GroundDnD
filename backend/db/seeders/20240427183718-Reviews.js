@@ -28,7 +28,15 @@ module.exports = {
        spotId: 1,
        review: "It was alright",
        stars: 3
-     }], {});
+     },
+    {
+      id:2,
+      userId:1,
+      spotId:1,
+      review: "Bruh",
+      stars:5
+    }
+    ], {});
   },
 
   async down (queryInterface, Sequelize) {
