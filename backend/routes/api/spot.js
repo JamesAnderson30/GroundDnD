@@ -119,6 +119,42 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     //res.json(spots);
 })
 
+//validate spot creation
+
+const validateCreateSpot = [
+    check('address')
+      .exists({ checkFalsy: true })
+      .withMessage('Street address is required'),
+    check('city')
+      .exists({ checkFalsy: true })
+      .withMessage('City is required'),
+    check('state')
+        .exists({checkFalsy:true})
+      .withMessage('State is required'),
+    check('country')
+        .exists({checkFalsy:true})
+        .withMessage('Country is required'),
+    check("lat")
+      .exists({ checkFalsy: true })
+      .isDecimal()
+      .withMessage('Latitude is not valid'),
+    check("lng")
+        .exists({checkFalsy: true})
+        .isDecimal()
+        .withMessage("Longitude is not valid"),
+    check("name")
+        .exists({checkFalsy:true})
+        .isLength({ max: 50 })
+        .withMessage("Name must be less than 50 characters"),
+    check("description")
+        .exists({checkFalsy:true})
+        .withMessage("Description is required"),
+    check("price")
+        .exists({checkFalsy:true})
+        .withMessage("Price per day is required"),
+    handleValidationErrors
+  ];
+
 //get spot by id
 router.get("/:spotId", async (req, res)=>{
     let id = req.params.spotId;
@@ -133,7 +169,10 @@ router.get("/:spotId", async (req, res)=>{
             {
                 model: Models.Image,
                 required: false,
-                attributes: ["id","url","preview"]
+                attributes: ["id","url","preview"],
+                through:{
+                    attributes:[]
+                }
             },
             {
                 model: Models.User,
@@ -146,7 +185,7 @@ router.get("/:spotId", async (req, res)=>{
     res.json(spot);
 })
 
-router.post("/", restoreUser, requireAuth, async (req, res)=>{
+router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>{
     const {ownerId, address, city, state, country,
         lat, lng, name, description, price} = req.body;
 
@@ -165,9 +204,47 @@ router.post("/", restoreUser, requireAuth, async (req, res)=>{
         price:price
     });
 
+    res.statusCode = 201;
+
     res.json(newSpot);
 })
 
+//create image for spot
+
+router.post("/:spotId/images", requireAuth, restoreUser, async (req, res)=>{
+    let spotId = req.params.spotId;
+
+    let {url, preview} = req.body;
+
+    //error handling
+    let spot = await Spot.findByPk(spotId);
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
+
+    let existingImageCount = await SpotImages.findAll({where: parseInt(spotId)});
+
+    if(existingImageCount >= 10){
+        res.statusCode = 403;
+        res.json({message: "Maximum number of images for this resource was reached"});
+        return;
+    }
+
+    let newImage = await Image.create({
+        url: url,
+        preview: false
+    })
+
+    let newJoin = await SpotImages.create({
+        imgId: newImage.id,
+        reviewId: spotId
+    })
+
+
+    res.json({id: newImage.id,url:url});
+})
 
 
 
