@@ -37,7 +37,12 @@ module.exports = {
   {
     url: "Spot1Preview.gif",
     preview:true
-  }], {});
+  }], {})
+
+  await ReviewImages.create({imgId:1, reviewId:1});
+  await ReviewImages.create({imgId:2,reviewId:2});
+  await SpotImages.create({imgId:3, spotId:1});
+  await SpotImages.create({imgId:4, spotId:1});
   },
 
   async down (queryInterface, Sequelize) {
