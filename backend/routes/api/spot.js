@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 //const { restoreUser } = require("../../utils/auth.js");
 const {restoreUser, requireAuth } = require('../../utils/auth');
-const { Spot, Review, SpotImages, Image, User, ReviewImages } = require('../../db/models');
+const { Spot, Review, SpotImages, Image, User, ReviewImages, Booking } = require('../../db/models');
 const Models = require("../../db/models");
 const review = require('../../db/models/review');
 const router = express.Router();
@@ -49,33 +49,6 @@ let avgSpotReviewsAndPreview = function(spots){
     return spotsArray;
 }
 
-router.get("/", async (req,res)=>{
-    let spots = await Spot.findAll({
-        include:[
-            {
-                model: Models.Review,
-                attributes: ["stars"]
-            },
-            {
-                model: Models.Image,
-                required:false,
-                attributes: ["url"],
-                where:{
-                    preview:true
-                }
-            }
-        ]
-    });
-    console.log(spots);
-    let spotsArray = avgSpotReviewsAndPreview(spots)
-
-
-
-
-    let returnObj = {};
-    returnObj["Spots"] = spotsArray;
-    res.json(returnObj);
-});
 
 router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 //console.log(req.user)
@@ -121,6 +94,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 
 router.get("/:spotId/reviews", async (req, res)=>{
     let spotId = parseInt(req.params.spotId);
+
     const spotExists = await Spot.findOne({
         where: {
           id: spotId
@@ -242,6 +216,97 @@ router.get("/:spotId", async (req, res)=>{
     res.json(spot);
 })
 
+router.get("/", async (req,res)=>{
+    let spots = await Spot.findAll({
+        include:[
+            {
+                model: Models.Review,
+                attributes: ["stars"]
+            },
+            {
+                model: Models.Image,
+                required:false,
+                attributes: ["url"],
+                where:{
+                    preview:true
+                }
+            }
+        ]
+    });
+    //console.log(spots);
+    let spotsArray = avgSpotReviewsAndPreview(spots)
+
+
+
+
+    let returnObj = {};
+    returnObj["Spots"] = spotsArray;
+    res.json(returnObj);
+});
+
+
+
+
+  const validateNewReview = [
+    check('description')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+        .exists({checkFalsy: true})
+        .isInt({min:0, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
+
+
+router.post("/:spotId/reviews", restoreUser, validateNewReview, async(req,res)=>{
+    //check if spot exists
+
+    let spotId = req.params.spotId;
+    let userId = req.user.id;
+
+    const spotExists = await Spot.findOne({
+        where: {
+          id: spotId
+        }
+      });
+
+      //console.log(spotExists);
+
+    const reviewExists = await Review.findOne({
+        where: {
+            userId: userId
+        }
+    })
+
+    //console.log(reviewExists);
+
+
+
+    if(!spotExists){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"})
+    }
+
+    if(reviewExists){
+        res.statusCode = 500;
+        res.json({message:"User already has a review for this spot"})
+    }
+
+
+    let {description, stars} = req.body;
+
+    let newReview = await Review.create({
+        spotId: spotId,
+        userId: userId,
+        review:description,
+        stars:stars
+    })
+    res.statusCode = 201;
+    res.json(newReview);
+
+});
+
 router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>{
     const {ownerId, address, city, state, country,
         lat, lng, name, description, price} = req.body;
@@ -264,6 +329,43 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
     res.statusCode = 201;
 
     res.json(newSpot);
+})
+
+// get bookings for spot
+
+router.get("/:spotId/bookings", restoreUser, async(req, res)=>{
+
+    // If not logged in
+    if(!req.user){
+
+
+        let bookings = await Booking.findAll({
+            where:{
+                spotId:1
+            },
+            attributes:["spotId", "startDate", "endDate"]
+        })
+
+        res.json({Bookings:bookings});
+
+        return
+    }
+
+    let bookings = await Booking.findAll({
+        where:{
+            spotId:1
+        },
+        include:[
+            {
+                model:User,
+                attributes:["id", "firstName","lastName"]
+            }
+        ]
+    });
+
+    res.json({Bookings:bookings});
+    return;
+
 })
 
 //create image for spot

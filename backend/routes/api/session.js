@@ -27,7 +27,7 @@ router.get(
     restoreUser,
     (req, res) => {
       const { user } = req;
-      console.log("user: ", user);
+      //console.log("user: ", user);
       if (user) {
         const safeUser = {
           id: user.id,

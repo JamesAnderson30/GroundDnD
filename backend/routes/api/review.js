@@ -123,6 +123,8 @@ router.get("/current", restoreUser, async(req, res)=>{
 })
 
 
+
+
 router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
     let reviewId = req.params.reviewId;
 
@@ -156,6 +158,58 @@ router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
 
 
     res.json({id: newImage.id,url:url});
+})
+
+
+const validateEditReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+        .exists({checkFalsy: true})
+        .isInt({min:0, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
+
+router.put("/:reviewId", restoreUser, requireAuth, validateEditReview, async (req, res)=>{
+    const {review, stars} = req.body;
+
+    let reviewId = req.params.reviewId;
+
+    let reviewExist = await Review.findByPk(reviewId);
+    if(!reviewExist){
+        res.statusCode = 404;
+        res.json({message:"review couldn't be found"});
+        return;
+    }
+
+    reviewExist.set({
+        review:review,
+        stars:stars
+    });
+
+    await reviewExist.save();
+
+    res.json(reviewExist);
+});
+
+router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
+    let reviewId = req.params.reviewId;
+
+    let review = await Review.findByPk(reviewId);
+    if(!review){
+        res.statusCode = 404;
+        res.json({message:"Review couldn't be found"});
+        return;
+    }
+
+    await review.destroy();
+
+    let checkReview = await Spot.findByPk(reviewId);
+    if(!checkReview){
+        res.json({message:"Successfully deleted"})
+    }
 })
 
 module.exports = router;
