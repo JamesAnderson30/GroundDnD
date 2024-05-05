@@ -38,14 +38,15 @@ module.exports = {
         type: Sequelize.DATE
       },
       createdAt: {
-
+        allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       },
       updatedAt: {
 
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-        type: Sequelize.DATE
+        allowNull: false,
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
       }
     },options);
   },
