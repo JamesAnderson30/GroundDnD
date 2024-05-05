@@ -51,6 +51,6 @@ module.exports = {
     console.log(options);
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable({options});
+    await queryInterface.dropTable({schema:"GroundNdN", tableName:"Bookings"});
   }
 };
