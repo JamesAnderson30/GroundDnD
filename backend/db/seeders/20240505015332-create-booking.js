@@ -23,12 +23,12 @@ module.exports = {
     */
 
     options.debug=true;
-    await Booking.create({
+    console.log(await Booking.create({
       userId:1,
       spotId:1,
       startDate: new Date("2024-03-25"),
       endDate: new Date("2024-03-25")
-    }, {options});
+    }, {options}));
 
   },
 
