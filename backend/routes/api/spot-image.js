@@ -20,11 +20,15 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
         return;
     }
 
-    let spotJoin = await SpotImages.findOne({
-        where:{
-            imgId: req.params.imageId
+    let spot = await img.getSpot();
+
+    let userId = req.user.dataValues.id;
+
+        if(spot.dataValues.ownerId != userId){
+            res.statusCode = 403;
+            res.json({message:"Authorization required"});
+            return;
         }
-    })
 
     //spotJoin.destroy();
     img.destroy();

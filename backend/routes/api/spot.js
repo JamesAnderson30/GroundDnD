@@ -524,9 +524,20 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
     const {ownerId, address, city, state, country,
         lat, lng, name, description, price} = req.body;
 
+
+
     let spotId = req.params.spotId;
 
     let spot = await Spot.findByPk(spotId);
+
+    let userId = req.user.dataValues.id;
+
+    if(spot.dataValues.ownerId != userId){
+        res.statusCode = 403;
+        res.json({message:"Authorization required"});
+        return;
+    }
+
     if(!spot){
         res.statusCode = 404;
         res.json({message:"Spot couldn't be found"});
@@ -557,6 +568,15 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
     let spotId = req.params.spotId;
 
     let spot = await Spot.findByPk(spotId);
+
+    let userId = req.user.dataValues.id;
+
+        if(spot.dataValues.ownerId != userId){
+            res.statusCode = 403;
+            res.json({message:"Authorization required"});
+            return;
+        }
+
     if(!spot){
         res.statusCode = 404;
         res.json({message:"Spot couldn't be found"});
