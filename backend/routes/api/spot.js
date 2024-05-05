@@ -350,7 +350,7 @@ const validateNewBooking = [
 
 // get bookings for spot
 
-router.get("/:spotId/bookings", restoreUser, async(req, res)=>{
+router.get("/:spotId/bookings", restoreUser,async(req, res)=>{
 
     // If not logged in
     if(!req.user){
