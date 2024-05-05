@@ -9,6 +9,7 @@ const { Spot, Review, SpotImages, Image, User, ReviewImages, Booking } = require
 const Models = require("../../db/models");
 const review = require('../../db/models/review');
 const router = express.Router();
+
 //console.log(Models);
 
 let avgSpotReviewsAndPreview = function(spots){
@@ -331,6 +332,19 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
     res.json(newSpot);
 })
 
+//validation
+
+const validateNewBooking = [
+    check('description')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+        .exists({checkFalsy: true})
+        .isInt({min:0, max:5})
+        .withMessage("Stars must be an integer from 1 to 5"),
+    handleValidationErrors
+  ];
+
 // get bookings for spot
 
 router.get("/:spotId/bookings", restoreUser, async(req, res)=>{
@@ -366,6 +380,88 @@ router.get("/:spotId/bookings", restoreUser, async(req, res)=>{
     res.json({Bookings:bookings});
     return;
 
+})
+
+// Create booking for Spot
+
+
+router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
+    let userId = req.user.id;
+    let spotId = req.params.spotId;
+
+    let spot = await Spot.findByPk(spotId);
+
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
+
+    let {startDate, endDate} = req.body;
+    startDate = formatDate(startDate);
+    endDate = formatDate(endDate);
+
+    if(endDate <= startDate || endDate == startDate){
+        res.statusCode = 400;
+        res.json({message:"Bad Request", errors:{
+            endDate: {
+                "endDate": "endDate cannot be on or before startDate"
+              }
+        }})
+        return;
+    }
+    //console.log("CONFLICTING DATES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+    //Honestly this needs to be redone. Completely lol. It's the spirit of MVP. Terrible scale :c time complexity big bad
+    let startConflict = await Booking.findAll({
+        where:{
+            spotId: spotId
+        }
+    });
+
+    for(let conflict of startConflict){
+        let checkStart = formatDate(conflict.dataValues.startDate);
+        let checkEnd = formatDate(conflict.dataValues.endDate);
+        let startErr = false;
+        let endErr = false;
+        // console.log('\n\n', "check start: ", checkStart, " - startDate: ", startDate, '\n\n');
+        // console.log('\n\n', "check end: ", checkEnd, " - endDate: ", endDate, '\n\n');
+        if(checkStart == startDate){
+           // errorMsg.push("Start date conflicts with an existing booking")
+           startErr = true;
+        }
+
+        if(checkEnd == endDate){
+            //errorMsg.push("End date conflicts with an existing booking")
+            endErr = true;
+        }
+        console.log("startErr: ", startErr,"  endErr: ", endErr)
+        if(startErr || endErr){
+            res.statusCode = 403;
+            let errors = {};
+            if(startErr) errors["startDate"] = "Start date conflicts with an existing booking";
+            if(endErr) errors["endDate"] = "End date conflicts with an existing booking";
+
+            res.json({
+                message:"Sorry, this spot is already booked for the specified dates", errors,
+            });
+            return
+
+        }
+    }
+
+    let newBooking = await Booking.create({
+        userId: userId,
+        spotId: spotId,
+        startDate: startDate,
+        endDate: endDate
+    })
+
+    //console.log(newBooking.dataValues);
+    newBooking.dataValues.startDate = formatDate(startDate);
+    newBooking.dataValues.endDate = formatDate(endDate);
+
+    res.json(newBooking);
 })
 
 //create image for spot
@@ -458,4 +554,8 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
     }
 })
 
+
+let formatDate = (date)=>{
+    return new Date(date).toISOString().split('T')[0];
+}
 module.exports = router;

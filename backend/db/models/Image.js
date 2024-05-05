@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       Image.belongsToMany(models.Spot, {
         through: "SpotImages",
         foreignKey: "imgId",
-        onDelete:true,
+        onDelete:"CASCADE",
         hooks:true
       }),
       Image.belongsToMany(models.Review, {
