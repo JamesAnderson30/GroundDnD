@@ -168,11 +168,11 @@ const validateCreateSpot = [
         .withMessage('Country is required'),
     check("lat")
       .exists({ checkFalsy: true })
-      .isDecimal()
+      .isLatLong()
       .withMessage('Latitude is not valid'),
     check("lng")
         .exists({checkFalsy: true})
-        .isDecimal()
+        .isLatLong()
         .withMessage("Longitude is not valid"),
     check("name")
         .exists({checkFalsy:true})
@@ -183,6 +183,7 @@ const validateCreateSpot = [
         .withMessage("Description is required"),
     check("price")
         .exists({checkFalsy:true})
+        .isCurrency()
         .withMessage("Price per day is required"),
     handleValidationErrors
   ];
@@ -491,7 +492,7 @@ router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
 
     let newImage = await Image.create({
         url: url,
-        preview: false
+        preview: preview
     })
 
     let newJoin = await SpotImages.create({
@@ -500,7 +501,7 @@ router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
     })
 
 
-    res.json({id: newImage.id,url:url});
+    res.json({id: newImage.id,url:url,preview:preview});
 });
 
 // Edit a spot
