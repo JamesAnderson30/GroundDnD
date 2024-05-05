@@ -37,7 +37,9 @@ module.exports = {
       userId:1,
       spotId:1,
       startDate: new Date("2024-03-25"),
-      endDate: new Date("2024-03-25")
+      endDate: new Date("2024-03-25"),
+      createdAt: new Date(),
+      updatedAt: new Date()
     }], {schema:"GroundNdN", logging:true, debug:true})
   },
 
