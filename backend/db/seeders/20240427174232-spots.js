@@ -1,7 +1,7 @@
 'use strict';
 
 
-const { Spot } = require('../models');
+const { Spot, Booking } = require('../models');
 const bcrypt = require("bcryptjs");
 const Booking = require('../models/Booking');
 
