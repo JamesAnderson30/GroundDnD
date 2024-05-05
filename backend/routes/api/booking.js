@@ -14,7 +14,7 @@ const router = express.Router();
 
 
 
-router.get("/current", restoreUser, arequireAuth,async (req, res)=>{
+router.get("/current", restoreUser, requireAuth,async (req, res)=>{
     const id = req.user.dataValues.id;
 
     //console.log(id);
