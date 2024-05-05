@@ -21,6 +21,8 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
+
+
     await Booking.create({
       userId:1,
       spotId:1,

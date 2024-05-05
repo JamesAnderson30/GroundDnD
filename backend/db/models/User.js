@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:"ownerId"
       });
 
+      User.hasMany(models.Booking)
     }
   };
 
