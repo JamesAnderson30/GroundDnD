@@ -10,6 +10,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const { query } = require("express");
 const {Booking} = require("../models");
+const { QueryInterface } = require("sequelize");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -32,12 +33,12 @@ module.exports = {
     //   endDate: new Date("2024-03-25")
     // }, options);
 
-    await queryInterface.bulkInsert({schema:"GroundNdN", tableName: "Bookings"}, [{
+    await queryInterface.bulkInsert("Bookings", [{
       userId:1,
       spotId:1,
       startDate: new Date("2024-03-25"),
       endDate: new Date("2024-03-25")
-    }])
+    }], {schema:"GroundNdN", logging:true, debug:true})
   },
 
   async down (queryInterface, Sequelize) {
