@@ -9,7 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:"ownerId"
       });
 
-      User.hasMany(models.Booking)
+      User.hasMany(models.Booking, {
+        foreignKey:"userId"
+      })
     }
   };
 
