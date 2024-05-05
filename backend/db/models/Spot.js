@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       })
 
       Spot.hasMany(models.Booking, {
-        foreignKey: 'spotId',
+        sourceKey: 'spotId',
       })
     // //   Spot.hasMany(models.review, {
     // //     foreignKey: "SpotId"
