@@ -33,7 +33,7 @@ module.exports = {
     //   endDate: new Date("2024-03-25")
     // }, options);
 
-    await queryInterface.bulkInsert("Bookings", [{
+    await queryInterface.bulkInsert({tableName:"Bookings", schema:"GroundNdN"}, [{
       userId:1,
       spotId:1,
       startDate: new Date("2024-03-25"),
