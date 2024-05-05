@@ -169,11 +169,11 @@ const validateCreateSpot = [
         .withMessage('Country is required'),
     check("lat")
       .exists({ checkFalsy: true })
-      .isInt({min:-90, max:90})
+      .isFloat({min:-90, max:90})
       .withMessage('Latitude is not valid'),
     check("lng")
         .exists({checkFalsy: true})
-        .isInt({min:-180, max:180})
+        .isFloat({min:-180, max:180})
         .withMessage("Longitude is not valid"),
     check("name")
         .exists({checkFalsy:true})
