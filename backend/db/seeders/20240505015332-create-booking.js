@@ -32,12 +32,12 @@ module.exports = {
     //   endDate: new Date("2024-03-25")
     // }, options);
 
-    await queryInterface.bulkInsert("Bookings", [{
+    await queryInterface.bulkInsert({schema:"GroundNdN", table: "Bookings"}, [{
       userId:1,
       spotId:1,
       startDate: new Date("2024-03-25"),
       endDate: new Date("2024-03-25")
-    }], options)
+    }])
   },
 
   async down (queryInterface, Sequelize) {
