@@ -256,7 +256,7 @@ router.get("/", async (req,res)=>{
 
 
   const validateNewReview = [
-    check('description')
+    check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
     check('stars')
@@ -480,6 +480,8 @@ router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
 
     let {url, preview} = req.body;
 
+    let userId = req.user.dataValues.id;
+
     //error handling
     let spot = await Spot.findByPk(spotId);
     if(!spot){
@@ -489,6 +491,12 @@ router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
     }
 
     let existingImageCount = await SpotImages.findAll({where: parseInt(spotId)});
+
+    if(spot.dataValues.ownerId != userId){
+        res.statusCode = 403;
+        res.json({message:"Authorization required"});
+        return;
+    }
 
     if(existingImageCount >= 10){
         res.statusCode = 403;
