@@ -8,6 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
+const { query } = require("express");
 const {Booking} = require("../models");
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -24,13 +25,19 @@ module.exports = {
 
     options.debug=true;
     options.logging = true;
-    await Booking.create({
+    // await Booking.create({
+    //   userId:1,
+    //   spotId:1,
+    //   startDate: new Date("2024-03-25"),
+    //   endDate: new Date("2024-03-25")
+    // }, options);
+
+    await queryInterface.bulkInsert("Bookings", {
       userId:1,
       spotId:1,
       startDate: new Date("2024-03-25"),
       endDate: new Date("2024-03-25")
-    }, options);
-
+    })
   },
 
   async down (queryInterface, Sequelize) {
