@@ -94,6 +94,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 })
 
 router.get("/:spotId/reviews", restoreUser, requireAuth,async (req, res)=>{
+
     let spotId = parseInt(req.params.spotId);
 
     const spotExists = await Spot.findOne({
@@ -214,6 +215,11 @@ router.get("/:spotId", async (req, res)=>{
         ]
     });
     //spot = avgSpotReviewsAndPreview(spot);
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be located"});
+        return;
+    }
 
     res.json(spot);
 })
@@ -296,12 +302,12 @@ router.post("/:spotId/reviews", restoreUser, validateNewReview, async(req,res)=>
     }
 
 
-    let {description, stars} = req.body;
+    let {review, stars} = req.body;
 
     let newReview = await Review.create({
         spotId: spotId,
         userId: userId,
-        review:description,
+        review:review,
         stars:stars
     })
     res.statusCode = 201;
@@ -365,7 +371,7 @@ router.get("/:spotId/bookings", restoreUser,async(req, res)=>{
 
         res.json({Bookings:bookings});
 
-        return
+        return;
     }
 
     let bookings = await Booking.findAll({
