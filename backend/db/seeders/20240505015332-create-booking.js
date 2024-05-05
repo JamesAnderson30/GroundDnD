@@ -37,7 +37,7 @@ module.exports = {
       spotId:1,
       startDate: new Date("2024-03-25"),
       endDate: new Date("2024-03-25")
-    }])
+    }], options)
   },
 
   async down (queryInterface, Sequelize) {
