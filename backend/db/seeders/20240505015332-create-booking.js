@@ -8,7 +8,8 @@ let tableOptions = {
   tableName:"Bookings"
 }
 if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA;  // define your schema in options object
+  options.schema = process.env.SCHEMA;  // define your schema in options
+
 }
 
 
@@ -28,8 +29,7 @@ module.exports = {
      * }], {});
     */
 
-    options.debug=true;
-    options.logging = true;
+
     // await Booking.create({
     //   userId:1,
     //   spotId:1,
@@ -37,12 +37,12 @@ module.exports = {
     //   endDate: new Date("2024-03-25")
     // }, options);
 
-    await queryInterface.bulkInsert(tableOptions, [{
+    await queryInterface.bulkInsert(options, [{
       userId:1,
       spotId:1,
       startDate: new Date(2024, 5, 15),
       endDate: new Date(2024, 5, 30)
-    }], {schema:"GroundNdN", logging:true, debug:true})
+    }])
   },
 
   async down (queryInterface, Sequelize) {
