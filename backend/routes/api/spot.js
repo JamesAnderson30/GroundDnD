@@ -93,7 +93,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     //res.json(spots);
 })
 
-router.get("/:spotId/reviews", async (req, res)=>{
+router.get("/:spotId/reviews", restoreUser, requireAuth,async (req, res)=>{
     let spotId = parseInt(req.params.spotId);
 
     const spotExists = await Spot.findOne({
@@ -264,7 +264,7 @@ router.post("/:spotId/reviews", restoreUser, validateNewReview, async(req,res)=>
     //check if spot exists
 
     let spotId = req.params.spotId;
-    let userId = req.user.id;
+    let userId = req.user.dataValues.id;
 
     const spotExists = await Spot.findOne({
         where: {
