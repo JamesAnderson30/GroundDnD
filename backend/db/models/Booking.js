@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       Booking.belongsTo(sequelize.models.Spot, {
+        foreignKey: 'spotId'
       });
     }
   }
