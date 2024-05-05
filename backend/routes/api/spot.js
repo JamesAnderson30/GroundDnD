@@ -309,8 +309,10 @@ router.post("/:spotId/reviews", restoreUser, validateNewReview, async(req,res)=>
 });
 
 router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>{
-    const {ownerId, address, city, state, country,
+    const {address, city, state, country,
         lat, lng, name, description, price} = req.body;
+
+    let ownerId = req.user.dataValues.id;
 
 
 
