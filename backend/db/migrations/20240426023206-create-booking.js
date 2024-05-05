@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  // async up(queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
   //   await queryInterface.createTable('Bookings', {
   //     id: {
   //       allowNull: false,
@@ -38,10 +38,10 @@ module.exports = {
   //       type: Sequelize.DATE
   //     }
   //   }, options);
-  // },
-  // async down(queryInterface, Sequelize) {
+  },
+  async down(queryInterface, Sequelize) {
   //   options.tableName = "Bookings";
   //   await queryInterface.dropTable('bookings');
   //   await queryInterface.dropTable(options)
-  // }
+  }
 };
