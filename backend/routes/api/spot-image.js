@@ -18,6 +18,8 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
         }
     });
 
+    let imgToDestroy = await Image.findByPk(req.params.imageId);
+
     if(!img){
         res.statusCode = 404;
         res.json({message:"Spot Image couldn't be found"});
@@ -36,7 +38,7 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
 
     //spotJoin.destroy();
     res.json(img);
-    img.destroy();
+    imgToDestroy.destroy();
 
 
         res.json({message:"Successfully Deleted"});
