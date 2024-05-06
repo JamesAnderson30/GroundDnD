@@ -56,10 +56,8 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     const id = req.user.dataValues.id
 
     if(!id){
-        console.log("!!!!!!!!!!!!!!!!!!!!!!!\n\nNo Id \n\n !!!!!!!!!!!!!!!!!!");
     }
 
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!\n\nNid\n\n !!!!!!!!!!!!!!!!!!");
 
     //console.log(Models);
     // res.contentType("text/plain")
@@ -89,6 +87,11 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
         }
     });
 
+    if(!spots){
+        res.statusCode = 404;
+        res.json("Spot couldn't be found");
+        return;
+    }
     //debug
     let spotsArray = avgSpotReviewsAndPreview(spots);
 
@@ -99,8 +102,9 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     //res.json(spots);
 })
 
-router.get("/:spotId/reviews",async (req, res)=>{
+router.get("/:spotId/reviews", restoreUser, requireAuth, async (req, res)=>{
 
+    let userId = req.user.dataValues.id;
     let spotId = parseInt(req.params.spotId);
 
     const spotExists = await Spot.findByPk(spotId);
@@ -547,7 +551,12 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
 
     let spot = await Spot.findByPk(spotId);
 
-    console.log(spot);
+
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
 
     let userId = req.user.dataValues.id;
 
@@ -557,11 +566,7 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
             return;
         }
 
-    if(!spot){
-        res.statusCode = 404;
-        res.json({message:"Spot couldn't be found"});
-        return;
-    }
+    
     console.log("\n\n\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", "DELETING SPOT", "\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
     await spot.destroy();
 
@@ -586,17 +591,19 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
 
     let userId = req.user.dataValues.id;
 
+     if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
+    
     if(spot.dataValues.ownerId != userId){
         res.statusCode = 403;
         res.json({message:"Authorization required"});
         return;
     }
 
-    if(!spot){
-        res.statusCode = 404;
-        res.json({message:"Spot couldn't be found"});
-        return;
-    }
+   
 
     let oldSpot = await Spot.findByPk(req.params.spotId);
     oldSpot.set({
