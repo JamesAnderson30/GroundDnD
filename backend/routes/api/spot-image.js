@@ -28,6 +28,12 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
 
     //let spot = await img.getSpot();
 
+    let imgData = img.get({plain:true});
+
+    console.log(imgData);
+
+    if(!req.user.dataValues.id || 
+
     let userId = req.user.dataValues.id;
 
        // if(spot.dataValues.ownerId != userId){
