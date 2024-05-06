@@ -398,8 +398,9 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     let userId = req.user.id;
     let spotId = req.params.spotId;
 
-   // let spot = await Spot.findByPk(spotId,{attributes:{exclude:["SpotId"]}});
-    console.log("!!!!!!!!!!!!!!!!!!!!!");
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! spot.findByPk ~~~~~~~~~~~~~~~~~~~~");
+    let spot = await Spot.findByPk(spotId,{attributes:{exclude:["SpotId"]}});
+
     if(!spot){
         res.statusCode = 404;
         res.json({message:"Spot couldn't be found"});
@@ -422,6 +423,7 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     //console.log("CONFLICTING DATES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     //Honestly this needs to be redone. Completely lol. It's the spirit of MVP. Terrible scale :c time complexity big bad
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! booking.findall ~~~~~~~~~~~~~~~~~~~~");
     let startConflict = await Booking.findAll({
         where:{
             spotId: spotId
