@@ -292,12 +292,12 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
 
     if(!spotExists){
         res.statusCode = 404;
-        res.json({message:"Spot couldn't be found"})
+        //res.json({message:"Spot couldn't be found"})
     }
 
     if(reviewExists){
         res.statusCode = 500;
-        res.json({message:"User already has a review for this spot"})
+        //res.json({message:"User already has a review for this spot"})
     }
 
 
