@@ -337,7 +337,8 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
         price:price
     });
 
-    res.statusCode = 201;
+    res.statusCode = 201;   
+    console.log(await Spot.findAll());
 
     res.json(newSpot);
 })
