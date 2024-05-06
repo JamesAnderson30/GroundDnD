@@ -32,7 +32,7 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
 
     console.log(imgData);
 
-    if(!req.user.dataValues.id || 
+    //if(!req.user.dataValues.id || 
 
     let userId = req.user.dataValues.id;
 
