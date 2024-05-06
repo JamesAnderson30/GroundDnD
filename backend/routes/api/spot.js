@@ -474,6 +474,9 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     let lastBooking = await Booking.findOne({
         where:{
             createdAt: newBooking.dataValues.createdAt
+        },
+        attributes:{
+            exclude:["SpotId"]
         }
     })
 
