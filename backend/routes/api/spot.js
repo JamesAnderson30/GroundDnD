@@ -425,6 +425,9 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     //Honestly this needs to be redone. Completely lol. It's the spirit of MVP. Terrible scale :c time complexity big bad
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! booking.findall ~~~~~~~~~~~~~~~~~~~~");
     let startConflict = await Booking.findAll({
+        attributes:{
+            exclude:["SpotId"]
+        },
         where:{
             spotId: spotId
         }
