@@ -115,8 +115,7 @@ router.get("/:spotId/reviews",async (req, res)=>{
             },
             {
                 model: Image,
-                through: ReviewImages,
-                attributes:["id", "firstName", "lastName"]
+                through: ReviewImages
             }
         ],
         where:{
