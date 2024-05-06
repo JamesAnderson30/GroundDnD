@@ -93,7 +93,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
     //res.json(spots);
 })
 
-router.get("/:spotId/reviews", restoreUser, requireAuth,async (req, res)=>{
+router.get("/:spotId/reviews",async (req, res)=>{
 
     let spotId = parseInt(req.params.spotId);
 
@@ -115,7 +115,8 @@ router.get("/:spotId/reviews", restoreUser, requireAuth,async (req, res)=>{
             },
             {
                 model: Image,
-                through: ReviewImages
+                through: ReviewImages,
+                attributes:["id", "firstName", "lastName"]
             }
         ],
         where:{
