@@ -128,6 +128,8 @@ router.get("/current", restoreUser, requireAuth, async(req, res)=>{
 router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
     let reviewId = req.params.reviewId;
 
+    console.log(req.user);
+
     let {url, preview} = req.body;
 
     //error handling
