@@ -68,7 +68,7 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
     }
 
     //spotJoin.destroy();
-    res.json(img);
+    //res.json(img);
     imgToDestroy.destroy();
 
 
