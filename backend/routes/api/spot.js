@@ -338,6 +338,7 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
     });
 
     res.statusCode = 201;   
+    console.log("!!! CHECK SPOTS");
     console.log(await Spot.findAll());
 
     res.json(newSpot);
