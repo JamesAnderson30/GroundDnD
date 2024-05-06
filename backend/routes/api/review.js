@@ -140,7 +140,7 @@ router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
         return;
     }
 
-    let existingImageCount = await ReviewImages.findAll({where: parseInt(reviewId), raw:true});
+    let existingImageCount = await ReviewImages.findAll({where: {reviewId:parseInt(reviewId)}, raw:true});
     let allExistingImage = await ReviewImages.findAll({raw:true});
 
     //existingImageCount = existingImageCount.get({plain:true});
