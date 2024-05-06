@@ -469,7 +469,7 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
         spotId: spotId,
         startDate: startDate,
         endDate: endDate
-    }, {attributes:{exclude:["SpotId"]}})
+    }, {attributes:{exclude:["SpotId"]}, returning:false})
 
     //console.log(newBooking.dataValues);
     newBooking.dataValues.startDate = formatDate(startDate);
