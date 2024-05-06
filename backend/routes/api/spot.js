@@ -398,7 +398,7 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     let userId = req.user.id;
     let spotId = req.params.spotId;
 
-    let spot = await Spot.findByPk(spotId);
+    let spot = await Spot.findByPk(spotId,{attributes:{exclude:["SpotId"]}});
 
     if(!spot){
         res.statusCode = 404;
