@@ -186,7 +186,6 @@ const validateCreateSpot = [
         .withMessage("Description is required"),
     check("price")
         .exists({checkFalsy:true})
-        .isCurrency()
         .isFloat({gt:0})
         .withMessage("Price per day is required"),
     handleValidationErrors
