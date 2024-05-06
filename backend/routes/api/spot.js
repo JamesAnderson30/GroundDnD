@@ -292,7 +292,7 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
         }
     })
 
-    res.json(reviewExists);
+    //res.json(reviewExists);
 
 
 
