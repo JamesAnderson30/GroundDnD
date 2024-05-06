@@ -103,11 +103,7 @@ router.get("/:spotId/reviews",async (req, res)=>{
 
     let spotId = parseInt(req.params.spotId);
 
-    const spotExists = await Spot.findOne({
-        where: {
-          id: spotId
-        }
-      });
+    const spotExists = await Spot.findByPk(spotId);
 
     if(!spotExists){
         res.statusCode = 404;
@@ -280,11 +276,7 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
     let spotId = req.params.spotId;
     let userId = req.user.dataValues.id;
 
-    const spotExists = await Spot.findOne({
-        where: {
-          id: spotId
-        }
-      });
+    const spotExists = await Spot.findByPk(spotId);
 
       //console.log(spotExists);
 
@@ -547,6 +539,32 @@ router.post("/:spotId/images", restoreUser, requireAuth, async (req, res)=>{
     res.json({id: newImage.id,url:url,preview:preview});
 });
 
+router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
+    let spotId = req.params.spotId;
+
+    let spot = await Spot.findByPk(spotId);
+
+    let userId = req.user.dataValues.id;
+
+        if(spot.dataValues.ownerId != userId){
+            res.statusCode = 403;
+            res.json({message:"Authorization required"});
+            return;
+        }
+
+    if(!spot){
+        res.statusCode = 404;
+        res.json({message:"Spot couldn't be found"});
+        return;
+    }
+
+    await spot.destroy();
+
+    let checkSpot = await Spot.findByPk(spotId);
+    if(!checkSpot){
+        res.json({message:"Successfully deleted"})
+    }
+});
 // Edit a spot
 
 router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>{
@@ -593,32 +611,7 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
 
 });
 
-router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
-    let spotId = req.params.spotId;
 
-    let spot = await Spot.findByPk(spotId);
-
-    let userId = req.user.dataValues.id;
-
-        if(spot.dataValues.ownerId != userId){
-            res.statusCode = 403;
-            res.json({message:"Authorization required"});
-            return;
-        }
-
-    if(!spot){
-        res.statusCode = 404;
-        res.json({message:"Spot couldn't be found"});
-        return;
-    }
-
-    await spot.destroy();
-
-    let checkSpot = await Spot.findByPk(spotId);
-    if(!checkSpot){
-        res.json({message:"Successfully deleted"})
-    }
-})
 
 
 let formatDate = (date)=>{

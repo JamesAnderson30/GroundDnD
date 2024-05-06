@@ -22,6 +22,9 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
     let bookings = await Booking.findAll({
         where: {
             userId: id
+        },
+        attributes:{
+            exclude:["SpotId"]
         }
     });
 
