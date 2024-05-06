@@ -280,29 +280,32 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
     let userId = req.user.dataValues.id;
 
 
-    console.log("!!!CHECK",await Spot.findAll());
+    //console.log("!!!CHECK",await Spot.findAll());
     const spotExists = await Spot.findByPk(spotId);
 
       //console.log(spotExists);
 
     const reviewExists = await Review.findOne({
         where: {
-            userId: userId
+            userId: userId,
+            spotId: spotId
         }
     })
 
-    //console.log(reviewExists);
+    res.json(reviewExists);
 
 
 
     if(!spotExists){
         res.statusCode = 404;
-        //res.json({message:"Spot couldn't be found"})
+        res.json({message:"Spot couldn't be found"});
+        return;
     }
 
     if(reviewExists){
         res.statusCode = 500;
-        //res.json({message:"User already has a review for this spot"})
+        res.json({message:"User already has a review for this spot"});
+        return;
     }
 
 
