@@ -19,14 +19,17 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
 
     //console.log(id);
 
-    let bookings = await Booking.findAll({
-        attributes:{
-            exclude:["SpotId"]
-        },
-        where: {
-            userId: id
-        }
-    });
+    // let bookings = await Booking.findAll({
+    //     attributes:{
+    //         exclude:["SpotId"]
+    //     },
+    //     where: {
+    //         userId: id
+    //     }
+    // });
+
+let booking = {};
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     for(let booking of bookings){
         let bkData = booking.dataValues;
