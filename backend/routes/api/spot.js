@@ -472,9 +472,11 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     }, {attributes:{exclude:["SpotId"]}, returning:false})
 
     //console.log(newBooking.dataValues);
+    console.log("-------!!!!!!!!!!!!!!!!!----------------")
+    console.log(newBooking);
     newBooking.dataValues.startDate = formatDate(startDate);
     newBooking.dataValues.endDate = formatDate(endDate);
-
+    newBooking.dataValues["id"] = newBooking.get()
     res.json(newBooking);
 })
 
