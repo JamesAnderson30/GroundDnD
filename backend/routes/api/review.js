@@ -192,7 +192,7 @@ router.put("/:reviewId", restoreUser, requireAuth, validateEditReview, async (re
         return;
     }
 
-  if(reviewExist.dataValues.userId != res.user.dataValues.id){
+  if(!res.user || reviewExist.dataValues.userId != res.user.dataValues.id){
     res.statusCode = 403;
     res.json({message:"Authentication required", errors:[{message:"Authentication required"}]});
     return;
@@ -213,17 +213,20 @@ router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
 
     let review = await Review.findByPk(reviewId);
     let userId = res.user.dataValues.id;
+
+    if(!review){
+        res.statusCode = 404;
+        res.json({message:"Review couldn't be found"});
+        return;
+    }
+
     if(review.dataValues.userId != userId){
       res.statusCode = 404;
       res.json({message:"Authentication required"});
       return;
     }
     //res.json({reviewid:reviewId, review:review});
-    if(!review){
-        res.statusCode = 404;
-        res.json({message:"Review couldn't be found"});
-        return;
-    }
+
 
     await review.destroy();
 
