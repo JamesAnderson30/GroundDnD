@@ -27,6 +27,31 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
     }
 
     //let spot = await img.getSpot();
+    /*{
+  id: 5,
+  url: 'image.url',
+  preview: true,
+  createdAt: 2024-05-06T16:55:59.980Z,
+  updatedAt: 2024-05-06T16:55:59.980Z,
+  Spots: [
+    {
+      id: 2,
+      ownerId: 5,
+      address: '321 Valid Edit Way',
+      city: 'Edicity',
+      state: 'New Editia',
+      country: 'United States of Edited Data',
+      lat: '-26.6534247',
+      lng: '133.5641438',
+      name: 'The Edited Spot',
+      description: 'Place where valid edits can stay',
+      price: '321',
+      createdAt: 2024-05-06T16:55:59.812Z,
+      updatedAt: 2024-05-06T16:56:01.730Z,
+      SpotImages: [Object]
+    }
+  ]
+}*/
 
     let imgData = img.get({plain:true});
 
@@ -36,11 +61,11 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
 
     let userId = req.user.dataValues.id;
 
-       // if(spot.dataValues.ownerId != userId){
-        //     res.statusCode = 403;
-        //     res.json({message:"Authorization required"});
-        //     return;
-        // }
+    if(!imgData.Spots || imgData.Spots[0].ownerId != ){
+        res.statusCode = 403;
+        res.json({message:"Authorization required"});
+        return;
+    }
 
     //spotJoin.destroy();
     res.json(img);
