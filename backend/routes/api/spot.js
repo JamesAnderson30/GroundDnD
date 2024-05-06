@@ -55,6 +55,12 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 //console.log(req.user)
     const id = req.user.dataValues.id
 
+    if(!id){
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!\n\nNo Id \n\n !!!!!!!!!!!!!!!!!!");
+    }
+
+    console.log("!!!!!!!!!!!!!!!!!!!!!!!\n\nNid\n\n !!!!!!!!!!!!!!!!!!");
+
     //console.log(Models);
     // res.contentType("text/plain")
     // console.log(Models.Review);
@@ -377,6 +383,9 @@ router.get("/:spotId/bookings", restoreUser,async(req, res)=>{
     }
 
     let bookings = await Booking.findAll({
+        attributes:{
+            exclude:["SpotId"]
+        },
         where:{
             spotId:1
         },

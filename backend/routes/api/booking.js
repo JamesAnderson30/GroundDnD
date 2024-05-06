@@ -82,7 +82,7 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
 })
 
 router.delete("/:bookingId", restoreUser, requireAuth, async (req, res)=>{
-    let booking = await Booking.findByPk(req.params.bookingId);
+    let booking = await Booking.findByPk(req.params.bookingId,{attributes:{exclude:["SpotId"]}});
 
     if(!booking){
         res.statusCode = 404;
