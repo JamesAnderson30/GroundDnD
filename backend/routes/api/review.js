@@ -206,7 +206,7 @@ router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
     let reviewId = req.params.reviewId;
 
     let review = await Review.findByPk(reviewId);
-    res.json({reviewid:reviewId, review:review});
+    //res.json({reviewid:reviewId, review:review});
     if(!review){
         res.statusCode = 404;
         res.json({message:"Review couldn't be found"});
