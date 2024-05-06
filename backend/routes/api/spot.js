@@ -576,6 +576,8 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
 
     let spotId = req.params.spotId;
 
+    console.log(spotId);
+
     let spot = await Spot.findByPk(spotId);
 
     let userId = req.user.dataValues.id;
