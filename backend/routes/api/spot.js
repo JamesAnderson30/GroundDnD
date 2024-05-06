@@ -561,7 +561,7 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
         res.json({message:"Spot couldn't be found"});
         return;
     }
-
+    console.log("\n\n\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", "DELETING SPOT", "\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
     await spot.destroy();
 
     let checkSpot = await Spot.findByPk(spotId);
