@@ -469,7 +469,15 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
         spotId: spotId,
         startDate: startDate,
         endDate: endDate
-    }, {attributes:{exclude:["SpotId"]}, returning:false})
+    }, {attributes:{exclude:["SpotId"]}, returning:false});
+
+    let lastBooking = await Booking.findOne({
+        where:{
+            createdAt: newBooking.dataValues.createdAt
+        }
+    })
+
+    res.json(lastBooking);
 
     //console.log(newBooking.dataValues);
     console.log("-------!!!!!!!!!!!!!!!!!----------------")
