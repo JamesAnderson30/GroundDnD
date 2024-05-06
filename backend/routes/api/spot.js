@@ -276,6 +276,8 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
     let spotId = req.params.spotId;
     let userId = req.user.dataValues.id;
 
+    console.log(spotId);
+
     const spotExists = await Spot.findByPk(spotId);
 
       //console.log(spotExists);
