@@ -268,7 +268,7 @@ router.get("/", async (req,res)=>{
   ];
 
 
-router.post("/:spotId/reviews", restoreUser, validateNewReview, async(req,res)=>{
+router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, async(req,res)=>{
     //check if spot exists
 
     let spotId = req.params.spotId;
