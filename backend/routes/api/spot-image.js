@@ -61,7 +61,7 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
 
     let userId = req.user.dataValues.id;
 
-    if(!imgData.Spots || imgData.Spots[0].ownerId != ){
+    if(!imgData.Spots || imgData.Spots[0].ownerId != userId){
         res.statusCode = 403;
         res.json({message:"Authorization required"});
         return;
