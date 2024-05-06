@@ -146,6 +146,7 @@ router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
     //existingImageCount = existingImageCount.get({plain:true});
 
   console.log("!!!existingImageCount: ", existingImageCount);
+  console.log("!!!allExistingImage: ", allExistingImage);
 
     if(existingImageCount.length >= 10){
         res.statusCode = 403;
