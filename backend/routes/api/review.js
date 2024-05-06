@@ -142,6 +142,10 @@ router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
 
     let existingImageCount = await ReviewImages.findAll({where: parseInt(reviewId)});
 
+    existingImageCount = existingImageCount.get({plain:true});
+
+  console.log("!!!existingImageCount: ", existingImageCount);
+
     if(existingImageCount.length >= 10){
         res.statusCode = 403;
         res.json({message: "Maximum number of images for this resource was reached"});
