@@ -107,7 +107,7 @@ router.delete("/:bookingId", restoreUser, requireAuth, async (req, res)=>{
 
     booking.destroy();
 
-    let bookingExists = await Booking.findByPk(req.params.bookingId);
+    let bookingExists = await Booking.findByPk(req.params.bookingId, {attributes:{exclude:["SpotId"]}});
 
     if(!bookingExists){
         res.json({message:"Successfully deleted"});

@@ -13,7 +13,7 @@ const router = express.Router();
 
 router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
     let img = await Image.findByPk(req.params.imageId);
-
+    console.log("!!!img: ", img);
     if(!img){
         res.statusCode = 404;
         res.json({message:"Spot Image couldn't be found"});
