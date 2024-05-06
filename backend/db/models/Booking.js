@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId"
       });
 
-      Booking.belongsTo(models.Spot, {
+      Booking.hasOne(models.Spot, {
         foreignKey: 'spotId'
       });
     }
