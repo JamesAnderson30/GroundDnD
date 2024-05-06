@@ -546,6 +546,8 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
 
     let spot = await Spot.findByPk(spotId);
 
+    console.log(spot);
+
     let userId = req.user.dataValues.id;
 
         if(spot.dataValues.ownerId != userId){
