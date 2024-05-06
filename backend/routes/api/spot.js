@@ -399,7 +399,7 @@ router.get("/:spotId/bookings", restoreUser,async(req, res)=>{
 
 
 router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
-    let userId = req.user.id;
+    let userId = parseInt(req.user.id);
     let spotId = req.params.spotId;
 
     console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! spot.findByPk ~~~~~~~~~~~~~~~~~~~~");
