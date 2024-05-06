@@ -185,6 +185,7 @@ const validateCreateSpot = [
     check("price")
         .exists({checkFalsy:true})
         .isCurrency()
+        .isFloat({gt:0})
         .withMessage("Price per day is required"),
     handleValidationErrors
   ];
@@ -311,6 +312,7 @@ router.post("/:spotId/reviews", restoreUser, validateNewReview, async(req,res)=>
         stars:stars
     })
     res.statusCode = 201;
+    console.log(newReview);
     res.json(newReview);
 
 });
