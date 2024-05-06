@@ -215,7 +215,7 @@ router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
     let userId = res.user.dataValues.id;
     if(review.dataValues.userId != userId){
       res.statusCode = 404;
-      res.json({message:"Authentication required", errors:[{message:"Authentication required"}});
+      res.json({message:"Authentication required"});
       return;
     }
     //res.json({reviewid:reviewId, review:review});
