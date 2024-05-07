@@ -1,7 +1,7 @@
 const express = require('express');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { check } = require('express-validator');
+const { check, query } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 //const { restoreUser } = require("../../utils/auth.js");
 const {restoreUser, requireAuth } = require('../../utils/auth');
@@ -229,8 +229,134 @@ router.get("/:spotId", async (req, res)=>{
 
     res.json(spot);
 })
+/*
+page: integer, minimum: 1, maximum: 10, default: 1
+size: integer, minimum: 1, maximum: 20, default: 20
+minLat: decimal, optional
+maxLat: decimal, optional
+minLng: decimal, optional
+maxLng: decimal, optional
+minPrice: decimal, optional, minimum: 0
+maxPrice: decimal, optional, minimum: 0
+*/
 
-router.get("/", async (req,res)=>{
+const validateSearch = [
+    query('page')
+        .isInt({min:1})
+        .optional({ nullable: true })
+      .withMessage('Page must be greater than or equal to 1'),
+      query('page')
+      .isInt({max:10})
+      .optional({ nullable: true })
+      .withMessage("Page must be less than or equal to 10"),
+      query('size')
+      .isInt({min:1})
+      .optional({ nullable: true })
+      .withMessage("Size must be greater than or equal to 1"),
+      query('size')
+        .isInt({max:20})
+        .optional({ nullable: true })
+        .withMessage("Size must be less than or equal to 20"),
+        query('minLat')
+        .isFloat({min:-90, max:90})
+        .optional({ nullable: true })
+        .withMessage("minLat is invalid"),
+        query('maxLat')
+     .isFloat({min:-90, max:90})
+     .optional({ nullable: true })
+      .withMessage('maxLat is invalid'),
+      query('minLng')
+        .isFloat({gt:-180, lt:180})
+        .optional({ nullable: true })
+        .withMessage("minLng is invalid"),
+    query("maxLng")
+    .isFloat({gt:-180, lt:180})
+    .optional({ nullable: true })
+      .withMessage('maxLng is not valid'),
+      query("minPrice")
+        .isFloat({gt:0})
+        .optional({ checkFalsy: true })
+        .withMessage("Minimum price must be greater than or equal to 0"),
+        query("maxPrice")
+        .isFloat({gt:0})
+        .optional({ checkFalsy: true })
+        .withMessage("Maximum price must be greater than or equal to 0"),
+    handleValidationErrors
+  ];
+
+
+router.get("/", validateSearch, async (req,res)=>{
+
+/*
+page: integer, minimum: 1, maximum: 10, default: 1
+size: integer, minimum: 1, maximum: 20, default: 20
+minLat: decimal, optional
+maxLat: decimal, optional
+minLng: decimal, optional
+maxLng: decimal, optional
+minPrice: decimal, optional, minimum: 0
+maxPrice: decimal, optional, minimum: 0
+*/
+
+
+
+    let {page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice} = req.query;
+
+    if(!page) page = 1;
+    if(!size) size = 20;
+
+    // Set pagination
+
+    let options = {
+        offset: (page - 1) * size,
+        limit: size
+    }
+
+    let whereOptions = {}
+
+    if(minLat){
+        whereOptions["lat"] = {
+            [Op.gte]: minLat
+        }
+    }
+
+    if(maxLat){
+        whereOptions["lat"] = {
+            [Op.lte]: maxLat
+        }
+    }
+
+    if(minLng){
+        whereOptions["lng"] = {
+            [Op.gte]: minLng
+        }
+    }
+
+    if(maxLng){
+        whereOptions["lng"] = {
+            [Op.lte]: maxLng
+        }
+    }
+
+    if(minPrice){
+        whereOptions["price"] = {
+            [Op.gte]: minPrice
+        }
+    }
+
+    if(maxPrice){
+        whereOptions["price"] = {
+            [Op.lte]: maxPrice
+        }
+    }
+
+    console.log(whereOptions);
+
+    if(req.query){
+        console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!we have data");
+
+    }
+
     let spots = await Spot.findAll({
         include:[
             {
@@ -245,7 +371,9 @@ router.get("/", async (req,res)=>{
                     preview:true
                 }
             }
-        ]
+        ],
+        where: whereOptions,
+        options: options
     });
     //console.log(spots);
     let spotsArray = avgSpotReviewsAndPreview(spots)
@@ -344,7 +472,7 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
         price:price
     });
 
-    res.statusCode = 201;   
+    res.statusCode = 201;
     console.log("!!! CHECK SPOTS");
     console.log(await Spot.findAll());
 
@@ -569,7 +697,7 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
             return;
         }
 
-    
+
     console.log("\n\n\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", "DELETING SPOT", "\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
     await spot.destroy();
 
@@ -599,14 +727,14 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
         res.json({message:"Spot couldn't be found"});
         return;
     }
-    
+
     if(spot.dataValues.ownerId != userId){
         res.statusCode = 403;
         res.json({message:"Authorization required"});
         return;
     }
 
-   
+
 
     let oldSpot = await Spot.findByPk(req.params.spotId);
     oldSpot.set({
