@@ -192,7 +192,7 @@ router.put("/:reviewId", restoreUser, requireAuth, validateEditReview, async (re
         return;
     }
 console.log("!!!!!!editSpot:")
-  if(!res.user.dataValues.id || reviewExist.dataValues.userId != res.user.dataValues.id){
+  if(!req.user.dataValues.id || reviewExist.dataValues.userId != req.user.dataValues.id){
     res.statusCode = 403;
     res.json({message:"Authentication required", errors:[{message:"Authentication required"}]});
     return;
