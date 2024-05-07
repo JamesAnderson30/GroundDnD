@@ -212,7 +212,7 @@ router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
     let reviewId = req.params.reviewId;
 
     let review = await Review.findByPk(reviewId);
-    let userId = res.user.dataValues.id;
+    //let userId = req.user.dataValues.id;
 
     if(!review){
         res.statusCode = 404;
@@ -220,8 +220,14 @@ router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
         return;
     }
 
+    if(!req.user.dataValues.id){
+        res.statusCode = 403;
+        res.json({message:"Authentication required"});
+        return;
+    }
+
     if(review.dataValues.userId != userId){
-      res.statusCode = 404;
+      res.statusCode = 403;
       res.json({message:"Authentication required"});
       return;
     }
@@ -230,10 +236,9 @@ router.delete("/:reviewId", restoreUser, requireAuth, async(req, res)=>{
 
     await review.destroy();
 
-    let checkReview = await Spot.findByPk(reviewId);
-    if(!checkReview){
+
         res.json({message:"Successfully deleted"})
-    }
+
 })
 
 module.exports = router;
