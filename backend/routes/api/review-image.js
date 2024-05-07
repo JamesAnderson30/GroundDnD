@@ -12,16 +12,38 @@ const review = require('../../db/models/review');
 const router = express.Router();
 
 router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
-    let img = await Image.findByPk(req.params.imageId);
-    console.log("!!!img: ", img);
+    let img = await Image.findByPk(req.params.imageId,{
+        include:{
+            model:Spot
+        }
+    });
+
+    let imgToDestroy = await Image.findByPk(req.params.imageId);
+
     if(!img){
         res.statusCode = 404;
-        res.json({message:"Spot Image couldn't be found"});
+        res.json({message:"Review Image couldn't be found"});
+        return;
+    }
+
+
+    let imgData = img.get({plain:true});
+
+    //console.log("!!!ImgData: ",imgData);
+
+    //if(!req.user.dataValues.id ||
+
+    let userId = req.user.dataValues.id;
+
+    if(!imgData.Reviews || imgData.Reviews[0].userId != userId){
+        res.statusCode = 403;
+        res.json({message:"Authorization required"});
         return;
     }
 
     //spotJoin.destroy();
-    img.destroy();
+    //res.json(img);
+    imgToDestroy.destroy();
 
 
         res.json({message:"Successfully Deleted"});
