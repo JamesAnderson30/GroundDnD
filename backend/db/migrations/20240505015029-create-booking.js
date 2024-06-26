@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    console.log("HEY LOOK HI");
+    ////console.log("HEY LOOK HI");
     await queryInterface.createTable('Bookings', {
       id: {
         allowNull: false,
@@ -47,7 +47,7 @@ module.exports = {
       }
 
     },options);
-    console.log(options);
+    ////console.log(options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable({schema:"GroundNdN", tableName:"Bookings"});

@@ -42,9 +42,9 @@ router.post(
 
 
       const { email, password, username, firstName, lastName } = req.body;
-      //console.log(email, password, username, firstName, lastName);
+      ////console.log(email, password, username, firstName, lastName);
       const hashedPassword = bcrypt.hashSync(password);
-      //console.log()
+      ////console.log()
       const emailExists = await User.findOne({
         where: {
           email: email

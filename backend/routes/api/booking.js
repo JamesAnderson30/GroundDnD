@@ -17,7 +17,7 @@ const router = express.Router();
 router.get("/current", restoreUser, requireAuth,async (req, res)=>{
     const id = req.user.dataValues.id;
 
-    //console.log(id);
+    ////console.log(id);
 
     let bookings = await Booking.findAll({
         where: {
@@ -30,7 +30,7 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
 
     for(let booking of bookings){
         let bkData = booking.dataValues;
-        //console.log("!!! bkData: ", bkData);
+        ////console.log("!!! bkData: ", bkData);
         let spot = await Spot.findOne({
             where: {
                 id: bkData.spotId
@@ -49,7 +49,7 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
 
         let previewUrl = "not-found.png";
 
-        //console.log("!!! spot: ", spot.dataValues.Images);
+        ////console.log("!!! spot: ", spot.dataValues.Images);
 
         if(spot.dataValues.Images.length > 0){
             previewUrl = spot.dataValues.Images[0].dataValues.url;
@@ -60,10 +60,10 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
         //res.json(spot);
 
         let previewImageUrl = "not-found.png";
-        //console.log(spot);
+        ////console.log(spot);
         let images = spot.dataValues.Images;
 
-        //console.log(images);
+        ////console.log(images);
 
         if(images.length > 0){
             previewImageUrl = images[0].dataValues.url
@@ -95,9 +95,9 @@ router.delete("/:bookingId", restoreUser, requireAuth, async (req, res)=>{
 
     let startDate = booking.dataValues.startDate;
 
-   // console.log(startDate);
+   // //console.log(startDate);
 
-    console.log("startDate: ", startDate, " new Date(): ", new Date());
+    ////console.log("startDate: ", startDate, " new Date(): ", new Date());
 
     if(startDate < new Date()){
         res.statusCode = 403;
@@ -132,7 +132,7 @@ let avgSpotReviewsAndPreview = function(bookings){
 
     for(let booking of bookings){
         let spot = booking.dataValues.Spot;
-        console.log(spots);
+        ////console.log(spots);
         let spotsArray = [];
 
         for(let spot of spots){
@@ -140,19 +140,19 @@ let avgSpotReviewsAndPreview = function(bookings){
             let total = 0;
             let avg = 0;
             let previewImageUrl = "not-found.png";
-            //console.log(spot);
+            ////console.log(spot);
             let images = spot.dataValues.Images;
 
-            //console.log(images);
+            ////console.log(images);
 
             if(images.length > 0){
                 previewImageUrl = images[0].dataValues.url
             }
 
             if(spot.dataValues.Reviews.length > 0){
-                //console.log("avg");
+                ////console.log("avg");
                 for(let review of spot.dataValues.Reviews){
-                    //console.log("count");
+                    ////console.log("count");
                     count++;
                     total += review.dataValues.stars
                 }
@@ -164,7 +164,7 @@ let avgSpotReviewsAndPreview = function(bookings){
 
             spot.dataValues["previewImage"] = previewImageUrl;
             spot.dataValues["avgRating"] = avg;
-            //console.log(spot.dataValues);
+            ////console.log(spot.dataValues);
             spotsArray.push(spot);
         }
     }

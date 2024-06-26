@@ -39,9 +39,9 @@ module.exports = {
     preview:true
   }], {})
 
-  //console.log(result);
+  ////console.log(result);
 
- // console.log(await Image.findAll());
+ // //console.log(await Image.findAll());
 
   await ReviewImages.create({imgId:1, reviewId:1});
   await ReviewImages.create({imgId:2,reviewId:2});

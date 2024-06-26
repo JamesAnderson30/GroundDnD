@@ -10,7 +10,7 @@ const Models = require("../../db/models");
 const review = require('../../db/models/review');
 
 const router = express.Router();
-//console.log(Models);
+////console.log(Models);
 
 // get currently logged in user's reviews
 /*
@@ -114,11 +114,11 @@ router.get("/current", restoreUser, requireAuth, async(req, res)=>{
 
         //res.json(spotImgs);
         rev.dataValues.Spot.dataValues["previewImage"] = previewImg;
-        //console.log("!!! Data Values: ",rev.dataValues.Spot.dataValues)
+        ////console.log("!!! Data Values: ",rev.dataValues.Spot.dataValues)
 
 
     }
-    //console.log(reviews);
+    ////console.log(reviews);
     res.json({reviews:reviews});
 })
 
@@ -128,7 +128,7 @@ router.get("/current", restoreUser, requireAuth, async(req, res)=>{
 router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
     let reviewId = req.params.reviewId;
 
-    console.log(reviewId);
+    ////console.log(reviewId);
 
     let {url, preview} = req.body;
 
@@ -145,8 +145,8 @@ router.post("/:reviewId/images", requireAuth, restoreUser, async (req, res)=>{
 
     //existingImageCount = existingImageCount.get({plain:true});
 
-  console.log("!!!existingImageCount: ", existingImageCount);
-  console.log("!!!allExistingImage: ", allExistingImage);
+ // //console.log("!!!existingImageCount: ", existingImageCount);
+ // //console.log("!!!allExistingImage: ", allExistingImage);
 
     if(existingImageCount.length >= 10){
         res.statusCode = 403;
@@ -191,7 +191,7 @@ router.put("/:reviewId", restoreUser, requireAuth, validateEditReview, async (re
         res.json({message:"review couldn't be found"});
         return;
     }
-console.log("!!!!!!editSpot:")
+////console.log("!!!!!!editSpot:")
   if(!req.user.dataValues.id || reviewExist.dataValues.userId != req.user.dataValues.id){
     res.statusCode = 403;
     res.json({message:"Authentication required", errors:[{message:"Authentication required"}]});

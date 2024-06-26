@@ -2,11 +2,11 @@ let options = {
 
   logging:true
 };
-//console.log("Checking env");
+////console.log("Checking env");
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
-  //console.log("env is production");
-  //console.log(options);
+  ////console.log("env is production");
+  ////console.log(options);
 }
 
 /** @type {import('sequelize-cli').Migration} */

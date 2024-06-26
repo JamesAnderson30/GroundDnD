@@ -55,9 +55,9 @@ router.delete("/:imageId", restoreUser, requireAuth, async(req, res)=>{
 
     let imgData = img.get({plain:true});
 
-    console.log("!!!ImgData: ",imgData);
+    ////console.log("!!!ImgData: ",imgData);
 
-    //if(!req.user.dataValues.id || 
+    //if(!req.user.dataValues.id ||
 
     let userId = req.user.dataValues.id;
 
