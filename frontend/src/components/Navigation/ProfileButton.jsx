@@ -1,3 +1,4 @@
+
 import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { FaUserCircle } from 'react-icons/fa';
@@ -40,14 +41,14 @@ function ProfileButton({ user }) {
       <button onClick={toggleMenu}>
         <FaUserCircle />
       </button>
-      {!showMenu ? <ul  className={ulClassName} ref={ulRef}>
+      <ul className={ulClassName} ref={ulRef}>
         <li>{user.username}</li>
         <li>{user.firstName} {user.lastName}</li>
         <li>{user.email}</li>
         <li>
           <button onClick={logout}>Log Out</button>
         </li>
-      </ul> : null}
+      </ul>
     </>
   );
 }
