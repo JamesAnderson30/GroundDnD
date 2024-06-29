@@ -8,6 +8,10 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 //import Navigation from './components/Navigation';
 import * as sessionActions from './store/session';
 
+// ----
+// Lets put Components here
+import SpotDetails from './components/Spots/SpotsDetails/SpotDetails';
+
 function Layout() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
@@ -33,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <h1>Welcome!</h1>
+      },
+      {
+        path: '/spots/:id',
+        element: <SpotDetails />
       }
     ]
   }
