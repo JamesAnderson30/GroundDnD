@@ -9,6 +9,8 @@ function Navigation({ isLoaded }) {
   return (
     <>
       <NavLink to="/spots/1">/spots/1</NavLink>
+      <NavLink to="/spots/2">/spots/2</NavLink>
+      <NavLink to="/spots/3">/spots/3</NavLink>
       <ul>
         <li>
           <NavLink to="/">Home</NavLink>

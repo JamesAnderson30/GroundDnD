@@ -3,7 +3,9 @@
 function SpotBasicInfo (){
     //const {spotId} = useParams()
     return (
-        <h1>Spot Basic Information, ID:</h1>
+        <div>
+            <h1>Spot Basic Information, ID:</h1>
+        </div>
     )
 }
 
