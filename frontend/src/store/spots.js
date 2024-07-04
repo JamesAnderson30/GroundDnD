@@ -30,6 +30,7 @@ const spotsReducer = (state = initialState, action) => {
       byId[action.spot.id] = action.spot
       return { ...state, spots:{all, byId}} ;
     default:
+      
       return state;
   }
 };

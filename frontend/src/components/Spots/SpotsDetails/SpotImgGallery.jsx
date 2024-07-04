@@ -1,0 +1,49 @@
+function SpotImgGallery({imgs}){
+    /*
+      Is it okay to spend so much time to normalize data
+      just so it's easier to plug into the jsx?
+
+      TODO: This only really impliments a maximum of four images in the gallery
+      TODO: Image gallery loop uses a single digit iterator integer as a key, make more unique
+    */
+
+    const GALLERY_SIZE = 4;
+
+    let gallery = Array(GALLERY_SIZE).fill(false);
+    let preview = false;
+
+    //This sorts the imgs props into the preview and gallery
+
+    for(let i = 0; i < imgs.length; i++){
+      //console.log("img: ", imgs[i]);
+      let img = imgs[i];
+      if(img.preview){
+        preview = img;
+      } else {
+        gallery[i] = img
+      }
+    }
+
+    return (
+      <div>
+        <div>
+          <img src={`/images/${preview.url}`}/>
+        </div>
+        <div id="imgGalleryItemSize">
+          {gallery.map((img, i)=>{
+            if(img){
+              return (
+                <img className="imgGalleryItemSize" src={`/images/${img.url}`} key={i}/>
+              )
+            } else {
+              return (
+                <div key={i} className="imgGalleryItemSize"></div>
+              )
+            }
+          })}
+        </div>
+      </div>
+    )
+}
+
+export default SpotImgGallery;

@@ -10,6 +10,7 @@ import SpotBasicInfo from "../SpotBasicDetails";
 import SpotDescription from "../SpotDescription";
 import SpotCallToAction from "./SpotCallToAction";
 import ReviewsAllDetails from "../../Reviews/ReviewsAllDetails";
+import SpotImgGallery from "./SpotImgGallery";
 //import SpotDetailsImgs from "./SpotDetailsImgs";
 //---
 // Images
@@ -35,11 +36,11 @@ function SpotDetails (){
     }, [dispatch, id, spots.byId])
 
     if(spots.byId[id]){
+      console.log("spot: ", spots.byId[id]);
       return (
         <>
           <SpotBasicInfo id={id}/>
-
-          <div style={{backgroundColor:"yellow"}}>Imgs</div>
+          <SpotImgGallery imgs={spots.byId[id].Images}/>
           <SpotDescription spot={spots.byId[id]}/>
           <SpotCallToAction spot={spots.byId[id]}/>
 
