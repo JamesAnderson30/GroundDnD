@@ -1,0 +1,23 @@
+/* The ID of "Body" refers to everything rendered under
+the navigation component */
+#body{
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* And this is for the html body element */
+
+body{
+    margin-left:15px;
+    margin-top:15px;
+    margin-right:15px;
+}
+
+.floatRight{
+
+}
+
+.floatLeft{
+
+}

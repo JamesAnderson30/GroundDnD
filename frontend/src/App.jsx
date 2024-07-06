@@ -2,6 +2,8 @@
 import Navigation from './components/Navigation/Navigation';
 // frontend/src/App.jsx
 
+import "./App.css";
+
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
@@ -25,7 +27,9 @@ function Layout() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && <Outlet />}
+      <div id='body'>
+        {isLoaded && <Outlet />}
+      </div>
     </>
   );
 }

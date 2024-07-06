@@ -1,3 +1,14 @@
 .hidden{
     display:none;
 }
+
+#MainNav{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#NavigationHR{
+    margin-left: -50%;
+    width: 150%;
+}

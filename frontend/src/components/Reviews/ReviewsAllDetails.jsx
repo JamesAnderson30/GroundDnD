@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import './Review.css'
 
 function ReviewsAllDetails({id}){
     const allReviews = useSelector(state=>state.reviews.reviews.all);
@@ -9,12 +10,12 @@ function ReviewsAllDetails({id}){
         <div>
         {allReviews.map((review, i)=>{
           let d = new Date(Date.parse(review.updatedAt));
-          console.log("date: ",d);
+
           let month = d.getUTCMonth();
           let year = d.getUTCFullYear();
           if(review.spotId.toString() === id.toString()){
             return (
-              <div key={i}>
+              <div className={"SingleReview"} key={i}>
                 <h3>{review.User.firstName}</h3>
                 <h4>{`${MONTHS[month]} ${year}`}</h4>
                 <p>{review.review}</p>
