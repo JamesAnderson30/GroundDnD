@@ -9,7 +9,7 @@ function SpotDescription({spot}){
         //console.log("test: ", spot.User)
         const {description} = spot;
         return (
-            <div>
+            <div className="SpotDescription">
                 <h2>Hosted by {firstName} {lastName}</h2>
                 <p>{description}</p>
             </div>

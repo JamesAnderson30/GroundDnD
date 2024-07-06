@@ -15,6 +15,8 @@ import SpotImgGallery from "./SpotImgGallery";
 //---
 // Images
 //import testImg from "../../../.././../images/testImg.png";
+import "../Spots.css"
+import ReviewsStars from "../../Reviews/ReviewsStars";
 
 
 
@@ -39,12 +41,17 @@ function SpotDetails (){
       console.log("spot: ", spots.byId[id]);
       return (
         <>
-          <SpotBasicInfo id={id}/>
+          <SpotBasicInfo spot={spots.byId[id]}/>
           <SpotImgGallery imgs={spots.byId[id].Images}/>
-          <SpotDescription spot={spots.byId[id]}/>
-          <SpotCallToAction spot={spots.byId[id]}/>
+          <div id="spotDescriptionCallToAction">
+            <SpotDescription spot={spots.byId[id]}/>
+            <SpotCallToAction spot={spots.byId[id]}/>
 
-          <br/>
+          </div>
+          <hr/>
+          <div id="spotDetailsReviewsHeader">
+            <ReviewsStars spot={spots.byId[id]}/>
+          </div>
           <ReviewsAllDetails id={id}/>
         </>
       )

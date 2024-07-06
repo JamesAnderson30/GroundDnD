@@ -1,3 +1,5 @@
+import './SpotImage.css'
+
 function SpotImgGallery({imgs}){
     /*
       Is it okay to spend so much time to normalize data
@@ -25,19 +27,19 @@ function SpotImgGallery({imgs}){
     }
 
     return (
-      <div>
+      <div id={"SpotImages"}>
         <div>
-          <img src={`/images/${preview.url}`}/>
+          <img id="previewImage" src={`/images/${preview.url}`}/>
         </div>
-        <div id="imgGalleryItemSize">
+        <div id="imgGallery">
           {gallery.map((img, i)=>{
             if(img){
               return (
-                <img className="imgGalleryItemSize" src={`/images/${img.url}`} key={i}/>
+                <div key={i} className='imgGalleryItemSize'><img src={`/images/${img.url}`} key={i}/></div>
               )
             } else {
               return (
-                <div key={i} className="imgGalleryItemSize"></div>
+                <div key={i} className="imgGalleryItemSize">&nbsp;</div>
               )
             }
           })}

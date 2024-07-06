@@ -1,3 +1,29 @@
-#spotImageGallery{
-    display:grid
+#imgGallery{
+    width: 50%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.imgGalleryItemSize{
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    height: 50%;
+    background-color:grey;
+    border: solid white 10px;
+}
+
+#imgGallery > div:nth-child(1) > img{
+    width: 100%;
+    height: 100%;
+}
+
+#previewImage{
+    float:left;
+    width:50%;
+    height:300px
+}
+
+#SpotImages{
+    overflow:hidden;
 }
