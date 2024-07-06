@@ -13,6 +13,7 @@ import * as sessionActions from './store/session';
 // ----
 // Lets put Components here
 import SpotDetails from './components/Spots/SpotsDetails/SpotDetails';
+import Home from './components/Home/Home';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: <Home />
       },
       {
         path: '/spots/:id',
