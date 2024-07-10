@@ -38,9 +38,9 @@ function SpotDetails (){
     }, [dispatch, id, spots.byId])
 
     if(spots.byId[id]){
-      console.log("spot: ", spots.byId[id]);
+      //console.log("spot: ", spots.byId[id]);
       return (
-        <>
+        <div id={"SpotDetailsBody"}>
           <SpotBasicInfo spot={spots.byId[id]}/>
           <SpotImgGallery imgs={spots.byId[id].Images}/>
           <div id="spotDescriptionCallToAction">
@@ -53,7 +53,7 @@ function SpotDetails (){
             <ReviewsStars spot={spots.byId[id]}/>
           </div>
           <ReviewsAllDetails id={id}/>
-        </>
+        </div>
       )
     } else {
       return <h1>No spot :c</h1>

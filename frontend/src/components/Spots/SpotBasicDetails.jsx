@@ -2,7 +2,7 @@
 
 function SpotBasicInfo ({spot}){
     //const {spotId} = useParams()
-    console.log("spot: ", spot);
+    //console.log("spot: ", spot);
     let {name, city, state, country} = spot;
     return (
         <div>

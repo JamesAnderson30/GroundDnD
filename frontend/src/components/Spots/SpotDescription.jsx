@@ -1,9 +1,11 @@
 //import { useSelector } from "react-redux";
 
 function SpotDescription({spot}){
-
+    console.log("spot: ", spot);
     if(!spot){
-        return
+        return (
+            <div>No Description</div>
+        )
     } else {
         const {firstName, lastName} = spot.User;
         //console.log("test: ", spot.User)

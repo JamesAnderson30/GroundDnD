@@ -25,9 +25,45 @@ module.exports = {
         lat: 50.2,
         lng: 21.5,
         name: "Some Spot",
-        description: "Description",
+        description: "Test Description Oh My! Test Description Oh My!Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! Test Description Oh My! ",
         price: 20.20
-      }], );
+      },
+    {
+      ownerId: 1,
+        address: "Testy Rd",
+        city: "Testy Mc Test Town",
+        state: "Georgia unfortunately",
+        country: "Empire Earth",
+        lat: 50.2,
+        lng: 21.5,
+        name: "Second Spot",
+        description: "Descriptionunfortunatelyunfortunatelyunfortunately",
+        price: 20.20
+    },
+  {
+    ownerId: 1,
+        address: "Third Rd",
+        city: "Testy Mc Test Town",
+        state: "Georgia unfortunately",
+        country: "Empire Earth",
+        lat: 50.2,
+        lng: 21.5,
+        name: "Third Spot",
+        description: "DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription",
+        price: 20.20
+  },
+  {
+    ownerId: 1,
+      address: "4444 Rd",
+      city: "Testy Mc Test Town",
+      state: "Georgia unfortunately",
+      country: "Empire Earth",
+      lat: 50.2,
+      lng: 21.5,
+      name: "Second Spot",
+      description: "Descriptionunfortunatelyunfortunatelyunfortunately",
+      price: 20.20
+  },], );
 
   },
   // ownerId: DataTypes.INTEGER,

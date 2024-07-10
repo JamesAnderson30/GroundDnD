@@ -39,14 +39,15 @@ let avgSpotReviewsAndPreview = function(spots){
             avg = total / count;
         }
 
-        delete spot.dataValues.Reviews
-        delete spot.dataValues.Images
+        // delete spot.dataValues.Reviews
+        // delete spot.dataValues.Images
 
         spot.dataValues["previewImage"] = previewImageUrl;
         spot.dataValues["avgRating"] = avg;
         ////console.log(spot.dataValues);
         spotsArray.push(spot);
     }
+
     return spotsArray;
 }
 
@@ -366,16 +367,21 @@ maxPrice: decimal, optional, minimum: 0
             {
                 model: Models.Image,
                 required:false,
-                attributes: ["url"],
+                attributes: ["url", "preview"],
                 where:{
                     preview:true
                 }
+            },
+            {
+                model: Models.User,
+                attributes:["id", "firstName", "lastName"]
             }
         ],
         where: whereOptions,
         options: options
     });
-    ////console.log(spots);
+    //console.log(spots);
+    console.log("11111111111111111111111111111111: ", spots);
     let spotsArray = avgSpotReviewsAndPreview(spots)
 
 
@@ -383,6 +389,8 @@ maxPrice: decimal, optional, minimum: 0
 
     let returnObj = {};
     returnObj["Spots"] = spotsArray;
+
+
     res.json(returnObj);
 });
 

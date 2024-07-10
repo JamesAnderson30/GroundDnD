@@ -14,11 +14,20 @@ function SpotImgGallery({imgs}){
     let gallery = Array(GALLERY_SIZE).fill(false);
     let preview = false;
 
+    if(!imgs){
+      return (
+        <div>No images</div>
+      )
+    }
+
     //This sorts the imgs props into the preview and gallery
 
     for(let i = 0; i < imgs.length; i++){
       //console.log("img: ", imgs[i]);
+      console.log("imgs: ", imgs);
+
       let img = imgs[i];
+      console.log("img: ",img);
       if(img.preview){
         preview = img;
       } else {

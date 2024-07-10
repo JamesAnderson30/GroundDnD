@@ -28,9 +28,7 @@ function Layout() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      <div id='body'>
         {isLoaded && <Outlet />}
-      </div>
     </>
   );
 }
