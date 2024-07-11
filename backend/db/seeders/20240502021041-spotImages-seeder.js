@@ -20,6 +20,18 @@ module.exports = {
     {
       imgId:4,
       spotId:1
+    },
+    {
+      imgId:5,
+      spotId:2
+    },
+    {
+      imgId:1,
+      spotId:3
+    },
+    {
+      img:2,
+      spotId:4
     }], {});
   },
 

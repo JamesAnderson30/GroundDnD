@@ -463,6 +463,9 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
     const {address, city, state, country,
         lat, lng, name, description, price} = req.body;
 
+        console.log("name: ", name);
+        console.log("desc: ", description);
+
     let ownerId = req.user.dataValues.id;
 
 

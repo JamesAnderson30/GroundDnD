@@ -29,9 +29,28 @@ export const fetchAllSpots = () => async (dispatch) =>{
   const spots = await response.json();
   console.log("SPOTS: ",spots);
   dispatch(loadSpots(spots));
-
 }
 
+// This needs to be refractored to be more dry
+export const postSpot = (body, images) => async (dispatch)=>{
+  let {preview, image1, image2, image3, image4} = images;
+  let response = await csrfFetch("/api/spots",{
+      method:"POST",
+      headers: {
+          "Content-Type": "application/json",
+        },
+      body
+  });
+  const spot = await response.json();
+  const id = spot.id;
+
+  if(preview){
+    let previewRes = await csrfFetch(`/api/spots/${id}/images`, {
+      body: JSON.stringify({url: preview, preview: true}),
+      method: "POST"
+    })
+  }
+}
 
 const initialState = { spots: {loadedAll: false, all:[], byId:{}}};
 

@@ -38,13 +38,13 @@ function SpotImgGallery({imgs}){
     return (
       <div id={"SpotImages"}>
         <div>
-          <img id="previewImage" src={`/images/${preview.url}`}/>
+          <img id="previewImage" src={preview.url}/>
         </div>
         <div id="imgGallery">
           {gallery.map((img, i)=>{
             if(img){
               return (
-                <div key={i} className='imgGalleryItemSize'><img src={`/images/${img.url}`} key={i}/></div>
+                <div key={i} className='imgGalleryItemSize'><img src={img.url} key={i}/></div>
               )
             } else {
               return (

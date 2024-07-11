@@ -23,21 +23,25 @@ module.exports = {
     */
 
      await Image.bulkCreate([{
-       url:"review1.jpg",
-       preview: false
+       url:"https://www.homestratosphere.com/wp-content/uploads/2018/07/green-house-example2018-07-09-at-5.03.11-PM-31-870x579.jpg",
+       preview: true
      },
     {
-      url: "review2.png",
-      preview:false
+      url: "https://i0.wp.com/freshouz.com/wp-content/uploads/2018/04/Exterior-House-Paint-Color-Schemes-16.jpg?fit=2250%2C1500&ssl=1",
+      preview:true
     },
   {
-    url: "Spot1.jpg",
+    url: "https://img.staticmb.com/mbcontent/images/uploads/2022/12/Most-Beautiful-House-in-the-World.jpg",
     preview:false
   },
   {
-    url: "Spot1Preview.gif",
+    url: "https://s3.amazonaws.com/homestratosphere/wp-content/uploads/2017/07/16012347/rustic-retreat-home-exterior-1-oct162019.jpg",
     preview:true
-  }], {})
+  },
+    {
+      url: "https://topdreamer.com/wp-content/uploads/2014/12/2.jpg",
+      preview:true
+    }], {})
 
   ////console.log(result);
 

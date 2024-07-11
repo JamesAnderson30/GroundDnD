@@ -15,13 +15,13 @@ module.exports = {
 
     // ~!!!!!!!!!!!!!!!!!!!!!!! this is actually review-images
 
-     await ReviewImages.bulkCreate([{
-       imgId: 1,
-       reviewId:1
-     },{
-      imgId:2,
-      reviewId:2
-     }], {});
+    //  await ReviewImages.bulkCreate([{
+    //    imgId: 1,
+    //    reviewId:1
+    //  },{
+    //   imgId:2,
+    //   reviewId:2
+    //  }], {});
   },
 
   async down (queryInterface, Sequelize) {

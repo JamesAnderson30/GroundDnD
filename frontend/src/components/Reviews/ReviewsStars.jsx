@@ -40,7 +40,7 @@ function ReviewsStars({spot, numerical}){
                     })}
                     &nbsp;
                     <span>
-                        {`reviews`}
+                        {` reviews`}
                     </span>
             </>
         )
