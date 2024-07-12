@@ -1,0 +1,61 @@
+h2, h3{
+    margin:0;
+}
+
+#NewSpotForm{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#NewSpotForm > div > label{
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#NewSpotForm > div > input{
+    width: 100%;
+    border: 3px solid black;
+    background-color: #e9f0fe;
+    height: 21px;
+}
+
+#NewSpotForm > div >div> label{
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#NewSpotForm > div > div>input{
+    width: 100%;
+    border: 3px solid black;
+    background-color: #e9f0fe;
+    height: 21px;
+}
+
+.labelGroup > label:nth-child(1){
+    width: 75%;
+    display: inline-block;
+}
+
+.labelGroup > label:nth-child(2){
+    width: 25%;
+    display: inline-block;
+}
+
+.inputGroup > input:nth-child(1){
+    width: 75%;
+    display: inline-block;
+}
+
+.inputGroup > input:nth-child(3){
+    width: 25%;
+    display: inline-block;
+}
+
+
+
+
+.comma{
+
+}

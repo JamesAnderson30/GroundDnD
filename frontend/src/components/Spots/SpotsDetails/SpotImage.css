@@ -13,6 +13,11 @@
     border: solid white 10px;
 }
 
+.imgGalleryItemSize > img{
+    width:100%;
+    height:100%;
+}
+
 #imgGallery > div:nth-child(1) > img{
     width: 100%;
     height: 100%;

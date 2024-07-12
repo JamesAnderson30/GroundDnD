@@ -27,13 +27,20 @@ function SpotImgGallery({imgs}){
       console.log("imgs: ", imgs);
 
       let img = imgs[i];
-      console.log("img: ",img);
       if(img.preview){
         preview = img;
+        gallery[i] = "preview";
       } else {
         gallery[i] = img
       }
     }
+
+
+    while(gallery.length <= GALLERY_SIZE){
+      gallery.push(false);
+    }
+
+
 
     return (
       <div id={"SpotImages"}>
@@ -43,9 +50,11 @@ function SpotImgGallery({imgs}){
         <div id="imgGallery">
           {gallery.map((img, i)=>{
             if(img){
-              return (
-                <div key={i} className='imgGalleryItemSize'><img src={img.url} key={i}/></div>
-              )
+              if(img !== "preview"){
+                return (
+                  <div key={i} className='imgGalleryItemSize'><img src={img.url} key={i}/></div>
+                )
+              }
             } else {
               return (
                 <div key={i} className="imgGalleryItemSize">&nbsp;</div>
