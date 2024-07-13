@@ -104,17 +104,18 @@ function NewSpotForm(){
 
                 </div>
                 <div>
-                    <label htmlFor="lat">Latitude</label><ErrorLabel error={errors.lat}/>
-                    <input name="lat" value={lat} placeholder="Latitude" onChange={(e)=>{setLat(e.target.value)}}></input>
+                    <div className={"labelGroup2"}>
+                        <label htmlFor="lat">Latitude</label><ErrorLabel error={errors.lat}/>
+                        <label htmlFor="long">Longitude</label><ErrorLabel error={errors.lng}/>
+                    </div>
+
+                    <div className={"inputGroup2"}>
+                        <input name="lat" value={lat} placeholder="Latitude" onChange={(e)=>{setLat(e.target.value)}}></input>
+                        <span className="comma">,</span>
+                        <input name="long" value={long} placeholder="Longitude" onChange={(e)=>{setLong(e.target.value)}} />
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="long">Longitude</label><ErrorLabel error={errors.lng}/>
-                    <input name="long" value={long} placeholder="Longitude" onChange={(e)=>{setLong(e.target.value)}} />
-                </div>
-                <div>
-                    <label htmlFor="price">Price"</label><ErrorLabel error={errors.price}/>
-                    <input name="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
-                </div>
+
                 <div>
                     <hr/>
                     <h3>Describe your place to guests</h3>
@@ -132,14 +133,23 @@ function NewSpotForm(){
                     <input value={title} onChange={(e)=>{setTitle(e.target.value)}} />
                     <ErrorLabel error={errors.name}/>
                 </div>
+                <hr/>
+                <div>
+                    <h3>Set a base price for your spot</h3>
+                    Competitive pricing can help your listing stand out and rank higher
+                    in search results
+                    <label  htmlFor="price">Price"</label><ErrorLabel error={errors.price}/>
+                    <h3 className="comma">$</h3><input name="price" id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
+                </div>
+                <hr/>
                 <div>
                     <h3>Liven up your spot with photos</h3>
                     Submit a link to at least one photo to publish your spot
                     <input value={preview} onChange={(e)=>{setPreview(e.target.value)}} placeholder='Preview Image URL' />
-                    <input value={(image1) ? image1 : ""} onChange={(e)=>{setImage1(e.target.value)}} placeholder="Image URL" />
-                    <input value={(image2) ? image1 : ""} onChange={(e)=>{setImage2(e.target.value)}} placeholder="Image URL" />
-                    <input value={(image3) ? image1 : ""} onChange={(e)=>{setImage3(e.target.value)}} placeholder="Image URL" />
-                    <input value={(image4) ? image1 : ""} onChange={(e)=>{setImage4(e.target.value)}} placeholder="Image URL" />
+                    <input className="imageInput" value={(image1) ? image1 : ""} onChange={(e)=>{setImage1(e.target.value)}} placeholder="Image URL" />
+                    <input className="imageInput" value={(image2) ? image1 : ""} onChange={(e)=>{setImage2(e.target.value)}} placeholder="Image URL" />
+                    <input className="imageInput" value={(image3) ? image1 : ""} onChange={(e)=>{setImage3(e.target.value)}} placeholder="Image URL" />
+                    <input className="imageInput" value={(image4) ? image1 : ""} onChange={(e)=>{setImage4(e.target.value)}} placeholder="Image URL" />
                 </div>
                 <hr/>
                 <button type='submit' onClick={(e)=>handleSubmit(e)}>Create a Spot</button>

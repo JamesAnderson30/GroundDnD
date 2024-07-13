@@ -709,7 +709,7 @@ router.delete("/:spotId", restoreUser, requireAuth, async(req, res)=>{
         }
 
 
-    //console.log("\n\n\n !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n", "DELETING SPOT", "\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+
     await spot.destroy();
 
     let checkSpot = await Spot.findByPk(spotId);
