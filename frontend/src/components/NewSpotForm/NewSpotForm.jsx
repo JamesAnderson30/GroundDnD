@@ -62,8 +62,6 @@ function NewSpotForm(){
         //A truthy response means the server returned an error message
         let response = await dispatch(postSpot(body, images));
 
-        console.log("response: ", response);
-
         if(response.errors){
             let copy = {...response};
             setErrors(copy.errors);
