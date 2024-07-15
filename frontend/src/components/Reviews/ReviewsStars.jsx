@@ -16,17 +16,16 @@ function ReviewsStars({spot, numerical}){
 //console.log("starArray: ",starArray)
     for(let i = 0; i < starArray.length; i++){
         if(avgRating > i){
-            starArray[i] = "*";
+            starArray[i] = "★";
         }
     }
     //console.log("spot.Reviews: ",spot.Reviews);
     let reviewCount = spot.Reviews.length;
 
     if(numerical){
-        console.log("numerical");
         return (
             <>
-                <span>*{avgRating}</span>
+                <span>★{avgRating}</span>
             </>
         )
     } else {
@@ -38,9 +37,8 @@ function ReviewsStars({spot, numerical}){
                             <span key={`${i}${i*i}`}>{element}</span>
                         )
                     })}
-                    &nbsp;
                     <span>
-                        {` reviews`}
+                    &nbsp;.&nbsp;{`${reviewCount} review`}{(reviewCount === 1) ? "" : "s"}
                     </span>
             </>
         )
