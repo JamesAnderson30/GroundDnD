@@ -15,6 +15,19 @@ export const fetchReviewsBySpot=(spotId) => async (dispatch)=>{
     dispatch(loadReviews(reviews.Reviews))
 }
 
+export const postReview=(payload) => async (dispatch)=>{
+    let body = JSON.stringify(payload);
+    const response = await csrfFetch(`/api/spots/${payload.spotId}/reviews`, {
+        method:"POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body
+    })
+    const responseJson = await response.json();
+    console.log("responseJson: ", responseJson)
+}
+
 const initialState = {reviews: {all:[], byId:{}}}
 
 const reviewReducer = (state = initialState, action)=>{

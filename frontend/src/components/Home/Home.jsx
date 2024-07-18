@@ -11,7 +11,6 @@ import './Home.css';
 function Home(){
 
   let {spots} = useSelector(state=>state.spots);
-  console.log("spots all: ", spots.all);
   let {loadedAll} = spots;
   const dispatch = useDispatch();
 
@@ -19,7 +18,6 @@ function Home(){
     if(!loadedAll){
       dispatch(fetchAllSpots());
     } else {
-      console.log("Spots loaded c:");
     }
   }, [loadedAll, dispatch])
 

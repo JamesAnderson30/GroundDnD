@@ -1,0 +1,32 @@
+#ReviewModel{
+    /* width: 350px;
+    max-width: 50%;
+    height: 275px; */
+}
+
+#modal-content{
+    width: 350px;
+    /* max-width: 50%; */
+    height: 275px;
+    text-align: center;
+}
+
+#StarGallery{
+    margin: 13px 0px;
+}
+
+#ReviewModel > button{
+    width: 90%;
+    height: 33px;
+}
+
+#ReviewModel > h2{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+
+.reviewTextarea{
+    margin-left: auto;
+    margin-right: auto;
+    width:90%
+}

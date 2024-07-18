@@ -1,35 +1,118 @@
 import { useSelector } from "react-redux";
 import './Review.css'
+import { useEffect, useState, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { fetchReviewsBySpot } from "../../store/reviews";
+import OpenModalButton from '../OpenModalButton/OpenModalButton';
+import ReviewModel from "./ReviewModel/ReviewModel";
 
-function ReviewsAllDetails({id}){
+
+
+
+function ReviewsAllDetails({id, spot}){
     const allReviews = useSelector(state=>state.reviews.reviews.all);
+    const byId = useSelector(state=>state.reviews.reviews.byId);
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const user = useSelector(state => state.session.user);
+    const dispatch = useDispatch();
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    return (
-      <>
-        <div>
-        {allReviews.map((review, i)=>{
-          let d = new Date(Date.parse(review.updatedAt));
+    /* MODEL */
 
-          let month = d.getUTCMonth();
-          let year = d.getUTCFullYear();
-          if(review.spotId.toString() === id.toString()){
-            return (
-              <div className={"SingleReview"} key={i}>
-                <h3>{review.User.firstName}</h3>
-                <h4>{`${MONTHS[month]} ${year}`}</h4>
-                <p>{review.review}</p>
-              </div>
+      const [showMenu, setShowMenu] = useState(false);
+      const ulRef = useRef();
 
-            );
-          } else {
-            console.log("Didn't render review: ", review);
-            console.log("And the ID: ", id);
+      const toggleMenu = (e) => {
+        e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
+        setShowMenu(!showMenu);
+      };
+
+      useEffect(() => {
+        if (!showMenu) return;
+
+        const closeMenu = (e) => {
+          if (!ulRef.current.contains(e.target)) {
+            setShowMenu(false);
           }
-        })}
-        </div>
-      </>
-    )
+        };
+
+        document.addEventListener('click', closeMenu);
+
+        return () => document.removeEventListener("click", closeMenu);
+      }, [showMenu]);
+
+      const closeMenu = () => setShowMenu(false);
+
+    /*   */
+
+    let allowReview = false;
+    let spotOwnerId = spot.User.id;
+
+
+
+    if(user && user.id && spotOwnerId !== user.id) allowReview = true;
+
+
+    function checkState(spotReviews){
+
+    }
+
+    //I need to figure this out, refractor
+
+    useEffect(()=>{
+      if(!checkState(spot.Reviews) && user){
+
+        dispatch(fetchReviewsBySpot(id));
+      }
+
+    }, [dispatch,id, spot])
+
+    console.log("the heccing state of spots: ", spot);
+
+    console.log("spot.Reviews.length: ", spot.Reviews.length);
+    if(spot.Reviews.length && spot.Reviews.length > 0){
+      return (
+        <>
+          {(allowReview)? (
+             <OpenModalButton
+              buttonText="Leave your review"
+              onButtonClick={closeMenu}
+              modalComponent={<ReviewModel
+                spot={spot}
+                user={user}
+              />}
+             />)
+            : null
+          }
+          <div>
+            {spot.Reviews.map((review, i)=>{
+              console.log("byIdTEST: ", byId);
+              let d = new Date(Date.parse(review.updatedAt));
+
+              let month = d.getUTCMonth();
+              let year = d.getUTCFullYear();
+                return (
+                  <div className={"SingleReview"} key={i}>
+                    <h3>{review.User.firstName}</h3>
+                    <h4>{`${MONTHS[month]} ${year}`}</h4>
+                    <p>{review.review}</p>
+                  </div>
+                )
+            })}
+          </div>
+        </>
+      )
+    } else {
+      if(allowReview){
+        return (
+          <div>Be the first to review!</div>
+        )
+      } else {
+        return(
+          <div>No Reviews</div>
+        )
+      }
+    }
 }
 
 

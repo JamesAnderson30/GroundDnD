@@ -7,9 +7,7 @@ function ReviewsStars({spot, numerical}){
 
         avgRating = (Math.round((avgRating / spot.Reviews.length) * 10) / 10).toFixed(1);
     } else {
-        return (
-            <div>No Reviews</div>
-        )
+
     }
 
     let starArray = Array(5).fill(".");
@@ -29,19 +27,24 @@ function ReviewsStars({spot, numerical}){
             </>
         )
     } else {
-        console.log("not numerical");
-        return (
+        if(reviewCount > 0){
+            return (
+                <>
+                    {starArray.map((element, i)=>{
+                        return (
+                                <span key={`${i}${i*i}`}>{element}</span>
+                            )
+                        })}
+                        <span>
+                        &nbsp;.&nbsp;{`${reviewCount} review`}{(reviewCount === 1) ? "" : "s"}
+                        </span>
+                </>
+            )
+        } else {
             <>
-                {starArray.map((element, i)=>{
-                    return (
-                            <span key={`${i}${i*i}`}>{element}</span>
-                        )
-                    })}
-                    <span>
-                    &nbsp;.&nbsp;{`${reviewCount} review`}{(reviewCount === 1) ? "" : "s"}
-                    </span>
+                
             </>
-        )
+        }
     }
 }
 

@@ -52,7 +52,7 @@ function SpotDetails (){
           <div id="spotDetailsReviewsHeader">
             <ReviewsStars spot={spots.byId[id]}/>
           </div>
-          <ReviewsAllDetails id={id}/>
+          <ReviewsAllDetails spot={spots.byId[id]} id={id}/>
         </div>
       )
     } else {

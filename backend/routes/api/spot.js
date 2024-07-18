@@ -205,7 +205,11 @@ router.get("/:spotId", async (req, res)=>{
             {
 
                 model: Models.Review,
-                attributes: ["stars"],
+                include: [
+                    {
+                        model: Models.User
+                    }
+                ]
             },
             {
                 model: Models.Image,
@@ -362,7 +366,11 @@ maxPrice: decimal, optional, minimum: 0
         include:[
             {
                 model: Models.Review,
-                attributes: ["stars"]
+                include:[
+                    {
+                        model:Models.User
+                    }
+                ]
             },
             {
                 model: Models.Image,

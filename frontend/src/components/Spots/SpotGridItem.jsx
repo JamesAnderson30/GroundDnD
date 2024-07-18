@@ -3,7 +3,6 @@ import './SpotGridItem.css'
 
 function SpotGridItem({spot, idx}){
     let thisSpot = spot.spot
-    console.log("thisSpot: ", thisSpot);
     return(
         <a href={`/spots/${thisSpot.id}`}>
             <div className={"SpotGridItem"}>
