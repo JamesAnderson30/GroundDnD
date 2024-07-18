@@ -1,0 +1,144 @@
+h2{
+    font-size: 21px;
+    margin-top: 22px;
+    margin-bottom: 6px;
+}
+
+h3{
+    margin:0;
+    margin-top:9px;
+}
+
+h4{
+    margin-top:9px;
+    margin:0;
+}
+
+hr{
+    height: 2px;
+    background-color: black;
+    margin-top:20px;
+}
+
+textarea{
+    display: block;
+    margin-top: 18px;
+    width: 100%;
+    height: 111px;
+    border: 3px solid black;
+    background-color: #e9f0fe;
+}
+
+#NewSpotForm{
+    width: 368px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#NewSpotForm > div{
+
+}
+
+#NewSpotForm > div > label{
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 2x;
+    margin-bottom:2px
+}
+
+#NewSpotForm > div > input{
+    width: 100%;
+    border: 3px solid black;
+    background-color: #e9f0fe;
+    height: 21px;
+    padding: 0px;
+    margin: 0px;
+}
+
+#NewSpotForm > div >div> label{
+    font-size: 13px;
+    font-weight: 500;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
+#NewSpotForm > div > div>input{
+    width: 100%;
+    border: 3px solid black;
+    background-color: #e9f0fe;
+    height: 21px;
+
+}
+
+.labelGroup2 > label:nth-child(1){
+    width: 52%;
+    display: inline-block;
+    font-weight: 500;
+    margin-top: 5px;
+    margin-bottom:2px;
+}
+
+.labelGroup2 > label:nth-child(2){
+    width: 23%;
+    display: inline-block;
+    font-weight: 500;
+    margin-top: 2px;
+    margin-bottom:2px;
+}
+
+.inputGroup > input:nth-child(1){
+    width: 63% !important;
+    display: inline-block;
+}
+
+.inputGroup > input:nth-child(3){
+    width: 27% !important;
+    display: inline-block;
+}
+
+.inputGroup2 > input:nth-child(1){
+    width: 45% !important;
+    display: inline-block;
+}
+
+.inputGroup2 > input:nth-child(3){
+    width: 45% !important;
+    display: inline-block;
+}
+
+.labelGroup{
+    display: inline-block;
+    width: 100%;
+}
+
+#price{
+    width: 342px !important;
+}
+
+/* Refractor this
+
+This is for the 'city' label'*/
+#NewSpotForm > div:nth-child(3) > div.labelGroup > label:nth-child(1){
+    display: inline-block;
+    width: 70%;
+
+}
+
+/* state label */
+#NewSpotForm > div:nth-child(3) > div.labelGroup > label:nth-child(2){
+
+}
+
+/* Image Gallery Portion */
+.imageInput{
+    margin: 10px 0px !important;
+}
+
+.comma{
+    padding-left: 1%;
+    padding-right: 2%;
+    display:inline-block;
+}

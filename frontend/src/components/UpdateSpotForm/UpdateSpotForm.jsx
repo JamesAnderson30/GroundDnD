@@ -5,9 +5,10 @@ import { postSpot } from '../../store/spots';
 import ErrorLabel from '../Error/ErrorLabel';
 import { useNavigate } from 'react-router-dom';
 
-import './NewSpotForm.css';
+import './UpdateSpotForm.css';
 
-function NewSpotForm({spot}){
+function UpdateSpotForm({spot}){
+    console.log("spot: ", spot);
     
     let [country, setCountry] = useState("");
     let [address, setAddress] = useState("");
@@ -158,7 +159,7 @@ function NewSpotForm({spot}){
     )
 }
 
-export default NewSpotForm;
+export default UpdateSpotForm;
 /*country
 address
 city
