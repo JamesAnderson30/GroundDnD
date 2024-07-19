@@ -18,8 +18,10 @@ export const loadSpots = (spots) =>{
 }
 
 export const fetchSpot = (id) => async (dispatch) => {
+  console.log("FetchSpot: ", id);
   const response = await csrfFetch(`/api/spots/${id}`);
   const spot = await response.json();
+  console.log(spot);
   dispatch(loadSpot(spot))
 }
 
@@ -45,7 +47,6 @@ export const postSpot = (body, images) => async (dispatch)=>{
     return errors;
   }
   const spot = await response.json();
-  console.log("errors: ",errors);
   const id = spot.id;
 
   const uploadImage = async (url, preview)=>{
@@ -99,6 +100,7 @@ const spotsReducer = (state = initialState, action) => {
       byId[action.spot.id] = action.spot
       // console.log("second all: ", all);
       // console.log("action: ", action.spot);
+      console.log("storing state: ");
       return { ...state, spots:{all, byId}} ;
     case LOAD_SPOTS:
       all = action.spots.Spots;
@@ -108,7 +110,8 @@ const spotsReducer = (state = initialState, action) => {
       }
 
       loadedAll = true;
-      return {...state, spots:{all, byId, loadedAll}}
+
+      return {...state, spots:{...all, ...byId, loadedAll}}
     default:
 
       return state;

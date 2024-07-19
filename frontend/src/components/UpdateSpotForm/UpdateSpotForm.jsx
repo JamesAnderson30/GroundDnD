@@ -1,15 +1,13 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import { csrfFetch } from '../../store/csrf';
-import { useDispatch } from 'react-redux';
-import { postSpot } from '../../store/spots';
+import { useDispatch, useSelector } from 'react-redux';
+import { postSpot, fetchSpot } from '../../store/spots';
 import ErrorLabel from '../Error/ErrorLabel';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import './UpdateSpotForm.css';
 
-function UpdateSpotForm({spot}){
-    console.log("spot: ", spot);
-    
+function UpdateSpotForm(){
     let [country, setCountry] = useState("");
     let [address, setAddress] = useState("");
     let [city, setCity] = useState("");
@@ -24,10 +22,98 @@ function UpdateSpotForm({spot}){
     let [image3, setImage3] = useState(false);
     let [image4, setImage4] = useState(false);
     let [price, setPrice] = useState("");
-
+    let [isLoaded, setLoaded] = useState(false);
     let [errors, setErrors] = useState({});
+    let [handleErrors, setHandleErrors] = useState("");
+
+    const dispatch = useDispatch();
+    const {id} = useParams()
+    const user = useSelector(state => state.session.user);
+    let userClone = user;
+    let {spots} = useSelector(state=>state.spots);
 
     const navigate = useNavigate();
+
+    //Error Handling: user not logged in
+
+
+
+    useEffect(()=>{
+        //If the spot doesn't exist in state
+
+        //Error Handling: user not logged in
+
+
+
+        if(!(spots && spots.byId[id])){
+            console.log("dispatch...");
+            dispatch(fetchSpot(id));
+            setLoaded(true);
+        } else {
+            let spot = spots.byId[id];
+            console.log("user: ", JSON.stringify(user));
+            console.log("user.id", JSON.stringify(user.id));
+            console.log("spot.User.id: ", spot.User.id);
+
+            if(!user){
+                setHandleErrors("User must be logged in");
+                console.log("not logged");
+            } else if(user.id !== spot.User.id){
+                setHandleErrors("You must own the spot to update it");
+                console.log("not right user");
+            } else {
+
+                setCountry(spot.country)
+                setAddress(spot.address);
+                setCity(spot.city);
+                setState(spot.state);
+                setLat(spot.lat);
+                setLong(spot.lng);
+                setDescription(spot.description);
+                setTitle(spot.name);
+                setPrice(spot.price);
+
+                let i = 0;
+                for(let image of spot.Images){
+                    if(image.preview){
+                        setPreview(image);
+                    } else {
+                        switch(i){
+                            case 1:
+                                setImage1(image);
+                                break;
+                            case 2:
+                                setImage2(image);
+                                break;
+                            case 3:
+                                setImage3(image);
+                                break;
+                            case 4:
+                                setImage4(image);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    i++;
+                }
+            }
+
+        }
+    }, [dispatch, id, spots, user, setHandleErrors])
+
+
+    if(handleErrors){
+        console.log(handleErrors);
+        return(
+            <>
+                <div>{handleErrors}</div>
+            </>
+        )
+    }
+
+
+
 
     let handleDemo = (e) => {
         e.preventDefault();
@@ -46,8 +132,6 @@ function UpdateSpotForm({spot}){
         setImage3("https://2.bp.blogspot.com/-jOS8_wnKkqk/Umas0EW11dI/AAAAAAAA4Jo/wr0wCIBD57I/s1600/beautiful-houses-with-beautiful-gardens.jpg");
         setImage4("https://www.mashvisor.com/blog/wp-content/uploads/2018/09/bigstock-Cozy-house-with-beautiful-land-84075557.jpg");
     }
-
-    let dispatch = useDispatch();
 
     //Component Functions
 
@@ -74,9 +158,11 @@ function UpdateSpotForm({spot}){
 
     }
 
+
+
     return (
         <div id="NewSpotForm">
-            <h2>Create a new Spot</h2>
+            <h2>Update my Spot</h2>
             <h3>Where's your place located?</h3>
             Guests will only get your exact address once they booked a
             reservation.
@@ -152,7 +238,7 @@ function UpdateSpotForm({spot}){
                     <input className="imageInput" value={(image4) ? image1 : ""} onChange={(e)=>{setImage4(e.target.value)}} placeholder="Image URL" />
                 </div>
                 <hr/>
-                <button type='submit' onClick={(e)=>handleSubmit(e)}>Create a Spot</button>
+                <button type='submit' onClick={(e)=>handleSubmit(e)}>Update Spot</button>
             </form>
             <button onClick={(e)=>{handleDemo(e)}}>Demo</button>
         </div>
