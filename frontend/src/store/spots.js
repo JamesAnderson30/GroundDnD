@@ -84,6 +84,7 @@ export const postSpot = (body, images) => async (dispatch)=>{
 const initialState = { spots: {loadedAll: false, all:[], byId:{}}};
 
 const spotsReducer = (state = initialState, action) => {
+  console.log("state: ", state);
   let all = state.spots.all;
   let byId = state.spots.byId;
   let loadedAll = state.spots.loadedAll;
@@ -104,14 +105,14 @@ const spotsReducer = (state = initialState, action) => {
       return { ...state, spots:{all, byId}} ;
     case LOAD_SPOTS:
       all = action.spots.Spots;
-
+      console.log("byId: ", byId);
       for(let spot of all){
         byId[spot.id] = spot;
       }
 
       loadedAll = true;
 
-      return {...state, spots:{...all, ...byId, loadedAll}}
+      return {...state, spots:{all, byId, loadedAll}}
     default:
 
       return state;
