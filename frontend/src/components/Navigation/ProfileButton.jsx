@@ -43,16 +43,16 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button onClick={toggleMenu}>
+      <button className="pointer" onClick={toggleMenu}>
         <FaUserCircle />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
+            <li>Hello {user.username}</li>
             <li>{user.email}</li>
-            <li><NavLink to="/spots/current">/spots/1</NavLink></li>
+            <hr />
+            <li><NavLink to="/spots/current">Manage Spots</NavLink></li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

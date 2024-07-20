@@ -12,3 +12,22 @@
     margin-left: -50%;
     width: 150%;
 }
+
+.profile-dropdown{
+    position: absolute;
+    right: 0;
+    background-color: white;
+    border: 1px black solid;
+    list-style: none;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.profile-dropdown > hr{
+    margin-top: 9px;
+    margin-bottom: 0px;
+}
+
+.pointer{
+    cursor:pointer;
+}

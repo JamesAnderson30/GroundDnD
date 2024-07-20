@@ -10,16 +10,10 @@ function Navigation({ isLoaded }) {
     <>
       <nav id="MainNav">
         <div className='floatLeft'>
-          <img src="/images/logo.png"></img>
+          <NavLink to="/" ><img className="pointer" src="/images/logo.png"></img></NavLink>
         </div>
         <div className='floatRight'>
-            <NavLink to="/spots/1">/spots/1</NavLink>
-            <NavLink to="/spots/2">/spots/2</NavLink>
-            <NavLink to="/spots/new">_new_</NavLink>
             <ul>
-              <li>
-                <NavLink to="/">Home</NavLink>
-              </li>
               {isLoaded && (
                 <li>
                   <ProfileButton user={sessionUser} />

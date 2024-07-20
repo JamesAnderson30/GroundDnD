@@ -67,7 +67,6 @@ function ReviewsAllDetails({id, spot}){
 
     }, [dispatch,id, spot])
 
-    console.log("the heccing state of spots: ", spot);
 
     console.log("spot.Reviews.length: ", spot.Reviews.length);
     if(spot.Reviews.length && spot.Reviews.length > 0){
@@ -103,10 +102,17 @@ function ReviewsAllDetails({id, spot}){
         </>
       )
     } else {
+      console.log("allowReview: ", allowReview);
       if(allowReview){
         return (
-          <div>Be the first to review!</div>
-        )
+          <OpenModalButton
+           buttonText="Leave your review"
+           onButtonClick={closeMenu}
+           modalComponent={<ReviewModel
+             spot={spot}
+             user={user}
+           />}
+          />)
       } else {
         return(
           <div>No Reviews</div>

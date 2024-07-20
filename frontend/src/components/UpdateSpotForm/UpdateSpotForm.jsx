@@ -1,9 +1,41 @@
 import {useEffect, useState} from 'react';
 import { csrfFetch } from '../../store/csrf';
 import { useDispatch, useSelector } from 'react-redux';
-import { postSpot, fetchSpot } from '../../store/spots';
+import { postSpot, fetchSpot, unloadSpots } from '../../store/spots';
 import ErrorLabel from '../Error/ErrorLabel';
 import { useParams, useNavigate } from 'react-router-dom';
+import { putSpot } from '../../store/spots';
+
+
+
+
+
+
+
+
+
+/**
+ * WHEN YOU GET BACK.
+ * YOU NEED TO MAKE THE UPDATE THUNK GO ON TO UPDATE THE STATE AND RERENDER THE RESULTING SPOT DETAILS PAGE
+ *
+ *
+ * **/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 import './UpdateSpotForm.css';
 
@@ -46,21 +78,16 @@ function UpdateSpotForm(){
 
 
         if(!(spots && spots.byId[id])){
-            console.log("dispatch...");
             dispatch(fetchSpot(id));
             setLoaded(true);
         } else {
             let spot = spots.byId[id];
-            console.log("user: ", JSON.stringify(user));
-            console.log("user.id", JSON.stringify(user.id));
-            console.log("spot.User.id: ", spot.User.id);
+
 
             if(!user){
                 setHandleErrors("User must be logged in");
-                console.log("not logged");
             } else if(user.id !== spot.User.id){
                 setHandleErrors("You must own the spot to update it");
-                console.log("not right user");
             } else {
 
                 setCountry(spot.country)
@@ -135,7 +162,7 @@ function UpdateSpotForm(){
 
     //Component Functions
 
-    let handleSubmit = async (e) => {
+    let handleSubmit = async (e, id) => {
         e.preventDefault();
 
         let body = JSON.stringify({
@@ -146,13 +173,14 @@ function UpdateSpotForm(){
         let images = {preview, image1, image2, image3, image4};
         //A response of  'false' means a successful post
         //A truthy response means the server returned an error message
-        let response = await dispatch(postSpot(body, images));
+        let response = await dispatch(putSpot(body, images, id));
+        dispatch(unloadSpots());
 
         if(response.errors){
             let copy = {...response};
             setErrors(copy.errors);
         } else {
-            navigate(`/spots/${response}`)
+            navigate(`/spots/${id}`)
         }
 
 
@@ -228,7 +256,7 @@ function UpdateSpotForm(){
                     <h3 className="comma">$</h3><input name="price" id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
                 </div>
                 <hr/>
-                <div>
+                {/* <div>
                     <h3>Liven up your spot with photos</h3>
                     Submit a link to at least one photo to publish your spot
                     <input value={preview} onChange={(e)=>{setPreview(e.target.value)}} placeholder='Preview Image URL' />
@@ -236,9 +264,9 @@ function UpdateSpotForm(){
                     <input className="imageInput" value={(image2) ? image1 : ""} onChange={(e)=>{setImage2(e.target.value)}} placeholder="Image URL" />
                     <input className="imageInput" value={(image3) ? image1 : ""} onChange={(e)=>{setImage3(e.target.value)}} placeholder="Image URL" />
                     <input className="imageInput" value={(image4) ? image1 : ""} onChange={(e)=>{setImage4(e.target.value)}} placeholder="Image URL" />
-                </div>
-                <hr/>
-                <button type='submit' onClick={(e)=>handleSubmit(e)}>Update Spot</button>
+                </div> */}
+
+                <button type='submit' onClick={(e)=>handleSubmit(e, id)}>Update Spot</button>
             </form>
             <button onClick={(e)=>{handleDemo(e)}}>Demo</button>
         </div>

@@ -2,6 +2,17 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_SPOT = "spot/LOAD_SPOT";
 const LOAD_SPOTS = "spot/LOAD_SPOTS";
+const LOAD_USER_SPOTS = "spot/LOAD_USER_SPOTS";
+const UNLOAD_SPOTS = "spot/UNLOAD_SPOTS";
+const DELETE_SPOT = "spot/DELETE_SPOT"
+
+
+
+export const unloadSpots = () =>{
+  return{
+    type: UNLOAD_SPOTS
+  }
+}
 
 export const loadSpot = (spot) =>{
     return {
@@ -17,12 +28,30 @@ export const loadSpots = (spots) =>{
   }
 }
 
+export const deleteSpotState = (spot) =>{
+  return{
+    type:DELETE_SPOT,
+    spot
+  }
+}
+
+export const loadUserSpots = (spots) =>{
+  return {
+    type: LOAD_USER_SPOTS,
+    spots
+  }
+}
+
 export const fetchSpot = (id) => async (dispatch) => {
-  console.log("FetchSpot: ", id);
   const response = await csrfFetch(`/api/spots/${id}`);
   const spot = await response.json();
-  console.log(spot);
   dispatch(loadSpot(spot))
+}
+
+export const fetchUserSpots = (id) => async (dispatch) =>{
+  const response = await csrfFetch("/api/spots/current");
+  const spots = await response.json();
+  dispatch(loadUserSpots(spots));
 }
 
 export const fetchAllSpots = () => async (dispatch) =>{
@@ -30,6 +59,21 @@ export const fetchAllSpots = () => async (dispatch) =>{
   const spots = await response.json();
   dispatch(loadSpots(spots));
 }
+
+export const deleteSpot = (id) => async (dispatch) =>{
+  console.log("id: ", id);
+  const response = await csrfFetch(`/api/spots/${id}`, {
+    method:"DELETE",
+    headers: {
+        "Content-Type": "application/json",
+      }
+  })
+  const spot = await response.json();
+  dispatch(deleteSpotState(id))
+}
+
+
+
 
 // This needs to be refractored to be more dry
 export const postSpot = (body, images) => async (dispatch)=>{
@@ -81,15 +125,77 @@ export const postSpot = (body, images) => async (dispatch)=>{
   return id;
 }
 
-const initialState = { spots: {loadedAll: false, all:[], byId:{}}};
+export const putSpot = (body, images, spotId) => async (dispatch)=>{
+  console.log("body: ", body);
+  let {preview, image1, image2, image3, image4} = images;
+  let errors = false;
+
+    let response = await csrfFetch(`/api/spots/${spotId}`,{
+        method:"PUT",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        body
+    }).catch(async error=>{errors = (await error.json())});
+  if(errors){
+    return errors;
+  }
+  const spot = await response.json();
+  const id = spot.id;
+
+  const uploadImage = async (url, preview)=>{
+    let previewRes = await csrfFetch(`/api/spots/${id}/images`, {
+      body: JSON.stringify({url, preview}),
+      method: "POST"
+    })
+  }
+
+
+
+  if(preview){
+    uploadImage(preview, true);
+  }
+
+  if(image1){
+    uploadImage(image1, false);
+  }
+
+  if(image2){
+    uploadImage(image2, false);
+  }
+
+  if(image3){
+    uploadImage(image3, false);
+  }
+
+  if(image4){
+    uploadImage(image4, false);
+  }
+
+  dispatch(unloadSpots());
+
+  return id;
+}
+
+const initialState = { userSpots: {isLoaded:false}, spots: {loadedAll: false, all:[], byId:{}}};
 
 const spotsReducer = (state = initialState, action) => {
-  console.log("state: ", state);
-  let all = state.spots.all;
-  let byId = state.spots.byId;
+  let all = JSON.parse(JSON.stringify(state.spots.all));
+  let byId = JSON.parse(JSON.stringify(state.spots.byId));
   let loadedAll = state.spots.loadedAll;
+
   // console.log("all: ", all);
   switch (action.type) {
+    //DELETE SPOT------------------------------------
+    case DELETE_SPOT:
+      let userSpots = JSON.parse(JSON.stringify(state.userSpots));
+      let spotId = action.spot;
+      userSpots = userSpots.filter((userSpot)=>{
+        return userSpot.id !== spotId;
+      })
+
+      return {...state, userSpots}
+    //LOAD SPOT--------------------------------------
     case LOAD_SPOT:
 
       //
@@ -98,21 +204,34 @@ const spotsReducer = (state = initialState, action) => {
       }) === -1){
         all.push(action.spot);
       }
+
       byId[action.spot.id] = action.spot
-      // console.log("second all: ", all);
-      // console.log("action: ", action.spot);
-      console.log("storing state: ");
+
       return { ...state, spots:{all, byId}} ;
+    //LOAD_SPOTS ----------------------------------
     case LOAD_SPOTS:
-      all = action.spots.Spots;
-      console.log("byId: ", byId);
-      for(let spot of all){
-        byId[spot.id] = spot;
+      let newById = {};
+
+      for(let spot of action.spots.Spots){
+
+        newById[spot.id] = spot;
       }
 
       loadedAll = true;
 
-      return {...state, spots:{all, byId, loadedAll}}
+      all = action.spots.Spots;
+
+
+      return {...state, spots:{all, byId: newById, loadedAll}}
+    // LOAD_USER_SPOTS --------------------------
+    case LOAD_USER_SPOTS:
+      let stateCopy = JSON.parse(JSON.stringify(state));
+      console.log("load_user_spots: ", action);
+      stateCopy["userSpots"] = action.spots;
+      return stateCopy;
+    case UNLOAD_SPOTS:
+      console.log("UNLOAD");
+      return {...state, spots:{all, byId, loadedAll:false}}
     default:
 
       return state;

@@ -1,6 +1,15 @@
 import { csrfFetch } from "./csrf";
+import { fetchSpot } from "./spots";
 
 const LOAD_REVIEWS = "review/LOAD_REVIEWS";
+const ADD_REVIEW = "review/ADD_REVIEW";
+
+export const addReview = (review) =>{
+    return {
+        type: ADD_REVIEW,
+        review
+    }
+}
 
 export const loadReviews = (reviews)=>{
     return {
@@ -25,7 +34,7 @@ export const postReview=(payload) => async (dispatch)=>{
         body
     })
     const responseJson = await response.json();
-    console.log("responseJson: ", responseJson)
+    dispatch(fetchSpot(payload.spotId));
 }
 
 const initialState = {reviews: {all:[], byId:{}}}
@@ -35,6 +44,11 @@ const reviewReducer = (state = initialState, action)=>{
     let byId = state.reviews.byId;
 
     switch (action.type){
+
+        case ADD_REVIEW:
+            all.push(action.review);
+
+            return {...state, reviews:{byId, all}}
         case LOAD_REVIEWS:
             for(let review of action.reviews){
                 byId[review.id] = review

@@ -203,20 +203,19 @@ router.get("/:spotId", async (req, res)=>{
     let spot = await Spot.findByPk(id, {
         include:[
             {
-
                 model: Models.Review,
-                include: [
+                include:[
                     {
-                        model: Models.User
+                        model:Models.User
                     }
                 ]
             },
             {
                 model: Models.Image,
-                required: false,
-                attributes: ["id","url","preview"],
-                through:{
-                    attributes:[]
+                required:false,
+                attributes: ["url", "preview"],
+                where:{
+                    preview:true
                 }
             },
             {

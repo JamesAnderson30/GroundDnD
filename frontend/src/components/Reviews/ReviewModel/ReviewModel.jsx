@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import "./ReviewModel.css";
-import { useDispatch } from "react-redux";
 import { postReview } from "../../../store/reviews";
+import { useModal } from '../../../context/Modal';
+import { useDispatch } from "react-redux";
 function ReviewModel({spot, user}){
     const [disabled, setDisabled] = useState(true);
     const [review, setReview] = useState("");
@@ -10,6 +11,7 @@ function ReviewModel({spot, user}){
     const [stars, setStars] = useState([NO_STAR, NO_STAR, NO_STAR, NO_STAR, NO_STAR]);
     const [starCount, setStarCount] = useState(0);
 
+    const { closeModal } = useModal();
     const dispatch = useDispatch();
 
     function handleStartClick(e){
@@ -39,7 +41,15 @@ function ReviewModel({spot, user}){
             review,
             stars: starCount
         }
-        dispatch(postReview(payload));
+        console.log("payload: ", payload);
+        return dispatch(postReview(payload))
+            .then(closeModal)
+            .catch(async (res) => {
+                // const data = await res.json();
+                // if (data && data.errors) {
+                // setErrors(data.errors);
+                // }
+        });
     }
 
     useEffect(()=>{

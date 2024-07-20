@@ -13,12 +13,9 @@ function Home(){
   let {spots} = useSelector(state=>state.spots);
   let {loadedAll} = spots;
   const dispatch = useDispatch();
-
+  console.log("loadedAll: ", loadedAll);
   useEffect(()=>{
-    if(!loadedAll){
       dispatch(fetchAllSpots());
-    } else {
-    }
   }, [loadedAll, dispatch])
 
 
