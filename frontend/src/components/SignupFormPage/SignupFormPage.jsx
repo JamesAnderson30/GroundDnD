@@ -5,6 +5,7 @@ import * as sessionActions from '../../store/session';
 import './SignupFormPage.css';
 
 function SignupFormModal() {
+
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -14,6 +15,15 @@ function SignupFormModal() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  function handleDemo(){
+    setEmail("NewDemo@aol.com");
+    setUsername("New Demo User");
+    setFirstName("Demo");
+    setLastName("User");
+    setPassword("password");
+    setConfirmPassword("password");
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -102,6 +112,7 @@ function SignupFormModal() {
           <p>{errors.confirmPassword}</p>
         )}
         <button type="submit">Sign Up</button>
+        <button onClick={handleDemo}>Demo</button>
       </form>
     </>
   );
