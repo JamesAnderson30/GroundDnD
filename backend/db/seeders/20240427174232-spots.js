@@ -53,9 +53,9 @@ module.exports = {
         price: 20.20
   },
   {
-    ownerId: 1,
+    ownerId: 3,
       address: "4444 Rd",
-      city: "Testy Mc Test Town",
+      city: "Review Me",
       state: "Georgia unfortunately",
       country: "Empire Earth",
       lat: 50.2,
