@@ -189,6 +189,9 @@ const validateCreateSpot = [
     check("description")
         .exists({checkFalsy:true})
         .withMessage("Description is required"),
+    check("description")
+        .isLength({min:30})
+        .withMessage("Description needs a minimum of 30 characters"),
     check("price")
         .exists({checkFalsy:true})
         .isFloat({gt:0})
@@ -384,11 +387,13 @@ maxPrice: decimal, optional, minimum: 0
                 attributes:["id", "firstName", "lastName"]
             }
         ],
+        order: [
+            ["createdAt", "DESC"]
+        ],
         where: whereOptions,
         options: options
     });
     //console.log(spots);
-    console.log("11111111111111111111111111111111: ", spots);
     let spotsArray = avgSpotReviewsAndPreview(spots)
 
 
