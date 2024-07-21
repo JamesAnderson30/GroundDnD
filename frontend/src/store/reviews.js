@@ -1,5 +1,6 @@
 import { csrfFetch } from "./csrf";
 import { fetchSpot } from "./spots";
+import { fetchAllSpots } from "./spots";
 
 const LOAD_REVIEWS = "review/LOAD_REVIEWS";
 const ADD_REVIEW = "review/ADD_REVIEW";
@@ -48,7 +49,7 @@ export const deleteReview=(reviewId, spotId)=> async (dispatch)=>{
             }
         )
 
-    dispatch(fetchSpot(spotId))
+    dispatch(fetchAllSpots(spotId))
 }
 
 

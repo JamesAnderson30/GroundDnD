@@ -80,28 +80,30 @@ function SpotGridItem({spot, idx, manage = false}){
         return(
             <a>
                 <div className={"SpotGridItem"}>
-                    <div className="SpotGridImg">
-                        <img src={spot.previewImage}></img>
-                    </div>
-                    <div className="SpotGridBottom">
-                        <div className={"SpotGridInformation"}>
-                            <div className="SpotGridLocation">
-                                {spot.city},{spot.state}
+                    <NavLink to={`/spots/${spot.id}`}>
+                        <div className="SpotGridImg">
+                            <img src={spot.previewImage}></img>
+                        </div>
+                        <div className="SpotGridBottom">
+                            <div className={"SpotGridInformation"}>
+                                <div className="SpotGridLocation">
+                                    {spot.city},{spot.state}
+                                </div>
+                                <div className="SpotGridStars">
+                                    <ReviewsStars numerical={true}spot={spot}/>
+                                </div>
                             </div>
-                            <div className="SpotGridStars">
-                                <ReviewsStars numerical={true}spot={spot}/>
+                            <div className={"SpotGridPrice"}>
+                                $<h4>{spot.price}</h4> night
                             </div>
                         </div>
-                        <div className={"SpotGridPrice"}>
-                            $<h4>{spot.price}</h4> night
-                        </div>
-                    </div>
+                    </NavLink>
                     <div className="ManageDiv">
                         <NavLink className={"ManageButton"} to={`/spots/${spot.id}/update`}><button>Manage Spot</button></NavLink>
                         <OpenModalButton
                             buttonText="Delete Spot"
                              modalComponent={<DeleteSpotModel id={spot.id}/>}
-                        />
+                        ></OpenModalButton>
                     </div>
                 </div>
             </a>

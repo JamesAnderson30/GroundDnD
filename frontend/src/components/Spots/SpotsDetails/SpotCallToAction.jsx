@@ -5,7 +5,9 @@ function SpotCallToAction({spot}){
 
     // --- Set avg Rating
 
-
+    function handleReserve(){
+        alert("Feature coming soon");
+    }
     let {price} = spot;
 
     return (
@@ -23,7 +25,7 @@ function SpotCallToAction({spot}){
             </div>
             {/* Button */}
             <div id="SpotCallToActionButton">
-                <button>Reserve</button>
+                <button onClick={handleReserve}>Reserve</button>
             </div>
         </div>
     )

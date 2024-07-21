@@ -21,7 +21,7 @@ function ReviewsStars({spot, numerical}){
     if(numerical){
         return (
             <>
-                <span>★{avgRating}</span>
+                <span>★{avgRating === 0 ? "New" : avgRating}</span>
             </>
         )
     } else {

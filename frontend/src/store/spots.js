@@ -45,6 +45,7 @@ export const loadUserSpots = (spots) =>{
 export const fetchSpot = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${id}`);
   const spot = await response.json();
+  console.log("spot: ", spot);
   dispatch(loadSpot(spot))
 }
 

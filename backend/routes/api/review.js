@@ -105,7 +105,10 @@ router.get("/current", restoreUser, requireAuth, async(req, res)=>{
                 where:{
                     preview:true
                 }
-            }
+            },
+            order: [
+                ["id", "DESC"]
+            ]
         });
 
         if(spotImgs){

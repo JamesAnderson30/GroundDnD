@@ -211,6 +211,10 @@ router.get("/:spotId", async (req, res)=>{
                     {
                         model:Models.User
                     }
+                ],
+                separate: true,
+                order: [
+                    ["id", "DESC"]
                 ]
             },
             {
@@ -372,6 +376,10 @@ maxPrice: decimal, optional, minimum: 0
                     {
                         model:Models.User
                     }
+                ],
+                seperate:true,
+                order: [
+                    [Models.Review,"id", "DESC"]
                 ]
             },
             {

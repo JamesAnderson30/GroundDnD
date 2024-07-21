@@ -5,13 +5,13 @@ import { useDispatch } from "react-redux";
 import { fetchReviewsBySpot } from "../../store/reviews";
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import ReviewModel from "./ReviewModel/ReviewModel";
-import { deleteReview } from "../../store/reviews";
+import ReviewDeleteModel from "./ReviewDeleteModel/ReviewDeleteModel";
 
 
 
 
 function ReviewsAllDetails({id, spot}){
-    const byId = useSelector(state=>state.reviews.reviews.byId);
+
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
@@ -21,13 +21,6 @@ function ReviewsAllDetails({id, spot}){
       const [showMenu, setShowMenu] = useState(false);
       const ulRef = useRef();
 
-      function handleDelete(e){
-        console.log("review user id: ",byId[e.target.value].User.id)
-        console.log("e.target.value: ", e.target.value)
-        if(user.id === byId[e.target.value].User.id) dispatch(deleteReview(e.target.value, id));
-
-
-      }
 
 
       useEffect(() => {
@@ -104,7 +97,11 @@ function ReviewsAllDetails({id, spot}){
                     <h4>{`${MONTHS[month]} ${year}`}</h4>
                     <p>{review.review}</p>
                     <div>
-                      {user && review.User.id == user.id ? <button value={review.id} onClick={(e)=>{handleDelete(e)}}>Delete</button> : null}
+                      {user && review.User.id == user.id ?
+                        <OpenModalButton
+                            buttonText="Delete Spot"
+                             modalComponent={<ReviewDeleteModel id={review.id}/>}
+                        ></OpenModalButton> : null}
                     </div>
                   </div>
                 )

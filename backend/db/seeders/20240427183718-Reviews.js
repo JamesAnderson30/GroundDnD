@@ -33,7 +33,12 @@ module.exports = {
       spotId:1,
       review: "This spot had all kinds of crazy rules, like I can only wear shoes.",
       stars:5
-    }
+    },
+      {
+        userId: 3,
+        spotId: 1,
+        review: "This review should come first (unless you've made new reviews, then it should be right under those!)"
+      }
     ], {});
   },
 

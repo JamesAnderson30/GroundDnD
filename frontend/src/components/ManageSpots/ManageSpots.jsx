@@ -29,9 +29,7 @@ function ManageSpots(){
                     <NavLink to="/spots/new" ><button>Create a new Spot</button></NavLink>
                     {userSpots.map((spot, idx)=>{
                         return(
-                            <span key={idx}>
-                                <SpotGridItem manage={true} spot={spot} />
-                            </span>
+                                <SpotGridItem key={`sg${idx}`} manage={true} spot={spot} />
                         )
                     })}
                 </>
