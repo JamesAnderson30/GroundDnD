@@ -54,6 +54,7 @@ function SpotGridItem({spot, idx, manage = false, spots}){
     if(!manage){
         let thisSpot = spot.spot
         return(
+            <span title={thisSpot.name}>
             <a className="pointer" href={`/spots/${thisSpot.id}`}>
                 <div className={"SpotGridItem"}>
                     <div className="SpotGridImg">
@@ -74,6 +75,7 @@ function SpotGridItem({spot, idx, manage = false, spots}){
                     </div>
                 </div>
             </a>
+        </span>
         )
     } else {
         let thisSpot = spot.spot

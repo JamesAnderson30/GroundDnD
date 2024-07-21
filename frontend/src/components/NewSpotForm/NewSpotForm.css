@@ -114,6 +114,10 @@ textarea{
     width: 100%;
 }
 
+#stateLabel{
+    display: inline-block;
+}
+
 #price{
     width: 342px !important;
 }
@@ -130,6 +134,10 @@ This is for the 'city' label'*/
 /* state label */
 #NewSpotForm > div:nth-child(3) > div.labelGroup > label:nth-child(2){
 
+}
+
+.error{
+    color:red;
 }
 
 /* Image Gallery Portion */

@@ -13,11 +13,16 @@ function Navigation({ isLoaded }) {
           <NavLink to="/" ><img className="pointer" src="/images/logo.png"></img></NavLink>
         </div>
         <div className='floatRight'>
-            <ul>
+            <ul id="navList">
               {isLoaded && (
+                <>
+                <li>
+                  {sessionUser && (<NavLink to="/spots/new">Create New Spot</NavLink>)}
+                </li>
                 <li>
                   <ProfileButton user={sessionUser} />
                 </li>
+              </>
               )}
             </ul>
         </div>

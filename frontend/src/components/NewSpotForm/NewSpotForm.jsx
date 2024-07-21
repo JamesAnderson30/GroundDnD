@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import './NewSpotForm.css';
 
 function NewSpotForm({spot}){
-    
+
     let [country, setCountry] = useState("");
     let [address, setAddress] = useState("");
     let [city, setCity] = useState("");
@@ -40,7 +40,7 @@ function NewSpotForm({spot}){
         setDescription("This is a demo spot, used to help speed up filling out forms! Repeat line! This is a demo spot, used to help speed up filling out forms! Repeat line! This is a demo spot, used to help speed up filling out forms! Repeat line! This is a demo spot, used to help speed up filling out forms! Repeat line! This is a demo spot, used to help speed up filling out forms! Repeat line!")
         setTitle("Demo Spot");
         setPreview("https://stonewood.co.nz/wp-content/uploads/Azure-106-Gable.jpg");
-        setImage1("https://i0.wp.com/ceciliamoyerblog.com/wp-content/uploads/2020/07/dark-exterior-house-black-exterior-6.png?resize=775%2C775&ssl=1");
+        setImage1("https://tse4.mm.bing.net/th?id=OIP.8rpI7Yo7Eeaa5Cu1IyDdIwHaEJ&pid=Api&P=0&h=220https://www.rocketmortgage.com/resources-cmsassets/RocketMortgage.com/Article_Images/Large_Images/Types%20Of%20Homes/Stock-Gray-Ranch-Style-Home-AdobeStock_279953994-copy.jpeg");
         setImage2("https://s3.amazonaws.com/homestratosphere/wp-content/uploads/2016/06/07101532/3ad-bungalow.jpg");
         setImage3("https://2.bp.blogspot.com/-jOS8_wnKkqk/Umas0EW11dI/AAAAAAAA4Jo/wr0wCIBD57I/s1600/beautiful-houses-with-beautiful-gardens.jpg");
         setImage4("https://www.mashvisor.com/blog/wp-content/uploads/2018/09/bigstock-Cozy-house-with-beautiful-land-84075557.jpg");
@@ -59,16 +59,54 @@ function NewSpotForm({spot}){
         });
 
         let images = {preview, image1, image2, image3, image4};
+        let imgArray = [image1, image2, image3, image4];
+        let correctImageTypes = ["jpg", "png", "jpeg"];
+
         //A response of  'false' means a successful post
         //A truthy response means the server returned an error message
-        let response = await dispatch(postSpot(body, images));
+        let areImagesCorrect = true;
 
-        if(response.errors){
-            let copy = {...response};
-            setErrors(copy.errors);
-        } else {
-            navigate(`/spots/${response}`)
+        let frontErrors = {};
+
+        //Check file types
+
+        for(let i = 0; imgArray.length > i; i++){
+            console.log("imgArray: ", imgArray[i])
+            if(imgArray[i]){
+                let type = imgArray[i].split('.').pop();
+
+                if(correctImageTypes.indexOf(type) == -1) frontErrors[`image${i+1}`] = "Image URL must end in .png, .jpg, or .jpeg";
+            }
         }
+        //Check Preview type
+        let previewType = preview.split('.').pop();
+        if(preview && correctImageTypes.indexOf(previewType) == -1){
+
+            frontErrors["preview"] = "Image URL must end in .png, .jpg, or .jpeg";
+
+        }
+        if(!preview){
+            frontErrors["preview"] = "Preview is required";
+        }
+
+        if(Object.keys(frontErrors).length < 1){
+            let response = await dispatch(postSpot(body, images));
+            setErrors({});
+
+            if(response?.errors){
+                let copy = {...response};
+                console.log("copy: ", copy);
+                if(description.length < 30) copy.errors["description"] = "Description needs a minimum of 30 characters";
+                console.log(copy.errors);
+                setErrors(copy.errors);
+            } else {
+                navigate(`/spots/${response}`)
+            }
+        } else {
+            setErrors(frontErrors);
+        }
+
+
 
 
     }
@@ -92,8 +130,8 @@ function NewSpotForm({spot}){
                 </div>
                 <div>
                     <div className={"labelGroup"}>
-                        <label htmlFor="city">City</label><ErrorLabel error={errors.city}/>
-                        <label htmlFor="state">State</label><ErrorLabel error={errors.state}/>
+                        <label htmlFor="city">City <ErrorLabel error={errors.city}/></label>
+                        <label id="stateLabel" htmlFor="state">State <ErrorLabel error={errors.state}/></label>
                     </div>
                     <div className={"inputGroup"}>
                         <input name="city" value={city} placeholder="City" onChange={(e)=>{setCity(e.target.value)}}></input>
@@ -103,16 +141,16 @@ function NewSpotForm({spot}){
 
                 </div>
                 <div>
-                    <div className={"labelGroup2"}>
+                    {/* <div className={"labelGroup2"}>
                         <label htmlFor="lat">Latitude</label><ErrorLabel error={errors.lat}/>
                         <label htmlFor="long">Longitude</label><ErrorLabel error={errors.lng}/>
-                    </div>
+                    </div> */}
 
-                    <div className={"inputGroup2"}>
+                    {/* <div className={"inputGroup2"}>
                         <input name="lat" value={lat} placeholder="Latitude" onChange={(e)=>{setLat(e.target.value)}}></input>
                         <span className="comma">,</span>
                         <input name="long" value={long} placeholder="Longitude" onChange={(e)=>{setLong(e.target.value)}} />
-                    </div>
+                    </div> */}
                 </div>
 
                 <div>
@@ -120,8 +158,9 @@ function NewSpotForm({spot}){
                     <h3>Describe your place to guests</h3>
                     Mention the best features of your space, any special amentities like
                     fast wif or parking, and what you love about the neighborhood.
-                    <ErrorLabel error={errors.description}/>
+
                     <textarea value={description} onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+                    <ErrorLabel error={errors.description}/>
                 </div>
                 <div>
                     <hr/>
@@ -145,10 +184,15 @@ function NewSpotForm({spot}){
                     <h3>Liven up your spot with photos</h3>
                     Submit a link to at least one photo to publish your spot
                     <input value={preview} onChange={(e)=>{setPreview(e.target.value)}} placeholder='Preview Image URL' />
+                    <ErrorLabel error={errors.preview}/>
                     <input className="imageInput" value={(image1) ? image1 : ""} onChange={(e)=>{setImage1(e.target.value)}} placeholder="Image URL" />
+                    <ErrorLabel error={errors.image1}/>
                     <input className="imageInput" value={(image2) ? image1 : ""} onChange={(e)=>{setImage2(e.target.value)}} placeholder="Image URL" />
+                    <ErrorLabel error={errors.image2}/>
                     <input className="imageInput" value={(image3) ? image1 : ""} onChange={(e)=>{setImage3(e.target.value)}} placeholder="Image URL" />
+                    <ErrorLabel error={errors.image3}/>
                     <input className="imageInput" value={(image4) ? image1 : ""} onChange={(e)=>{setImage4(e.target.value)}} placeholder="Image URL" />
+                    <ErrorLabel error={errors.image4}/>
                 </div>
                 <hr/>
                 <button type='submit' onClick={(e)=>handleSubmit(e)}>Create a Spot</button>

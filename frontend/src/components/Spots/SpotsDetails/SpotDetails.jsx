@@ -33,7 +33,7 @@ function SpotDetails (){
     useEffect(()=>{
       if(!spots.byId[id]) {
         dispatch(fetchSpot(id));
-        dispatch(fetchReviewsBySpot(id))
+        //dispatch(fetchReviewsBySpot(id))
       }
     }, [dispatch, id, spots.byId])
 

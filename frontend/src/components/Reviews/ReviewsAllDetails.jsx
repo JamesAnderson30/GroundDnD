@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { fetchReviewsBySpot } from "../../store/reviews";
 import OpenModalButton from '../OpenModalButton/OpenModalButton';
 import ReviewModel from "./ReviewModel/ReviewModel";
+import { deleteReview } from "../../store/reviews";
 
 
 
@@ -21,6 +22,14 @@ function ReviewsAllDetails({id, spot}){
 
       const [showMenu, setShowMenu] = useState(false);
       const ulRef = useRef();
+
+      function handleDelete(e){
+        console.log("review user id: ",byId[e.target.value].User.id)
+        console.log("e.target.value: ", e.target.value)
+        if(user.id === byId[e.target.value].User.id) dispatch(deleteReview(e.target.value, id));
+
+
+      }
 
       const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -52,6 +61,15 @@ function ReviewsAllDetails({id, spot}){
 
     if(user && user.id && spotOwnerId !== user.id) allowReview = true;
 
+    for(let review of spot.Reviews){
+      // console.log("review: ", review);
+      // console.log("user.id: ", user.id);
+      if(user && review.userId === user.id){
+        allowReview = false;
+      }
+    }
+
+
 
     function checkState(spotReviews){
 
@@ -60,15 +78,13 @@ function ReviewsAllDetails({id, spot}){
     //I need to figure this out, refractor
 
     useEffect(()=>{
-      if(!checkState(spot.Reviews) && user){
-
+      if(user){
         dispatch(fetchReviewsBySpot(id));
       }
 
     }, [dispatch,id, spot])
 
 
-    console.log("spot.Reviews.length: ", spot.Reviews.length);
     if(spot.Reviews.length && spot.Reviews.length > 0){
       return (
         <>
@@ -85,16 +101,19 @@ function ReviewsAllDetails({id, spot}){
           }
           <div>
             {spot.Reviews.map((review, i)=>{
-              console.log("byIdTEST: ", byId);
               let d = new Date(Date.parse(review.updatedAt));
 
               let month = d.getUTCMonth();
               let year = d.getUTCFullYear();
                 return (
                   <div className={"SingleReview"} key={i}>
+
                     <h3>{review.User.firstName}</h3>
                     <h4>{`${MONTHS[month]} ${year}`}</h4>
                     <p>{review.review}</p>
+                    <div>
+                      {user && review.User.id == user.id ? <button value={review.id} onClick={(e)=>{handleDelete(e)}}>Delete</button> : null}
+                    </div>
                   </div>
                 )
             })}
@@ -102,7 +121,6 @@ function ReviewsAllDetails({id, spot}){
         </>
       )
     } else {
-      console.log("allowReview: ", allowReview);
       if(allowReview){
         return (
           <OpenModalButton
@@ -114,9 +132,7 @@ function ReviewsAllDetails({id, spot}){
            />}
           />)
       } else {
-        return(
-          <div>No Reviews</div>
-        )
+        return null
       }
     }
 }

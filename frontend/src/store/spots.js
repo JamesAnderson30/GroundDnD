@@ -57,6 +57,7 @@ export const fetchUserSpots = (id) => async (dispatch) =>{
 export const fetchAllSpots = () => async (dispatch) =>{
   const response = await csrfFetch('/api/spots/');
   const spots = await response.json();
+  console.log("spots: ", spots);
   dispatch(loadSpots(spots));
 }
 
@@ -127,7 +128,6 @@ export const postSpot = (body, images) => async (dispatch)=>{
 
 export const putSpot = (body, images, spotId) => async (dispatch)=>{
   console.log("body: ", body);
-  let {preview, image1, image2, image3, image4} = images;
   let errors = false;
 
     let response = await csrfFetch(`/api/spots/${spotId}`,{
@@ -141,38 +141,11 @@ export const putSpot = (body, images, spotId) => async (dispatch)=>{
     return errors;
   }
   const spot = await response.json();
+  console.log("spot: ", spot);
   const id = spot.id;
 
-  const uploadImage = async (url, preview)=>{
-    let previewRes = await csrfFetch(`/api/spots/${id}/images`, {
-      body: JSON.stringify({url, preview}),
-      method: "POST"
-    })
-  }
 
-
-
-  if(preview){
-    uploadImage(preview, true);
-  }
-
-  if(image1){
-    uploadImage(image1, false);
-  }
-
-  if(image2){
-    uploadImage(image2, false);
-  }
-
-  if(image3){
-    uploadImage(image3, false);
-  }
-
-  if(image4){
-    uploadImage(image4, false);
-  }
-
-  dispatch(unloadSpots());
+  dispatch(fetchSpot(spotId));
 
   return id;
 }

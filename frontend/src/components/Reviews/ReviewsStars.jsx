@@ -10,7 +10,7 @@ function ReviewsStars({spot, numerical}){
 
     }
 
-    let starArray = Array(5).fill(".");
+    let starArray = Array(5).fill("#");
 //console.log("starArray: ",starArray)
     for(let i = 0; i < starArray.length; i++){
         if(avgRating > i){
@@ -41,9 +41,11 @@ function ReviewsStars({spot, numerical}){
                 </>
             )
         } else {
+            return (
             <>
-                
+                <span>★ New</span>
             </>
+            )
         }
     }
 }

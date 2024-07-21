@@ -3,16 +3,33 @@ import "./ReviewModel.css";
 import { postReview } from "../../../store/reviews";
 import { useModal } from '../../../context/Modal';
 import { useDispatch } from "react-redux";
+import ErrorLabel from "../../Error/ErrorLabel";
 function ReviewModel({spot, user}){
     const [disabled, setDisabled] = useState(true);
     const [review, setReview] = useState("");
     const STAR = "/images/star.png";
     const NO_STAR = "/images/nostar.png";
     const [stars, setStars] = useState([NO_STAR, NO_STAR, NO_STAR, NO_STAR, NO_STAR]);
+    const [hoverStars, setHoverStars] = useState([NO_STAR, NO_STAR, NO_STAR, NO_STAR, NO_STAR])
     const [starCount, setStarCount] = useState(0);
+    const [errors, setErrors] = useState({})
 
     const { closeModal } = useModal();
     const dispatch = useDispatch();
+
+    function handleLeave(e){
+        setHoverStars(stars);
+    }
+
+    function handleEnter(e){
+        let id = e.target.id;
+        let i = id.substr(id.length - 1);
+        let tempStars = [NO_STAR, NO_STAR, NO_STAR, NO_STAR, NO_STAR];
+        for(let k = i; k >= 0; k--){
+            tempStars[k] = STAR;
+        }
+        setHoverStars(tempStars);
+    }
 
     function handleStartClick(e){
         //let i = e.target.id.subStr(e.target.id.length - 1);
@@ -45,10 +62,10 @@ function ReviewModel({spot, user}){
         return dispatch(postReview(payload))
             .then(closeModal)
             .catch(async (res) => {
-                // const data = await res.json();
-                // if (data && data.errors) {
-                // setErrors(data.errors);
-                // }
+                const data = await res.json();
+                if (data && data.message) {
+                setErrors(data.errors);
+                }
         });
     }
 
@@ -60,21 +77,21 @@ function ReviewModel({spot, user}){
         }
     }, [disabled, starCount, review, setDisabled]);
 
-
-
     return (
         <div id="ReviewModel">
             <h2>How was your stay?</h2>
+            <ErrorLabel error={errors.review}/>
+            <ErrorLabel error={errors.stars}/>
             <textarea className="reviewTextarea" value={review} onChange={(e)=>{setReview(e.target.value)}}></textarea>
             <div id="StarGallery">
-                <img id="star0" className="reviewStar" src={stars[0]} onMouseEnter={(e)=>{e.target.src = "/images/star.png"}} onMouseLeave={(e)=>{e.target.src = stars[0]}} onClick={(e)=>{handleStartClick(e)}} />
-                <img id="star1" className="reviewStar" src={stars[1]} onMouseEnter={(e)=>{e.target.src = "/images/star.png"}} onMouseLeave={(e)=>{e.target.src = stars[1]}} onClick={(e)=>{handleStartClick(e)}} />
-                <img id="star2" className="reviewStar" src={stars[2]} onMouseEnter={(e)=>{e.target.src = "/images/star.png"}} onMouseLeave={(e)=>{e.target.src = stars[2]}} onClick={(e)=>{handleStartClick(e)}} />
-                <img id="star3" className="reviewStar" src={stars[3]} onMouseEnter={(e)=>{e.target.src = "/images/star.png"}} onMouseLeave={(e)=>{e.target.src = stars[3]}} onClick={(e)=>{handleStartClick(e)}} />
-                <img id="star4" className="reviewStar" src={stars[4]} onMouseEnter={(e)=>{e.target.src = "/images/star.png"}} onMouseLeave={(e)=>{e.target.src = stars[4]}} onClick={(e)=>{handleStartClick(e)}} />
+                <img id="star0" className="reviewStar" src={hoverStars[0]} onMouseEnter={(e)=>{handleEnter(e)}} onMouseLeave={(e)=>{handleLeave(e)}} onClick={(e)=>{handleStartClick(e)}} />
+                <img id="star1" className="reviewStar" src={hoverStars[1]} onMouseEnter={(e)=>{handleEnter(e)}} onMouseLeave={(e)=>{handleLeave(e)}} onClick={(e)=>{handleStartClick(e)}} />
+                <img id="star2" className="reviewStar" src={hoverStars[2]} onMouseEnter={(e)=>{handleEnter(e)}} onMouseLeave={(e)=>{handleLeave(e)}} onClick={(e)=>{handleStartClick(e)}} />
+                <img id="star3" className="reviewStar" src={hoverStars[3]} onMouseEnter={(e)=>{handleEnter(e)}} onMouseLeave={(e)=>{handleLeave(e)}} onClick={(e)=>{handleStartClick(e)}} />
+                <img id="star4" className="reviewStar" src={hoverStars[4]} onMouseEnter={(e)=>{handleEnter(e)}} onMouseLeave={(e)=>{handleLeave(e)}} onClick={(e)=>{handleStartClick(e)}} />
                  Stars
             </div>
-            <button disabled={disabled} onClick={(e)=>{handleButtonClick(e)}}>Submit Your Review</button>
+            <button disabled={false} onClick={(e)=>{handleButtonClick(e)}}>Submit Your Review</button>
         </div>
     )
 }

@@ -6,37 +6,6 @@ import ErrorLabel from '../Error/ErrorLabel';
 import { useParams, useNavigate } from 'react-router-dom';
 import { putSpot } from '../../store/spots';
 
-
-
-
-
-
-
-
-
-/**
- * WHEN YOU GET BACK.
- * YOU NEED TO MAKE THE UPDATE THUNK GO ON TO UPDATE THE STATE AND RERENDER THE RESULTING SPOT DETAILS PAGE
- *
- *
- * **/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import './UpdateSpotForm.css';
 
 function UpdateSpotForm(){
