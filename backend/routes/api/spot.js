@@ -19,7 +19,7 @@ let avgSpotReviewsAndPreview = function(spots){
         let count = 0;
         let total = 0;
         let avg = 0;
-        let previewImageUrl = "not-found.png";
+        let previewImageUrl = "https://i.ibb.co/ws1B0r9/not-found.png";
         ////console.log(spot);
         let images = spot.dataValues.Images;
 

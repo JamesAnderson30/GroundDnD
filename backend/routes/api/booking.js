@@ -47,7 +47,7 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
             attributes:{exclude: ["createdAt", "updatedAt", "description"]}
         });
 
-        let previewUrl = "not-found.png";
+        let previewUrl = "https://i.ibb.co/ws1B0r9/not-found.png";
 
         ////console.log("!!! spot: ", spot.dataValues.Images);
 
@@ -59,7 +59,7 @@ router.get("/current", restoreUser, requireAuth,async (req, res)=>{
 
         //res.json(spot);
 
-        let previewImageUrl = "not-found.png";
+        let previewImageUrl = "https://i.ibb.co/ws1B0r9/not-found.png";
         ////console.log(spot);
         let images = spot.dataValues.Images;
 

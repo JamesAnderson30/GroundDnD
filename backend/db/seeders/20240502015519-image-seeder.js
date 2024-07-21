@@ -41,7 +41,12 @@ module.exports = {
     {
       url: "https://topdreamer.com/wp-content/uploads/2014/12/2.jpg",
       preview:true
-    }], {})
+    },
+  {
+    url: "https://images2.minutemediacdn.com/image/upload/c_fill,g_auto,h_1248,w_2220/v1555379295/shape/mentalfloss/9-detroit.jpg?itok=Zz3uWJXshttps://s3-us-west-2.amazonaws.com/hfc-ad-prod/plan_assets/324999613/large/790046GLV.jpg",
+    preview:true
+  }
+  ], {})
 
   ////console.log(result);
 

@@ -32,6 +32,10 @@ module.exports = {
     {
       img:2,
       spotId:4
+    },
+    {
+      imgId:6,
+      spotId:4
     }], {});
   },
 

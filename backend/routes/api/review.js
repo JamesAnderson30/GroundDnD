@@ -95,7 +95,7 @@ router.get("/current", restoreUser, requireAuth, async(req, res)=>{
 
         let spotId = rev.dataValues.spotId;
 
-        let previewImg = "not-found.png";
+        let previewImg = "https://i.ibb.co/ws1B0r9/not-found.png";
 
         let spotImgs = await Spot.findByPk(spotId, {
             attributes:[],
