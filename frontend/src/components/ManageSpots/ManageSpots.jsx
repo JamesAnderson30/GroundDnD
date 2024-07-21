@@ -23,7 +23,7 @@ function ManageSpots(){
     }, [isLoaded, dispatch, user, setHandleError, setIsLoaded])
 
     if(isLoaded){
-        if(userSpots && userSpots.length > 1){
+        if(userSpots && userSpots.length > 0){
             return(
                 <>
                     <NavLink to="/spots/new" ><button>Create a new Spot</button></NavLink>

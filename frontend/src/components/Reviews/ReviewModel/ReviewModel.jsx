@@ -7,8 +7,8 @@ import ErrorLabel from "../../Error/ErrorLabel";
 function ReviewModel({spot, user}){
     const [disabled, setDisabled] = useState(true);
     const [review, setReview] = useState("");
-    const STAR = "/images/star.png";
-    const NO_STAR = "/images/nostar.png";
+    const STAR = "https://i.ibb.co/JktSZgc/star.png";
+    const NO_STAR = "https://i.ibb.co/bb2dvWk/nostar.png";
     const [stars, setStars] = useState([NO_STAR, NO_STAR, NO_STAR, NO_STAR, NO_STAR]);
     const [hoverStars, setHoverStars] = useState([NO_STAR, NO_STAR, NO_STAR, NO_STAR, NO_STAR])
     const [starCount, setStarCount] = useState(0);
