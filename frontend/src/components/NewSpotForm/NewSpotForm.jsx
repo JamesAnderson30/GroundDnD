@@ -157,7 +157,7 @@ function NewSpotForm(){
                     Mention the best features of your space, any special amentities like
                     fast wif or parking, and what you love about the neighborhood.
 
-                    <textarea value={description} onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+                    <textarea value={description} placeholder="Please write at least 30 characters" onChange={(e)=>{setDescription(e.target.value)}}></textarea>
                     <ErrorLabel error={errors.description}/>
                 </div>
                 <div>
@@ -166,7 +166,7 @@ function NewSpotForm(){
                     Catch guests&apos; attention with a spot title that highlights what makes
                     your place special.
 
-                    <input value={title} onChange={(e)=>{setTitle(e.target.value)}} />
+                    <input value={title} placeholder="Name of your spot"onChange={(e)=>{setTitle(e.target.value)}} />
                     <ErrorLabel error={errors.name}/>
                 </div>
                 <hr/>
@@ -175,7 +175,7 @@ function NewSpotForm(){
                     Competitive pricing can help your listing stand out and rank higher
                     in search results
                     <label  htmlFor="price">Price</label><ErrorLabel error={errors.price}/>
-                    <h3 className="comma">$</h3><input name="price" id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
+                    <h3 className="comma">$</h3><input placeholder="Price per night (USD)"  name="price" id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
                 </div>
                 <hr/>
                 <div>

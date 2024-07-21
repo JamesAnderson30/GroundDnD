@@ -74,6 +74,7 @@ function ReviewsAllDetails({id, spot}){
       return (
         <>
           {(allowReview)? (
+
              <OpenModalButton
               buttonText="Leave your review"
               onButtonClick={closeMenu}
@@ -99,7 +100,7 @@ function ReviewsAllDetails({id, spot}){
                     <div>
                       {user && review.User.id == user.id ?
                         <OpenModalButton
-                            buttonText="Delete Spot"
+                            buttonText="Delete Review"
                              modalComponent={<ReviewDeleteModel id={review.id}/>}
                         ></OpenModalButton> : null}
                     </div>
@@ -111,15 +112,19 @@ function ReviewsAllDetails({id, spot}){
       )
     } else {
       if(allowReview){
+
         return (
-          <OpenModalButton
-           buttonText="Leave your review"
-           onButtonClick={closeMenu}
-           modalComponent={<ReviewModel
-             spot={spot}
-             user={user}
-           />}
-          />)
+          <>
+            <span>Be the first to review!</span><br/>
+            <OpenModalButton
+            buttonText="Leave your review"
+            onButtonClick={closeMenu}
+            modalComponent={<ReviewModel
+              spot={spot}
+              user={user}
+              />}
+            />
+          </>)
       } else {
         return null
       }

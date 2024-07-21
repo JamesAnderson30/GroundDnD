@@ -49,7 +49,7 @@ function SpotDetails (){
           </div>
           <hr/>
           <div id="spotDetailsReviewsHeader">
-            <ReviewsStars spot={spots.byId[id]}/>
+            <ReviewsStars hideIfNone={true} spot={spots.byId[id]} />
           </div>
           <ReviewsAllDetails spot={spots.byId[id]} id={id}/>
         </div>

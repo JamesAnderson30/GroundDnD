@@ -1,4 +1,4 @@
-function ReviewsStars({spot, numerical}){
+function ReviewsStars({spot, numerical, hideIfNone = false}){
     let avgRating = 0;
     if(spot.Reviews && spot.Reviews.length > 0){
         avgRating = spot.Reviews.reduce((acc, value)=> {
@@ -19,11 +19,13 @@ function ReviewsStars({spot, numerical}){
     let reviewCount = spot.Reviews.length;
 
     if(numerical){
-        return (
-            <>
-                <span>★{avgRating === 0 ? "New" : avgRating}</span>
-            </>
-        )
+        if(!hideIfNone){
+            return (
+                <>
+                    <span>★{avgRating === 0 ? "New" : avgRating}</span>
+                </>
+            )
+        }
     } else {
         if(reviewCount > 0){
             return (
@@ -39,11 +41,13 @@ function ReviewsStars({spot, numerical}){
                 </>
             )
         } else {
-            return (
-            <>
-                <span>★ New</span>
-            </>
-            )
+            if(!hideIfNone){
+                return (
+                <>
+                    <span>★ New</span>
+                </>
+                )
+            }
         }
     }
 }

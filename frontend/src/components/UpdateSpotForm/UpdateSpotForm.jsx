@@ -203,7 +203,7 @@ console.log(isLoaded);
                     <h3>Describe your place to guests</h3>
                     Mention the best features of your space, any special amentities like fast wifi or parking, and what you love about the neighborhood.
                     <ErrorLabel error={errors.description}/>
-                    <textarea value={description} placeholder="Please write at least 30 characters" onChange={(e)=>{setDescription(e.target.value)}}></textarea>
+                    <textarea value={description}  onChange={(e)=>{setDescription(e.target.value)}}></textarea>
                 </div>
                 <div>
                     <hr/>
@@ -220,7 +220,7 @@ console.log(isLoaded);
                     Competitive pricing can help your listing stand out and rank higher
                     in search results
                     <label  htmlFor="price">Price</label><ErrorLabel error={errors.price}/>
-                    <h3 className="comma">$</h3><input name="price" placeholder id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
+                    <h3 className="comma">$</h3><input name="price" id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
                 </div>
                 <hr/>
                 {/* <div>
