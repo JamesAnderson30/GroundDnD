@@ -26,28 +26,28 @@ export const fetchReviewsBySpot=(spotId) => async (dispatch)=>{
 
 export const postReview=(payload) => async (dispatch)=>{
     let body = JSON.stringify(payload);
-    const response = await csrfFetch(`/api/spots/${payload.spotId}/reviews`, {
+   await csrfFetch(`/api/spots/${payload.spotId}/reviews`, {
         method:"POST",
         headers: {
             "Content-Type": "application/json",
           },
         body
     })
-    const responseJson = await response.json();
+
     dispatch(fetchSpot(payload.spotId));
 }
 
 export const deleteReview=(reviewId, spotId)=> async (dispatch)=>{
     console.log("reviewId: ", reviewId);
     console.log("spotId: ", spotId);
-    const response = await csrfFetch(`/api/reviews/${reviewId}`,{
+    await csrfFetch(`/api/reviews/${reviewId}`,{
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
               }
             }
         )
-    const reponseJson = await response.json();
+
     dispatch(fetchSpot(spotId))
 }
 

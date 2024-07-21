@@ -1,5 +1,4 @@
 import {useState} from 'react';
-import { csrfFetch } from '../../store/csrf';
 import { useDispatch } from 'react-redux';
 import { postSpot } from '../../store/spots';
 import ErrorLabel from '../Error/ErrorLabel';
@@ -7,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 import './NewSpotForm.css';
 
-function NewSpotForm({spot}){
+function NewSpotForm(){
 
     let [country, setCountry] = useState("");
     let [address, setAddress] = useState("");
@@ -64,7 +63,6 @@ function NewSpotForm({spot}){
 
         //A response of  'false' means a successful post
         //A truthy response means the server returned an error message
-        let areImagesCorrect = true;
 
         let frontErrors = {};
 
@@ -114,7 +112,7 @@ function NewSpotForm({spot}){
     return (
         <div id="NewSpotForm">
             <h2>Create a new Spot</h2>
-            <h3>Where's your place located?</h3>
+            <h3>Where $apos s your place located?</h3>
             Guests will only get your exact address once they booked a
             reservation.
             <br/>
@@ -176,7 +174,7 @@ function NewSpotForm({spot}){
                     <h3>Set a base price for your spot</h3>
                     Competitive pricing can help your listing stand out and rank higher
                     in search results
-                    <label  htmlFor="price">Price"</label><ErrorLabel error={errors.price}/>
+                    <label  htmlFor="price">Price</label><ErrorLabel error={errors.price}/>
                     <h3 className="comma">$</h3><input name="price" id="price" value={price} onChange={(e)=>{setPrice(e.target.value)}}></input>
                 </div>
                 <hr/>

@@ -26,7 +26,9 @@ function Home(){
       <div id="SpotList">
       {spots.all.map((spot, idx)=>{
         return (
+          <span key={idx}>
           <SpotGridItem spot={{spot,idx}}/>
+          </span>
         )
       })}
       </div>

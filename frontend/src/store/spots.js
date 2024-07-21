@@ -48,7 +48,7 @@ export const fetchSpot = (id) => async (dispatch) => {
   dispatch(loadSpot(spot))
 }
 
-export const fetchUserSpots = (id) => async (dispatch) =>{
+export const fetchUserSpots = () => async (dispatch) =>{
   const response = await csrfFetch("/api/spots/current");
   const spots = await response.json();
   dispatch(loadUserSpots(spots));
@@ -63,13 +63,13 @@ export const fetchAllSpots = () => async (dispatch) =>{
 
 export const deleteSpot = (id) => async (dispatch) =>{
   console.log("id: ", id);
-  const response = await csrfFetch(`/api/spots/${id}`, {
+  await csrfFetch(`/api/spots/${id}`, {
     method:"DELETE",
     headers: {
         "Content-Type": "application/json",
       }
   })
-  const spot = await response.json();
+
   dispatch(deleteSpotState(id))
 }
 
@@ -77,7 +77,7 @@ export const deleteSpot = (id) => async (dispatch) =>{
 
 
 // This needs to be refractored to be more dry
-export const postSpot = (body, images) => async (dispatch)=>{
+export const postSpot = (body, images) => async ()=>{
   let {preview, image1, image2, image3, image4} = images;
   let errors = false;
 
@@ -95,7 +95,7 @@ export const postSpot = (body, images) => async (dispatch)=>{
   const id = spot.id;
 
   const uploadImage = async (url, preview)=>{
-    let previewRes = await csrfFetch(`/api/spots/${id}/images`, {
+    await csrfFetch(`/api/spots/${id}/images`, {
       body: JSON.stringify({url, preview}),
       method: "POST"
     })
@@ -155,14 +155,17 @@ const initialState = { userSpots: {isLoaded:false}, spots: {loadedAll: false, al
 const spotsReducer = (state = initialState, action) => {
   let all = JSON.parse(JSON.stringify(state.spots.all));
   let byId = JSON.parse(JSON.stringify(state.spots.byId));
+  let userSpots = JSON.parse(JSON.stringify(state.userSpots));
+  let stateCopy = JSON.parse(JSON.stringify(state));
+      let spotId = action.spot;
   let loadedAll = state.spots.loadedAll;
+  let newById = {};
 
   // console.log("all: ", all);
   switch (action.type) {
     //DELETE SPOT------------------------------------
     case DELETE_SPOT:
-      let userSpots = JSON.parse(JSON.stringify(state.userSpots));
-      let spotId = action.spot;
+
       userSpots = userSpots.filter((userSpot)=>{
         return userSpot.id !== spotId;
       })
@@ -172,7 +175,7 @@ const spotsReducer = (state = initialState, action) => {
     case LOAD_SPOT:
 
       //
-      if(all.findIndex((value,idx)=>{
+      if(all.findIndex((value)=>{
         return value.id === action.spot.id
       }) === -1){
         all.push(action.spot);
@@ -183,7 +186,7 @@ const spotsReducer = (state = initialState, action) => {
       return { ...state, spots:{all, byId}} ;
     //LOAD_SPOTS ----------------------------------
     case LOAD_SPOTS:
-      let newById = {};
+
 
       for(let spot of action.spots.Spots){
 
@@ -198,7 +201,7 @@ const spotsReducer = (state = initialState, action) => {
       return {...state, spots:{all, byId: newById, loadedAll}}
     // LOAD_USER_SPOTS --------------------------
     case LOAD_USER_SPOTS:
-      let stateCopy = JSON.parse(JSON.stringify(state));
+
       console.log("load_user_spots: ", action);
       stateCopy["userSpots"] = action.spots;
       return stateCopy;

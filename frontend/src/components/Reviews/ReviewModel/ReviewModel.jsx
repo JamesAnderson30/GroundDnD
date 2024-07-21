@@ -17,7 +17,7 @@ function ReviewModel({spot, user}){
     const { closeModal } = useModal();
     const dispatch = useDispatch();
 
-    function handleLeave(e){
+    function handleLeave(){
         setHoverStars(stars);
     }
 

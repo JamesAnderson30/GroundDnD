@@ -6,8 +6,6 @@ function ReviewsStars({spot, numerical}){
         }, 0)
 
         avgRating = (Math.round((avgRating / spot.Reviews.length) * 10) / 10).toFixed(1);
-    } else {
-
     }
 
     let starArray = Array(5).fill("#");

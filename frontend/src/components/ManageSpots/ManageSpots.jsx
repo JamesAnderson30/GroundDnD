@@ -9,7 +9,7 @@ function ManageSpots(){
     const [handleError, setHandleError] = useState("");
     const dispatch = useDispatch();
     let {userSpots} = useSelector(state=>state.spots);
-
+    console.log(handleError)
 
     useEffect(()=>{
         if(user){
@@ -29,7 +29,9 @@ function ManageSpots(){
                     <NavLink to="/spots/new" ><button>Create a new Spot</button></NavLink>
                     {userSpots.map((spot, idx)=>{
                         return(
-                            <SpotGridItem manage={true} spot={spot} />
+                            <span key={idx}>
+                                <SpotGridItem manage={true} spot={spot} />
+                            </span>
                         )
                     })}
                 </>

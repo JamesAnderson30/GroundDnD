@@ -1,9 +1,7 @@
 import { useDispatch } from "react-redux";
 import { deleteSpot } from "../../store/spots";
-import { useState } from "react";
 import { useModal } from '../../context/Modal';
-function DeleteSpotModel({id, toggleMenu}){
-    const [closeMe, setCloseMe] = useState(false);
+function DeleteSpotModel({id}){
     const {closeModal} = useModal();
 
     let dispatch = useDispatch();
@@ -11,7 +9,7 @@ function DeleteSpotModel({id, toggleMenu}){
         e.preventDefault();
         e.stopPropagation();
         dispatch(deleteSpot(id)).then(closeModal)
-        .catch(async (res) => {
+        .catch(async () => {
         //   const data = await res.json();
         //   if (data && data.errors) {
         //     setErrors(data.errors);
@@ -20,7 +18,7 @@ function DeleteSpotModel({id, toggleMenu}){
 
     }
 
-    function handleClose(e){
+    function handleClose(){
         closeModal();
     }
 

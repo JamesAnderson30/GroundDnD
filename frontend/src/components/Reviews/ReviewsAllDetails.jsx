@@ -11,12 +11,10 @@ import { deleteReview } from "../../store/reviews";
 
 
 function ReviewsAllDetails({id, spot}){
-    const allReviews = useSelector(state=>state.reviews.reviews.all);
     const byId = useSelector(state=>state.reviews.reviews.byId);
     const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
-    const [isLoaded, setIsLoaded] = useState(false);
 
     /* MODEL */
 
@@ -31,10 +29,6 @@ function ReviewsAllDetails({id, spot}){
 
       }
 
-      const toggleMenu = (e) => {
-        e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-        setShowMenu(!showMenu);
-      };
 
       useEffect(() => {
         if (!showMenu) return;
@@ -71,9 +65,7 @@ function ReviewsAllDetails({id, spot}){
 
 
 
-    function checkState(spotReviews){
 
-    }
 
     //I need to figure this out, refractor
 
@@ -82,7 +74,7 @@ function ReviewsAllDetails({id, spot}){
         dispatch(fetchReviewsBySpot(id));
       }
 
-    }, [dispatch,id, spot])
+    }, [dispatch,id, spot,user])
 
 
     if(spot.Reviews.length && spot.Reviews.length > 0){
