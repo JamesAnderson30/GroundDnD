@@ -101,8 +101,6 @@ export const postSpot = (body, images) => async (dispatch)=>{
     })
   }
 
-
-
   if(preview){
     uploadImage(preview, true);
   }
@@ -123,7 +121,7 @@ export const postSpot = (body, images) => async (dispatch)=>{
     uploadImage(image4, false);
   }
 
-  dispatch(fetchAllSpots());
+  dispatch(fetchSpot(id));
 
   return id;
 }
