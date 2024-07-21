@@ -55,8 +55,8 @@ export const deleteReview=(reviewId, spotId)=> async (dispatch)=>{
 const initialState = {reviews: {all:[], byId:{}}}
 
 const reviewReducer = (state = initialState, action)=>{
-    let all = state.reviews.all;
-    let byId = state.reviews.byId;
+    let all = JSON.parse(JSON.stringify(state.reviews.all));
+    let byId = JSON.parse(JSON.stringify(state.reviews.byId));
 
     switch (action.type){
 

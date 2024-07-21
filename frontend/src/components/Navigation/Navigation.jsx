@@ -10,7 +10,7 @@ function Navigation({ isLoaded }) {
     <>
       <nav id="MainNav">
         <div className='floatLeft'>
-          <NavLink to="/" ><img className="pointer" src="/frontend/images/logo.png"></img></NavLink>
+          <NavLink to="/" ><img className="pointer" src="https://i.ibb.co/5RJj2p9/logo.png"></img></NavLink>
         </div>
         <div className='floatRight'>
             <ul id="navList">

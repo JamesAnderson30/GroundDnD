@@ -77,7 +77,7 @@ export const deleteSpot = (id) => async (dispatch) =>{
 
 
 // This needs to be refractored to be more dry
-export const postSpot = (body, images) => async ()=>{
+export const postSpot = (body, images) => async (dispatch)=>{
   let {preview, image1, image2, image3, image4} = images;
   let errors = false;
 
@@ -122,6 +122,8 @@ export const postSpot = (body, images) => async ()=>{
   if(image4){
     uploadImage(image4, false);
   }
+
+  dispatch(fetchAllSpots());
 
   return id;
 }
