@@ -39,7 +39,7 @@ function SpotImgGallery({imgs}){
     while(gallery.length <= GALLERY_SIZE){
       gallery.push(false);
     }
-
+    
 
 
     return (

@@ -202,12 +202,9 @@ const spotsReducer = (state = initialState, action) => {
       return {...state, spots:{all, byId: newById, loadedAll}}
     // LOAD_USER_SPOTS --------------------------
     case LOAD_USER_SPOTS:
-
-      console.log("load_user_spots: ", action);
       stateCopy["userSpots"] = action.spots;
       return stateCopy;
     case UNLOAD_SPOTS:
-      console.log("UNLOAD");
       return {...state, spots:{all, byId, loadedAll:false}}
     default:
 

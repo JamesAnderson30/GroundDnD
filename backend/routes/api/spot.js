@@ -220,10 +220,7 @@ router.get("/:spotId", async (req, res)=>{
             {
                 model: Models.Image,
                 required:false,
-                attributes: ["url", "preview"],
-                where:{
-                    preview:true
-                }
+                attributes: ["url", "preview"]
             },
             {
                 model: Models.User,
