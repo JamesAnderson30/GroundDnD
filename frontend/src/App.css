@@ -22,3 +22,9 @@ body{
 .floatLeft{
 
 }
+
+button {
+    width: 95%;
+    margin-left:auto;
+    margin-right:auto;
+}
