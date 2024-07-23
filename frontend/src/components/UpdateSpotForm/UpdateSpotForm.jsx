@@ -99,7 +99,7 @@ console.log(isLoaded);
 
 
     if(handleErrors){
-        console.log(handleErrors);
+        //console.log(handleErrors);
         return(
             <>
                 <div>{handleErrors}</div>

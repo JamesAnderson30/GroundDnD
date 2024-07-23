@@ -28,7 +28,7 @@ function SpotGridItem({spot, idx, manage = false}){
     // };
 
     useEffect(() => {
-        console.log("useEffect showMenu: ", showMenu);
+        //console.log("useEffect showMenu: ", showMenu);
         if (!showMenu) return;
 
         const closeMenu = (e) => {

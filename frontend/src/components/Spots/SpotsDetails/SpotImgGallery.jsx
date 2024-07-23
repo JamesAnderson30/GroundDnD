@@ -23,8 +23,8 @@ function SpotImgGallery({imgs}){
     //This sorts the imgs props into the preview and gallery
 
     for(let i = 0; i < imgs.length; i++){
-      //console.log("img: ", imgs[i]);
-      console.log("imgs: ", imgs);
+      ////console.log("img: ", imgs[i]);
+      //console.log("imgs: ", imgs);
 
       let img = imgs[i];
       if(img.preview){
@@ -39,7 +39,7 @@ function SpotImgGallery({imgs}){
     while(gallery.length <= GALLERY_SIZE){
       gallery.push(false);
     }
-    
+
 
 
     return (

@@ -69,7 +69,7 @@ function NewSpotForm(){
         //Check file types
 
         for(let i = 0; imgArray.length > i; i++){
-            console.log("imgArray: ", imgArray[i])
+            //console.log("imgArray: ", imgArray[i])
             if(imgArray[i]){
                 let type = imgArray[i].split('.').pop();
 
@@ -93,9 +93,9 @@ function NewSpotForm(){
 
             if(response?.errors){
                 let copy = {...response};
-                console.log("copy: ", copy);
+                //console.log("copy: ", copy);
                 if(description.length < 30) copy.errors["description"] = "Description needs a minimum of 30 characters";
-                console.log(copy.errors);
+                //console.log(copy.errors);
                 setErrors(copy.errors);
             } else {
                 navigate(`/spots/${response}`)

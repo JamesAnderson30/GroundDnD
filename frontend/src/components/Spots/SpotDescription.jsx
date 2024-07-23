@@ -8,7 +8,7 @@ function SpotDescription({spot}){
         )
     } else {
         const {firstName, lastName} = spot.User;
-        //console.log("test: ", spot.User)
+        ////console.log("test: ", spot.User)
         const {description} = spot;
         return (
             <div className="SpotDescription">

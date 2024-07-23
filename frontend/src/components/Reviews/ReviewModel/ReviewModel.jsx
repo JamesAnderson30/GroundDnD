@@ -58,7 +58,7 @@ function ReviewModel({spot, user}){
             review,
             stars: starCount
         }
-        console.log("payload: ", payload);
+        //console.log("payload: ", payload);
         return dispatch(postReview(payload))
             .then(closeModal)
             .catch(async (res) => {

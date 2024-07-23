@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      ////console.log(sequelize.models);
+      //////console.log(sequelize.models);
       Booking.belongsTo(sequelize.models.User, {
         foreignKey: "userId"
       });

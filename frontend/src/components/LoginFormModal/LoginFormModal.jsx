@@ -34,8 +34,8 @@ function LoginFormModal() {
   };
 
   useEffect(()=>{
-    console.log("red.id: ", credential.length);
-    console.log("pass: ", password);
+    //console.log("red.id: ", credential.length);
+    //console.log("pass: ", password);
     if(credential.length >= 4 && password.length >= 6) setIsDisabled(false);
     else setIsDisabled(true);
   }, [password, credential, setIsDisabled]);

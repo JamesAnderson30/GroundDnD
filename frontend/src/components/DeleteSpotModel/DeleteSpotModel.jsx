@@ -9,7 +9,7 @@ function DeleteSpotModel({id}){
 
         e.preventDefault();
         e.stopPropagation();
-        console.log("delete");
+        // //console.log("delete");
         dispatch(deleteSpot(id)).then(closeModal)
         .catch(async () => {
         //   const data = await res.json();

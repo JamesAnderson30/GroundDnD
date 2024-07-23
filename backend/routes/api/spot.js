@@ -10,7 +10,7 @@ const Models = require("../../db/models");
 const review = require('../../db/models/review');
 const router = express.Router();
 
-////console.log(Models);
+//////console.log(Models);
 
 let avgSpotReviewsAndPreview = function(spots){
     let spotsArray = [];
@@ -20,19 +20,19 @@ let avgSpotReviewsAndPreview = function(spots){
         let total = 0;
         let avg = 0;
         let previewImageUrl = "https://i.ibb.co/ws1B0r9/not-found.png";
-        ////console.log(spot);
+        //////console.log(spot);
         let images = spot.dataValues.Images;
 
-        ////console.log(images);
+        //////console.log(images);
 
         if(images.length > 0){
             previewImageUrl = images[0].dataValues.url
         }
 
         if(spot.dataValues.Reviews.length > 0){
-            ////console.log("avg");
+            //////console.log("avg");
             for(let review of spot.dataValues.Reviews){
-                ////console.log("count");
+                //////console.log("count");
                 count++;
                 total += review.dataValues.stars
             }
@@ -44,7 +44,7 @@ let avgSpotReviewsAndPreview = function(spots){
 
         spot.dataValues["previewImage"] = previewImageUrl;
         spot.dataValues["avgRating"] = avg;
-        ////console.log(spot.dataValues);
+        //////console.log(spot.dataValues);
         spotsArray.push(spot);
     }
 
@@ -53,19 +53,19 @@ let avgSpotReviewsAndPreview = function(spots){
 
 
 router.get("/current", restoreUser, requireAuth, async (req,res)=>{
-////console.log(req.user)
+//////console.log(req.user)
     const id = req.user.dataValues.id
 
     if(!id){
     }
 
 
-    ////console.log(Models);
+    //////console.log(Models);
     // res.contentType("text/plain")
-    // //console.log(Models.Review);
+    // ////console.log(Models.Review);
     // res.send(Models.models)
     //let userId = req.user
-    ////console.log("!!! -> id: ", id)
+    //////console.log("!!! -> id: ", id)
 
     let spots = await Spot.findAll({
         include:[
@@ -99,7 +99,7 @@ router.get("/current", restoreUser, requireAuth, async (req,res)=>{
 
     res.json(spotsArray);
 
-    ////console.log(test);
+    //////console.log(test);
     //res.json(spots);
 })
 
@@ -151,7 +151,7 @@ router.get("/:spotId/reviews", restoreUser, requireAuth, async (req, res)=>{
 
         //res.json(spotImgs);
 
-        ////console.log("!!! Data Values: ",rev.dataValues.Spot.dataValues)
+        //////console.log("!!! Data Values: ",rev.dataValues.Spot.dataValues)
 
 
     }
@@ -358,10 +358,10 @@ maxPrice: decimal, optional, minimum: 0
         }
     }
 
-    //console.log(whereOptions);
+    ////console.log(whereOptions);
 
     if(req.query){
-        //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!we have data");
+        ////console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!we have data");
 
     }
 
@@ -398,7 +398,7 @@ maxPrice: decimal, optional, minimum: 0
         where: whereOptions,
         options: options
     });
-    //console.log(spots);
+    ////console.log(spots);
     let spotsArray = avgSpotReviewsAndPreview(spots)
 
 
@@ -433,10 +433,10 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
     let userId = req.user.dataValues.id;
 
 
-    ////console.log("!!!CHECK",await Spot.findAll());
+    //////console.log("!!!CHECK",await Spot.findAll());
     const spotExists = await Spot.findByPk(spotId);
 
-      ////console.log(spotExists);
+      //////console.log(spotExists);
 
     const reviewExists = await Review.findOne({
         where: {
@@ -471,7 +471,7 @@ router.post("/:spotId/reviews", restoreUser, requireAuth,validateNewReview, asyn
         stars:stars
     })
     res.statusCode = 201;
-    //console.log(newReview);
+    ////console.log(newReview);
     res.json(newReview);
 
 });
@@ -480,8 +480,8 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
     const {address, city, state, country,
         lat, lng, name, description, price} = req.body;
 
-        console.log("name: ", name);
-        console.log("desc: ", description);
+        // //console.log("name: ", name);
+        // //console.log("desc: ", description);
 
     let ownerId = req.user.dataValues.id;
 
@@ -501,8 +501,8 @@ router.post("/", restoreUser, requireAuth, validateCreateSpot,async (req, res)=>
     });
 
     res.statusCode = 201;
-    //console.log("!!! CHECK SPOTS");
-    //console.log(await Spot.findAll());
+    ////console.log("!!! CHECK SPOTS");
+    ////console.log(await Spot.findAll());
 
     res.json(newSpot);
 })
@@ -567,7 +567,7 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
     let userId = parseInt(req.user.id);
     let spotId = req.params.spotId;
 
-    //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! spot.findByPk ~~~~~~~~~~~~~~~~~~~~");
+    ////console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! spot.findByPk ~~~~~~~~~~~~~~~~~~~~");
     let spot = await Spot.findByPk(spotId,{attributes:{exclude:["SpotId"]}});
 
     if(!spot){
@@ -589,10 +589,10 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
         }})
         return;
     }
-    ////console.log("CONFLICTING DATES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    //////console.log("CONFLICTING DATES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
     //Honestly this needs to be redone. Completely lol. It's the spirit of MVP. Terrible scale :c time complexity big bad
-    //console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! booking.findall ~~~~~~~~~~~~~~~~~~~~");
+    ////console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! booking.findall ~~~~~~~~~~~~~~~~~~~~");
     let startConflict = await Booking.findAll({
         attributes:{
             exclude:["SpotId"]
@@ -607,8 +607,8 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
         let checkEnd = formatDate(conflict.dataValues.endDate);
         let startErr = false;
         let endErr = false;
-        // //console.log('\n\n', "check start: ", checkStart, " - startDate: ", startDate, '\n\n');
-        // //console.log('\n\n', "check end: ", checkEnd, " - endDate: ", endDate, '\n\n');
+        // ////console.log('\n\n', "check start: ", checkStart, " - startDate: ", startDate, '\n\n');
+        // ////console.log('\n\n', "check end: ", checkEnd, " - endDate: ", endDate, '\n\n');
         if(checkStart == startDate){
            // errorMsg.push("Start date conflicts with an existing booking")
            startErr = true;
@@ -618,7 +618,7 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
             //errorMsg.push("End date conflicts with an existing booking")
             endErr = true;
         }
-        //console.log("startErr: ", startErr,"  endErr: ", endErr)
+        ////console.log("startErr: ", startErr,"  endErr: ", endErr)
         if(startErr || endErr){
             res.statusCode = 403;
             let errors = {};
@@ -651,9 +651,9 @@ router.post("/:spotId/bookings", restoreUser, requireAuth, async (req, res)=>{
 
     res.json(lastBooking);
 
-    ////console.log(newBooking.dataValues);
-    //console.log("-------!!!!!!!!!!!!!!!!!----------------")
-    //console.log(newBooking);
+    //////console.log(newBooking.dataValues);
+    ////console.log("-------!!!!!!!!!!!!!!!!!----------------")
+    ////console.log(newBooking);
     newBooking.dataValues.startDate = formatDate(startDate);
     newBooking.dataValues.endDate = formatDate(endDate);
     newBooking.dataValues["id"] = newBooking.get()
@@ -744,7 +744,7 @@ router.put("/:spotId", restoreUser, requireAuth, validateCreateSpot,async (req, 
 
     let spotId = req.params.spotId;
 
-    //console.log(spotId);
+    ////console.log(spotId);
 
     let spot = await Spot.findByPk(spotId);
 

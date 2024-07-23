@@ -9,13 +9,13 @@ function ReviewsStars({spot, numerical, hideIfNone = false}){
     }
 
     let starArray = Array(5).fill("#");
-//console.log("starArray: ",starArray)
+////console.log("starArray: ",starArray)
     for(let i = 0; i < starArray.length; i++){
         if(avgRating > i){
             starArray[i] = "★";
         }
     }
-    //console.log("spot.Reviews: ",spot.Reviews);
+    ////console.log("spot.Reviews: ",spot.Reviews);
     let reviewCount = spot.Reviews.length;
 
     if(numerical){

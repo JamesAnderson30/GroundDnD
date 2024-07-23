@@ -45,7 +45,7 @@ export const loadUserSpots = (spots) =>{
 export const fetchSpot = (id) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${id}`);
   const spot = await response.json();
-  console.log("spot: ", spot);
+  //console.log("spot: ", spot);
   dispatch(loadSpot(spot))
 }
 
@@ -58,12 +58,12 @@ export const fetchUserSpots = () => async (dispatch) =>{
 export const fetchAllSpots = () => async (dispatch) =>{
   const response = await csrfFetch('/api/spots/');
   const spots = await response.json();
-  console.log("spots: ", spots);
+  //console.log("spots: ", spots);
   dispatch(loadSpots(spots));
 }
 
 export const deleteSpot = (id) => async (dispatch) =>{
-  console.log("id: ", id);
+  //console.log("id: ", id);
   await csrfFetch(`/api/spots/${id}`, {
     method:"DELETE",
     headers: {
@@ -128,7 +128,7 @@ export const postSpot = (body, images) => async (dispatch)=>{
 }
 
 export const putSpot = (body, images, spotId) => async (dispatch)=>{
-  console.log("body: ", body);
+  //console.log("body: ", body);
   let errors = false;
 
     let response = await csrfFetch(`/api/spots/${spotId}`,{
@@ -142,7 +142,7 @@ export const putSpot = (body, images, spotId) => async (dispatch)=>{
     return errors;
   }
   const spot = await response.json();
-  console.log("spot: ", spot);
+  //console.log("spot: ", spot);
   const id = spot.id;
 
 
@@ -162,7 +162,7 @@ const spotsReducer = (state = initialState, action) => {
   let loadedAll = state.spots.loadedAll;
   let newById = {};
 
-  // console.log("all: ", all);
+  // //console.log("all: ", all);
   switch (action.type) {
     //DELETE SPOT------------------------------------
     case DELETE_SPOT:

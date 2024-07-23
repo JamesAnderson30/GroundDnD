@@ -49,8 +49,8 @@ function ReviewsAllDetails({id, spot}){
     if(user && user.id && spotOwnerId !== user.id) allowReview = true;
 
     for(let review of spot.Reviews){
-      // console.log("review: ", review);
-      // console.log("user.id: ", user.id);
+      // //console.log("review: ", review);
+      // //console.log("user.id: ", user.id);
       if(user && review.userId === user.id){
         allowReview = false;
       }

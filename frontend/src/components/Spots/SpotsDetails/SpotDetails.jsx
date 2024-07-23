@@ -25,7 +25,7 @@ function SpotDetails (){
 
     let {spots} = useSelector(state=>state.spots);
 
-    //console.log("This is what is being passed to singleReview: ", spots.byId[id])
+    ////console.log("This is what is being passed to singleReview: ", spots.byId[id])
 
     //check if spot exists in state
     // If false, fetch spot
@@ -37,7 +37,7 @@ function SpotDetails (){
     }, [dispatch, id, spots.byId])
 
     if(spots.byId[id]){
-      //console.log("spot: ", spots.byId[id]);
+      ////console.log("spot: ", spots.byId[id]);
       return (
         <div id={"SpotDetailsBody"}>
           <SpotBasicInfo spot={spots.byId[id]}/>

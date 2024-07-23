@@ -10,7 +10,7 @@ function ReviewDeleteModel(id){
 
         e.preventDefault();
         e.stopPropagation();
-        console.log("ID!: ", id);
+        //console.log("ID!: ", id);
         dispatch(deleteReview(id.id)).then(handleClose()).then(dispatch(fetchAllSpots()))
         .catch(async () => {
         //   const data = await res.json();

@@ -1,7 +1,7 @@
 import ReviewsStars from "../../Reviews/ReviewsStars";
 
 function SpotCallToAction({spot}){
-    //console.log("call to action: ", spot);
+    ////console.log("call to action: ", spot);
 
     // --- Set avg Rating
 
